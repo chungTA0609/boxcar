@@ -17306,7 +17306,7 @@ Section Title
 .dashboard-widget .content-column .inner-column .form-box form .form_boxes .drop-menu .select {
   padding: 0;
   line-height: unset;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 }
 
 .dashboard-widget .content-column .inner-column .form-box form .form_boxes .drop-menu .select i {
@@ -18809,7 +18809,7 @@ Section Title
   .select {
   padding: 0;
   line-height: unset;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 }
 
 .dashboard-widget-two
@@ -25107,7 +25107,7 @@ Chat Widget
 
 .login-section form .form_boxes label {
   display: block;
-  color: #818181;
+  color: black;
   font-size: 15px;
   font-weight: 400;
 }

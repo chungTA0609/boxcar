@@ -30,6 +30,8 @@ const store = createStore({
     transmission: "Hộp số",
     drivetrain: "Hệ dẫn động",
   },
+  isLogin: false,
+  userData: null,
   // Action to update a dropdown value
   setDropdownValue: action((state, payload) => {
     const { key, value } = payload;
@@ -41,6 +43,12 @@ const store = createStore({
         : key === "page"
         ? "brandId"
         : key;
+  }),
+  setUserData: action((state, payload) => {
+    state.userData = payload;
+  }),
+  setIsLogin: action((state, payload) => {
+    state.isLogin = payload;
   }),
 });
 

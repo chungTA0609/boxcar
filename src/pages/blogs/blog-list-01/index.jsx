@@ -5,13 +5,22 @@ import Sidebar from "@/components/carListings/Sidebar";
 import Footer1 from "@/components/footers/Footer1";
 import React from "react";
 import axiosInstance from "@/core/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import { useStoreState, useStoreActions } from "easy-peasy";
+
 import { useEffect, useState } from "react";
 export default function AddListings() {
+  const isLogin = useStoreState((state) => state.isLogin);
+  const navigate = useNavigate(); // Use useNavigate for navigation in v6
+  const userData = useStoreState((state) => state.userData);
+
   const [images, setImages] = useState([]);
+  const [imagesBinanry, setImagesBinanry] = useState([]);
   const [fuelList, setFuelList] = useState([]);
   const [originList, setOriginList] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [styleList, setStyleList] = useState([]);
+  const [modelList, setModelList] = useState([]);
   const [params, setParams] = useState({
     name: "string",
     description: "string",
@@ -20,7 +29,7 @@ export default function AddListings() {
     status: "string",
     transmission: "string",
     drivetrain: "string",
-    images: ["string"],
+    images: [],
     slug: "string",
     version: "string",
     kmDriven: 0,
@@ -36,12 +45,30 @@ export default function AddListings() {
     cityId: 0,
     districtId: 0,
     wardId: 0,
-    address: "string",
+    address: "",
   });
   const dropdownItems = [
     { name: "Tình trạng xe", code: "" },
     { name: "Xe mới", code: "NEW" },
     { name: "Xe cũ", code: "OLD" },
+  ];
+  const transmissionList = [
+    {
+      code: "FWD",
+      name: "FWD - Dẫn động cầu trước",
+    },
+    {
+      code: "RWD",
+      name: "RWD - Dẫn động cầu sau",
+    },
+    {
+      code: "4WD",
+      name: "4WD - Dẫn động 4 bánh",
+    },
+    {
+      code: "AWD",
+      name: "AWD - 4 bánh toàn thời gian",
+    },
   ];
   const gearItems = [
     { name: "Số sàn", code: "Manual" },
@@ -55,8 +82,13 @@ export default function AddListings() {
   };
   const [brandList, setBrandList] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
   const handleImageChange = (e, index) => {
     const file = e.target.files[0];
+    const newBinImg = [...imagesBinanry];
+    newBinImg[index] = file;
+    setImagesBinanry(newBinImg);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -70,6 +102,10 @@ export default function AddListings() {
   const handleDelete = (index) => {
     const newImages = images.filter((_, imgIndex) => imgIndex !== index);
     setImages(newImages);
+    const newImagesBinary = imagesBinanry.filter(
+      (_, imgIndex) => imgIndex !== index
+    );
+    setImagesBinanry(newImagesBinary);
   };
   const handleDropdownChange = (key, value) => {
     // setDropdownValue({ key, value }); // Update the store
@@ -80,6 +116,39 @@ export default function AddListings() {
       setProvinces(res.data.data);
     } catch (error) {}
   };
+
+  const getDistrictByCity = async (cityCode) => {
+    try {
+      const res = await axiosInstance.get(
+        `/address/districts?cityCode=${cityCode}`
+      );
+      setDistricts(res.data.data);
+    } catch (error) {
+      console.log(error);
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+    }
+  };
+  const getWardByDistrict = async (districtCode) => {
+    try {
+      const res = await axiosInstance.get(
+        `/address/wards?districtCode=${districtCode}`
+      );
+      setWards(res.data.data);
+    } catch (error) {
+      console.log(error);
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+    }
+  };
   // Handle form submission
   const handleSubmit = () => {
     // console.log("Selected Filters:", dropdownValues);
@@ -89,19 +158,20 @@ export default function AddListings() {
   };
   const uploadImg = async (element) => {
     try {
+      setParams({ ...params, images: [] });
       const formData = new FormData();
       formData.append("file", element);
 
-      const res = await axios.post(
-        "http://18.139.116.136:8080/api/files/upload",
-        formData,
-        {
-          headers: {
-            Accept: undefined,
-          },
-        }
+      const res = await axiosInstance.post(
+        "/files/upload",
+        formData
+        // {
+        //   headers: {
+        //     Accept: undefined,
+        //   },
+        // }
       );
-      imgList.value.push(res.data.data);
+      setParams({ ...params, images: params.images.push(res.data.data) });
     } catch (error) {
       console.log(error);
       // toast.add({
@@ -113,6 +183,7 @@ export default function AddListings() {
     }
   };
   useEffect(() => {
+    if (!isLogin) navigate("/login");
     getAllBrand();
     getAllCities();
     getAllFuel();
@@ -120,6 +191,18 @@ export default function AddListings() {
     getAllColor();
     getAllStyle();
   }, []);
+  useEffect(() => {
+    getDistrictByCity(provinces.find((el) => el.id === params.cityId)?.code);
+  }, [params.cityId]);
+  useEffect(() => {
+    setParams({ ...params, modelId: null });
+    getAllModel(provinces.find((el) => el.id === params.cityId)?.id);
+  }, [params.brandId]);
+  useEffect(() => {
+    getWardByDistrict(
+      districts.find((el) => el.id === params.districtId)?.code
+    );
+  }, [params.districtId]);
   const getAllFuel = async () => {
     try {
       const res = await axiosInstance.get("/fuels");
@@ -150,8 +233,77 @@ export default function AddListings() {
       setBrandList(res.data.data);
     } catch (error) {}
   };
-  const onSubmit = () => {
-    console.log(images);
+  const getAllModel = async () => {
+    try {
+      if (params.brandId) {
+        const res = await axiosInstance.get(
+          `/models?brandId=${params.brandId}`
+        );
+        setModelList(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+    }
+  };
+  const onSubmit = async () => {
+    try {
+      console.log(imagesBinanry);
+      await upLoadProcess();
+      pushCar();
+    } catch (error) {}
+  };
+  const upLoadProcess = async () => {
+    for (const element of imagesBinanry) {
+      await uploadImg(element);
+    }
+  };
+
+  const pushCar = async () => {
+    try {
+      await axiosInstance.post("/cars", {
+        ...params,
+        price: params.price * 1000000,
+        slug: (params.name + " " + params.version + " " + Date.now())
+          .split(" ")
+          .join("-")
+          .toLowerCase(),
+        manufacturingYear: parseInt(params.manufacturingYear),
+        seatCapacity: parseInt(params.seatCapacity),
+        kmDriven: parseInt(params.kmDriven),
+        address: [
+          params.address,
+          wards.find((el) => el.id === params.wardId)?.name,
+          districts.find((el) => el.id === params.districtId)?.name,
+          provinces.find((el) => el.id === params.provinces)?.name,
+        ].join(", "),
+        logo: params.images[0],
+      });
+      // isLoading.value = false;
+      // toast.add({
+      //   severity: "info",
+      //   summary: "Confirmed",
+      //   detail: "Đăng tin thành công",
+      //   life: 3000,
+      // });
+      // confirmModal.value = false;
+      // router.push("/mua-xe");
+    } catch (error) {
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+      // confirmModal.value = false;
+      // isLoading.value = false;
+      console.log(error);
+    }
   };
   return (
     <>
@@ -248,7 +400,7 @@ export default function AddListings() {
                             options={brandList}
                             value={
                               brandList.find((el) => el.id === params.brandId)
-                                ?.name ?? params.brandId
+                                ?.name ?? "Hãng sản xuất"
                             }
                             onChange={(value) =>
                               setParams({ ...params, brandId: value.id })
@@ -259,11 +411,15 @@ export default function AddListings() {
                       <div className="form-column col-lg-4">
                         <div className="form_boxes">
                           <label>Tên xe</label>
-                          <input
-                            name="name"
-                            required
-                            type="text"
-                            placeholder="Tên xe"
+                          <SelectComponent
+                            options={modelList}
+                            value={
+                              modelList.find((el) => el.id === params.modelId)
+                                ?.name ?? "Tên xe"
+                            }
+                            onChange={(value) =>
+                              setParams({ ...params, modelId: value.id })
+                            }
                           />
                         </div>
                       </div>
@@ -276,6 +432,13 @@ export default function AddListings() {
                             required
                             type="text"
                             placeholder="Năm sản xuất"
+                            value={params.manufacturingYear}
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                manufacturingYear: value.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
@@ -288,6 +451,13 @@ export default function AddListings() {
                             required
                             type="text"
                             placeholder="Phiên bản"
+                            value={params.version}
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                version: value.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
@@ -298,7 +468,7 @@ export default function AddListings() {
                             options={styleList}
                             value={
                               styleList.find((el) => el.id === params.styleId)
-                                ?.name ?? params.styleId
+                                ?.name ?? "Kiểu dáng"
                             }
                             onChange={(value) =>
                               setParams({ ...params, styleId: value.id })
@@ -313,7 +483,7 @@ export default function AddListings() {
                             options={originList}
                             value={
                               originList.find((el) => el.id === params.originId)
-                                ?.name ?? params.originId
+                                ?.name ?? "Xuất xứ"
                             }
                             onChange={(value) =>
                               setParams({ ...params, originId: value.id })
@@ -329,7 +499,7 @@ export default function AddListings() {
                             value={
                               dropdownItems.find(
                                 (el) => el.code === params.status
-                              )?.name ?? params.status
+                              )?.name ?? "Tình trạng"
                             }
                             onChange={(value) =>
                               setParams({ ...params, status: value.code })
@@ -345,8 +515,31 @@ export default function AddListings() {
                             name="name"
                             required
                             type="text"
-                            placeholder="Phiên bản"
+                            placeholder="Số km đã đi"
+                            value={params.kmDriven}
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                kmDriven: value.target.value,
+                              })
+                            }
                           />
+                        </div>
+                      </div>
+                      <div className="form-column col-lg-4">
+                        <div className="form_boxes">
+                          <label>Dẫn động</label>
+                          <SelectComponent
+                            options={transmissionList}
+                            value={
+                              transmissionList.find(
+                                (el) => el.code === params.drivetrain
+                              )?.name ?? "Dẫn động"
+                            }
+                            onChange={(value) =>
+                              setParams({ ...params, drivetrain: value.code })
+                            }
+                          />{" "}
                         </div>
                       </div>
                       <div className="form-column col-lg-4">
@@ -355,9 +548,9 @@ export default function AddListings() {
                           <SelectComponent
                             options={gearItems}
                             value={
-                              styleList.find(
+                              gearItems.find(
                                 (el) => el.code === params.transmission
-                              )?.name ?? params.transmission
+                              )?.name ?? "Hộp số"
                             }
                             onChange={(value) =>
                               setParams({ ...params, transmission: value.code })
@@ -372,7 +565,7 @@ export default function AddListings() {
                             options={fuelList}
                             value={
                               fuelList.find((el) => el.id === params.fuelId)
-                                ?.name ?? params.fuelId
+                                ?.name ?? "Nhiên liệu"
                             }
                             onChange={(value) =>
                               setParams({ ...params, fuelId: value.id })
@@ -389,6 +582,13 @@ export default function AddListings() {
                             required
                             type="text"
                             placeholder="Giá"
+                            value={params.price}
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                price: value.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
@@ -400,7 +600,7 @@ export default function AddListings() {
                             value={
                               colorList.find(
                                 (el) => el.id === params.outsideColorId
-                              )?.name ?? params.outsideColorId
+                              )?.name ?? "Ngoại thất"
                             }
                             onChange={(value) =>
                               setParams({ ...params, outsideColorId: value.id })
@@ -416,7 +616,7 @@ export default function AddListings() {
                             value={
                               colorList.find(
                                 (el) => el.id === params.insideColorId
-                              )?.name ?? params.insideColorId
+                              )?.name ?? "Nội thất"
                             }
                             onChange={(value) =>
                               setParams({ ...params, insideColorId: value.id })
@@ -432,7 +632,14 @@ export default function AddListings() {
                             name="name"
                             required
                             type="text"
-                            placeholder="Phiên bản"
+                            placeholder="Số chỗ ngồi"
+                            value={params.seatCapacity}
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                seatCapacity: value.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
@@ -442,8 +649,15 @@ export default function AddListings() {
                           <div className="drop-menu">
                             <textarea
                               name="message"
-                              placeholder="Lorem Ipsum Dolar Sit Amet"
+                              placeholder="Thông tin mô tả"
                               defaultValue={""}
+                              value={params.description}
+                              onChange={(value) =>
+                                setParams({
+                                  ...params,
+                                  description: value.target.value,
+                                })
+                              }
                             />
                           </div>
                         </div>
@@ -553,8 +767,10 @@ export default function AddListings() {
                           <input
                             name="name"
                             required
+                            disabled
                             type="text"
                             placeholder="Tên"
+                            value={userData ? userData.fullname : ""}
                           />
                         </div>
                       </div>
@@ -567,38 +783,70 @@ export default function AddListings() {
                             required
                             type="text"
                             placeholder="SĐT"
+                            value={userData ? userData.phoneNum : ""}
                           />
                         </div>
                       </div>
                       <div className="col-lg-4">
                         <div className="form_boxes">
                           <label>Thành phố</label>
-
-                          <SelectComponent options={["33", "33", "33"]} />
+                          <SelectComponent
+                            options={provinces}
+                            value={
+                              provinces.find((el) => el.id === params.cityId)
+                                ?.name ?? "Thành phố"
+                            }
+                            onChange={(value) =>
+                              setParams({ ...params, cityId: value.id })
+                            }
+                          />{" "}
                         </div>
                       </div>
                       <div className="col-lg-4">
                         <div className="form_boxes">
                           <label>Huyện</label>
-
-                          <SelectComponent options={["#", "#", "#"]} />
+                          <SelectComponent
+                            options={districts}
+                            value={
+                              districts.find(
+                                (el) => el.id === params.districtId
+                              )?.name ?? "Huyện"
+                            }
+                            onChange={(value) =>
+                              setParams({ ...params, districtId: value.id })
+                            }
+                          />{" "}
                         </div>
                       </div>
                       <div className="col-lg-4">
                         <div className="form_boxes">
                           <label>Xã</label>
-
-                          <SelectComponent options={["#", "#", "#"]} />
+                          <SelectComponent
+                            options={wards}
+                            value={
+                              wards.find((el) => el.id === params.wardId)
+                                ?.name ?? "Xã"
+                            }
+                            onChange={(value) =>
+                              setParams({ ...params, wardId: value.id })
+                            }
+                          />{" "}
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="form_boxes">
                           <label>Địa chỉ</label>
                           <input
-                            name="name"
+                            name="address"
                             required
                             type="text"
                             placeholder="Địa chỉ"
+                            onChange={(value) =>
+                              setParams({
+                                ...params,
+                                address: value.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>

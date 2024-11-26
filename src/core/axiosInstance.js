@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useTokenCookie } from "./useTokenCookie";
+const { getTokenCookie } = useTokenCookie();
 
 const axiosInstance = axios.create({
   baseURL: "http://18.139.116.136:8080/api/", // Replace with your API base URL
@@ -9,6 +11,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // Modify the config here if needed (e.g., add custom headers)
+    const token = getTokenCookie(); // Example: Get token from localStorage
+    if (token) {
+      // Add Bearer token to Authorization header
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+
     return config;
   },
   (error) => Promise.reject(error)

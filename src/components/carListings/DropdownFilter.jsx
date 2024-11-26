@@ -5,6 +5,8 @@ import SelectComponent from "../common/SelectComponent";
 export default function DropdownFilter({ carListChange }) {
   const dropdownValues = useStoreState((state) => state.dropdownValues);
   const [brandList, setBrandList] = useState([]);
+  const [paramChanged, setParamChanged] = useState([]);
+
   const [provinces, setProvinces] = useState([]);
   const setDropdownValue = useStoreActions(
     (actions) => actions.setDropdownValue
@@ -22,6 +24,7 @@ export default function DropdownFilter({ carListChange }) {
   ];
   // Handle dropdown value change
   const handleDropdownChange = (key, value) => {
+    setParamChanged(paramChanged.push(key));
     setDropdownValue({ key, value }); // Update the store
   };
   const getAllCities = async () => {
