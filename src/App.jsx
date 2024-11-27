@@ -52,6 +52,15 @@ import InvoicePage from "./pages/otherPages/invoice";
 import UIElementsPage from "./pages/otherPages/ui-elements";
 import ScrollTopBehaviour from "./components/common/ScrollToTopBehaviour";
 import WOW from "wow.js";
+import Brand from "./components/dashboard/Brand";
+import BrandPage from "./pages/dashboard/brands";
+import StyleListPage from "./pages/dashboard/style-list";
+import MyListStylePage from "./pages/dashboard/my-list-style";
+import ListOriginPage from "./pages/dashboard/origin-list";
+import OriginPage from "./pages/dashboard/origin";
+import ListModelPage from "./pages/dashboard/model-list";
+import ModelList from "./components/dashboard/ModelList";
+import ModelPage from "./pages/dashboard/model";
 
 function App() {
   const { pathname } = useLocation();
@@ -138,6 +147,13 @@ function App() {
 
               <Route path="dashboard" element={<DashboardPage />} />
               <Route path="my-listings" element={<MyListingsPage />} />
+              <Route path="brands" element={<BrandPage />} />
+              <Route path="style-list" element={<MyListStylePage />} />
+              <Route path="style" element={<StyleListPage />} />
+              <Route path="origin-list" element={<ListOriginPage />} />
+              <Route path="origin" element={<OriginPage />} />
+              <Route path="model-list" element={<ListModelPage />} />
+              <Route path="model" element={<ModelPage />} />
               <Route path="add-listings" element={<AddListingsPage />} />
               <Route path="favorite" element={<FavoritePage />} />
               <Route path="saved" element={<SavedPage />} />

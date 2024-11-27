@@ -158,7 +158,7 @@ export default function Header1({
                   {userData ? userData.fullname : "Đăng nhập"}
                 </span>
               )}
-              {userData && userData.isAdmin && (
+              {userData && userData.role === "ADMIN" && (
                 <div className="btn">
                   <Link to={`/add-listings`} className="header-btn-two">
                     Admin

@@ -9,27 +9,28 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 
 import { useNavigate } from "react-router-dom";
 
-export default function MyListings() {
-  const [brandList, setBrandList] = useState([]);
+export default function StyleList() {
+  const [brandList, setStyleList] = useState([]);
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
-  const setBrand = useStoreActions((actions) => actions.setBrand);
+  const setStyle = useStoreActions((actions) => actions.setStyle);
 
-  const getAllBrand = async () => {
+  const getAllStyle = async () => {
     try {
-      const res = await axiosInstance.get("/brands");
-      setBrandList(res.data.data);
+      const res = await axiosInstance.get("/styles");
+      setStyleList(res.data.data);
     } catch (error) {}
   };
   useEffect(() => {
-    getAllBrand();
+    getAllStyle();
   }, []);
-  const addBrand = () => {
-    setBrand(null);
-    navigate("/brands");
+  const addStyle = () => {
+    setStyle(null);
+
+    navigate("/style");
   };
-  const editBrand = (element) => {
-    setBrand(element);
-    navigate("/brands");
+  const editStyle = (element) => {
+    setStyle(element);
+    navigate("/style");
   };
   return (
     <section className="dashboard-widget">
@@ -38,13 +39,13 @@ export default function MyListings() {
         <div className="content-column">
           <div className="inner-column">
             <div className="list-title">
-              <h3 className="title">Quản lý Hãng</h3>
+              <h3 className="title">Quản lý Kiểu xe</h3>
             </div>
             <div className="my-listing-table wrap-listing">
               <div className="col-lg-12" style={{ paddingBottom: "20px" }}>
                 <div className="form-submit">
-                  <button className="theme-btn" onClick={addBrand}>
-                    Thêm hãng
+                  <button className="theme-btn" onClick={addStyle}>
+                    Thêm kiểu xe
                   </button>
                 </div>
               </div>
@@ -61,26 +62,13 @@ export default function MyListings() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Logo</th>
-                      <th>Tên hãng</th>
+                      <th>Tên kiểu xe</th>
                       <th>Chỉnh sửa</th>
                     </tr>
                   </thead>
                   <tbody>
                     {brandList.map((item, index) => (
                       <tr key={index}>
-                        <td>
-                          <div className="shop-cart-product">
-                            <div className="shop-product-cart-img">
-                              <img
-                                alt={item.name}
-                                src={item.logo}
-                                width={120}
-                                height={105}
-                              />
-                            </div>
-                          </div>
-                        </td>
                         <td>
                           <span>{item.name}</span>
                         </td>
@@ -95,7 +83,7 @@ export default function MyListings() {
                           </a>
                           <a
                             className="remove-cart-item"
-                            onClick={() => editBrand(item)}
+                            onClick={() => editStyle(item)}
                           >
                             <img
                               alt="Edit item"

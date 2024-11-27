@@ -17,6 +17,13 @@ const menuItems = [
     label: "Quản lý Hãng",
   },
   {
+    href: "/style-list",
+    src: "/images/icons/dash2.svg",
+    width: 25,
+    height: 22,
+    label: "Quản lý kiểu xe",
+  },
+  {
     href: "/add-listings",
     src: "/images/icons/dash3.svg",
     width: 22,
@@ -24,18 +31,18 @@ const menuItems = [
     label: "Add Listings",
   },
   {
-    href: "/favorite",
+    href: "/origin-list",
     src: "/images/icons/dash4.svg",
     width: 18,
     height: 18,
-    label: "My Favorites",
+    label: "Xuất xứ",
   },
   {
-    href: "/saved",
+    href: "/model-list",
     src: "/images/icons/dash5.svg",
     width: 18,
     height: 18,
-    label: "Saved Search",
+    label: "Mẫu xe",
   },
   {
     href: "/messages",

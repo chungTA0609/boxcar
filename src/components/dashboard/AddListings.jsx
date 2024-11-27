@@ -46,7 +46,7 @@ export default function AddListings() {
         <div className="content-column">
           <div className="inner-column">
             <div className="list-title">
-              <h3 className="title">Add Listings</h3>
+              <h3 className="title">Thông tin hãng</h3>
               <div className="text">
                 Lorem ipsum dolor sit amet, consectetur.
               </div>

@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import axiosInstance from "@/core/axiosInstance";
-import SelectComponent from "../common/SelectComponent";
 import Pagination from "../common/Pagination";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
+import SelectComponent from "../common/SelectComponent";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 import { useNavigate } from "react-router-dom";
 
-export default function MyListings() {
+export default function ModelList() {
+  const [modelList, setModelList] = useState([]);
   const [brandList, setBrandList] = useState([]);
-  const navigate = useNavigate(); // Use useNavigate for navigation in v6
-  const setBrand = useStoreActions((actions) => actions.setBrand);
+  const [brand, setBrand] = useState(null);
 
+  const navigate = useNavigate(); // Use useNavigate for navigation in v6
+  const setStyle = useStoreActions((actions) => actions.setStyle);
   const getAllBrand = async () => {
     try {
       const res = await axiosInstance.get("/brands");
       setBrandList(res.data.data);
     } catch (error) {}
   };
+  const getModelByBrand = async () => {
+    try {
+      const res = await axiosInstance.get(`/models?brandId=${brand.id}`);
+      setModelList(res.data.data);
+    } catch (error) {}
+  };
   useEffect(() => {
     getAllBrand();
   }, []);
-  const addBrand = () => {
-    setBrand(null);
-    navigate("/brands");
+  useEffect(() => {
+    getModelByBrand();
+  }, [brand]);
+  const addStyle = () => {
+    setStyle(null);
+
+    navigate("/model");
   };
-  const editBrand = (element) => {
-    setBrand(element);
-    navigate("/brands");
+  const editStyle = (element) => {
+    setStyle(element);
+    navigate("/model");
   };
   return (
     <section className="dashboard-widget">
@@ -38,13 +50,40 @@ export default function MyListings() {
         <div className="content-column">
           <div className="inner-column">
             <div className="list-title">
-              <h3 className="title">Quản lý Hãng</h3>
+              <h3 className="title">Quản lý Kiểu xe</h3>
             </div>
-            <div className="my-listing-table wrap-listing">
+            <div
+              className="my-listing-table wrap-listing"
+              style={{ display: "flex" }}
+            >
+              <div className="col-lg-2">
+                <div
+                  className="form_boxes"
+                  style={{
+                    border: "1px solid rgb(225, 225, 225)",
+                    borderRadius: "12px",
+                    marginRight: "20px",
+                  }}
+                >
+                  <SelectComponent
+                    options={brandList}
+                    value={
+                      (brand &&
+                        brandList.find((el) => el.id === brand.id)?.name) ??
+                      "Tên Hãng"
+                    }
+                    onChange={(value) => setBrand(value)}
+                  />
+                </div>
+              </div>
               <div className="col-lg-12" style={{ paddingBottom: "20px" }}>
                 <div className="form-submit">
-                  <button className="theme-btn" onClick={addBrand}>
-                    Thêm hãng
+                  <button
+                    className="theme-btn"
+                    onClick={addStyle}
+                    style={{ height: "76px" }}
+                  >
+                    Thêm mẫu xe
                   </button>
                 </div>
               </div>
@@ -61,26 +100,13 @@ export default function MyListings() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Logo</th>
-                      <th>Tên hãng</th>
+                      <th>Tên mẫu xe</th>
                       <th>Chỉnh sửa</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {brandList.map((item, index) => (
+                    {modelList.map((item, index) => (
                       <tr key={index}>
-                        <td>
-                          <div className="shop-cart-product">
-                            <div className="shop-product-cart-img">
-                              <img
-                                alt={item.name}
-                                src={item.logo}
-                                width={120}
-                                height={105}
-                              />
-                            </div>
-                          </div>
-                        </td>
                         <td>
                           <span>{item.name}</span>
                         </td>
@@ -95,7 +121,7 @@ export default function MyListings() {
                           </a>
                           <a
                             className="remove-cart-item"
-                            onClick={() => editBrand(item)}
+                            onClick={() => editStyle(item)}
                           >
                             <img
                               alt="Edit item"

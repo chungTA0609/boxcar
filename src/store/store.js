@@ -32,6 +32,9 @@ const store = createStore({
   },
   isLogin: false,
   userData: null,
+  brandData: null,
+  styleData: null,
+  originData: null,
   // Action to update a dropdown value
   setDropdownValue: action((state, payload) => {
     const { key, value } = payload;
@@ -49,6 +52,15 @@ const store = createStore({
   }),
   setIsLogin: action((state, payload) => {
     state.isLogin = payload;
+  }),
+  setBrand: action((state, payload) => {
+    state.brandData = payload;
+  }),
+  setStyle: action((state, payload) => {
+    state.styleData = payload;
+  }),
+  setOrigin: action((state, payload) => {
+    state.originData = payload;
   }),
 });
 
