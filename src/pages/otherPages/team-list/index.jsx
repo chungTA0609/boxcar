@@ -4,16 +4,22 @@ import DropdownFilter from "@/components/carListings/DropdownFilter";
 import Header1 from "@/components/headers/Header1";
 import Sidebar from "@/components/carListings/Sidebar";
 import Footer1 from "@/components/footers/Footer1";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import axiosInstance from "@/core/axiosInstance";
 import { useState } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import { useNavigate } from "react-router-dom";
+
 export default function AddListings() {
   const [description, setDescription] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
   const [title, setTitle] = useState("");
+  const isLogin = useStoreState((state) => state.isLogin);
+  const navigate = useNavigate(); // Use useNavigate for navigation in v6
+
   const metadata = {
     title: "Add Listings || Boxcar - Reactjs Car Template",
     description: "Boxcar - Reactjs Car Template",
@@ -60,6 +66,9 @@ export default function AddListings() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  });
   return (
     <>
       <MetaComponent meta={metadata} />
