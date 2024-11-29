@@ -111,7 +111,7 @@ export default function Listings1() {
                     <span>{car.price.toLocaleString("en-US")} triệu</span>
                     {/* <small>{car.discountPrice}</small> */}
                     <Link
-                      to={`/inventory-page-single-v1/${car.id}`}
+                      to={`/inventory-page-single-v2/${car.slug}`}
                       className="details"
                     >
                       Xem chi tiết

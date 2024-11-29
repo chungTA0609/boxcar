@@ -2,7 +2,7 @@ import Single1 from "@/components/carSingles/Single1";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import { allCars } from "@/data/cars";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import MetaComponent from "@/components/common/Metacomonent";
@@ -12,6 +12,24 @@ const metadata = {
 };
 export default function InventorySinglePage1() {
   let params = useParams();
+  const [detailData, setDetaiData] = useState(null);
+  const getDataBySlug = async () => {
+    try {
+      const res = await axiosInstance.get(`/cars/${params.id}`);
+      setDetaiData(res.data.data);
+    } catch (error) {
+      console.log(error);
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+    }
+  };
+  useEffect(() => {
+    getDataBySlug();
+  }, []);
   const carItem = allCars.filter((elm) => elm.id == params.id)[0] || allCars[0];
   return (
     <>

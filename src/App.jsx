@@ -119,7 +119,7 @@ function App() {
                 element={<InventorySinglePage1 />}
               />
               <Route
-                path="inventory-page-single-v2"
+                path="inventory-page-single-v2/:id"
                 element={<InventorySinglePage2 />}
               />
               <Route
