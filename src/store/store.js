@@ -16,6 +16,8 @@ const store = createStore({
   brandData: null,
   styleData: null,
   originData: null,
+  fuelData: null,
+  colorData: null,
   // Action to update a dropdown value
   setDropdownValue: action((state, payload) => {
     const { key, value } = payload;
@@ -42,6 +44,12 @@ const store = createStore({
   }),
   setOrigin: action((state, payload) => {
     state.originData = payload;
+  }),
+  setFuel: action((state, payload) => {
+    state.fuelData = payload;
+  }),
+  setColor: action((state, payload) => {
+    state.colorData = payload;
   }),
 });
 

@@ -1,16 +1,15 @@
 import Footer1 from "@/components/footers/Footer1";
-
-import MetaComponent from "@/components/common/Metacomonent";
-import Origin from "@/components/dashboard/Origin";
 import HeaderDashboard from "@/components/headers/HeaderDashboard";
-import { useStoreState } from "easy-peasy";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
+import MetaComponent from "@/components/common/Metacomonent";
+import ColorList from "@/components/dashboard/ColorList";
 const metadata = {
-  title: "Add Listings || Boxcar - Reactjs Car Template",
+  title: "My Listings || Boxcar - Reactjs Car Template",
   description: "Boxcar - Reactjs Car Template",
 };
-export default function OriginPage() {
+export default function ListColorPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
   const userData = useStoreState((state) => state.userData);
   useEffect(() => {
@@ -22,7 +21,7 @@ export default function OriginPage() {
       <div style={{ background: "var(--theme-color-dark)" }}>
         <HeaderDashboard />
 
-        <Origin />
+        <ColorList />
         <Footer1 parentClass="boxcar-footer footer-style-one v2" />
       </div>
     </>

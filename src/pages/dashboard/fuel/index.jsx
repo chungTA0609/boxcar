@@ -1,16 +1,14 @@
 import Footer1 from "@/components/footers/Footer1";
 
-import MetaComponent from "@/components/common/Metacomonent";
-import Origin from "@/components/dashboard/Origin";
 import HeaderDashboard from "@/components/headers/HeaderDashboard";
-import { useStoreState } from "easy-peasy";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import MetaComponent from "@/components/common/Metacomonent";
+import Fuel from "@/components/dashboard/Fuel";
 const metadata = {
   title: "Add Listings || Boxcar - Reactjs Car Template",
   description: "Boxcar - Reactjs Car Template",
 };
-export default function OriginPage() {
+export default function FuelPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
   const userData = useStoreState((state) => state.userData);
   useEffect(() => {
@@ -22,7 +20,7 @@ export default function OriginPage() {
       <div style={{ background: "var(--theme-color-dark)" }}>
         <HeaderDashboard />
 
-        <Origin />
+        <Fuel />
         <Footer1 parentClass="boxcar-footer footer-style-one v2" />
       </div>
     </>

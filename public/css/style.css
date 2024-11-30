@@ -3963,7 +3963,7 @@ Main Header
 }
 
 .header-style-ten .header-inner .c-box .logo-inner .logo img {
-  max-width: 110px;
+  /* max-width: 110px; */
 }
 
 .header-style-ten .header-inner .c-box .logo-inner .search-btn a {

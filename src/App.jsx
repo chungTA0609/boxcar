@@ -61,6 +61,10 @@ import OriginPage from "./pages/dashboard/origin";
 import ListModelPage from "./pages/dashboard/model-list";
 import ModelList from "./components/dashboard/ModelList";
 import ModelPage from "./pages/dashboard/model";
+import FuelPage from "./pages/dashboard/fuel";
+import ListFuelPage from "./pages/dashboard/fuel-list";
+import ColorPage from "./pages/dashboard/color";
+import ListColorPage from "./pages/dashboard/color-list";
 
 function App() {
   const { pathname } = useLocation();
@@ -154,6 +158,10 @@ function App() {
               <Route path="origin" element={<OriginPage />} />
               <Route path="model-list" element={<ListModelPage />} />
               <Route path="model" element={<ModelPage />} />
+              <Route path="fuel-list" element={<ListFuelPage />} />
+              <Route path="fuel" element={<FuelPage />} />
+              <Route path="color-list" element={<ListColorPage />} />
+              <Route path="color" element={<ColorPage />} />
               <Route path="add-listings" element={<AddListingsPage />} />
               <Route path="favorite" element={<FavoritePage />} />
               <Route path="saved" element={<SavedPage />} />

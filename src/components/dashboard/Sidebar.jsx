@@ -30,6 +30,20 @@ const menuItems = [
     height: 18,
     label: "Mẫu xe",
   },
+  {
+    href: "/fuel-list",
+    src: "/images/icons/dash5.svg",
+    width: 18,
+    height: 18,
+    label: "Nhiên liệu",
+  },
+  {
+    href: "/color-list",
+    src: "/images/icons/dash5.svg",
+    width: 18,
+    height: 18,
+    label: "Màu sắc",
+  },
 ];
 export default function Sidebar() {
   const { pathname } = useLocation();
