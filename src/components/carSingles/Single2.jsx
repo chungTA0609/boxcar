@@ -1,34 +1,10 @@
 import Slider from "react-slick";
 import RelatedCars from "./RelatedCars";
 
-import Overview from "./sections/Overview";
-import Description from "./sections/Description";
-import Features from "./sections/Features";
-import Faqs from "./sections/Faqs";
-import Location from "./sections/Location";
-import Financing from "./sections/Financing";
-import Review from "./sections/Review";
-import Ratings from "./sections/Ratings";
-import Replay from "./sections/Replay";
-import CommentForm from "./sections/CommentForm";
-import { Gallery, Item } from "react-photoswipe-gallery";
-import ModalVideo from "react-modal-video";
 import { useState } from "react";
+import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
-const images = [
-  {
-    src: "/images/resource/inventory1-6.png",
-    alt: "",
-    width: 924,
-    height: 550,
-  },
-  {
-    src: "/images/resource/inventory1-6.png",
-    alt: "",
-    width: 924,
-    height: 550,
-  },
-];
+import Overview from "./sections/Overview";
 export default function Single2({ detailData }) {
   const slickOptions = {
     infinite: true,
@@ -74,13 +50,10 @@ export default function Single2({ detailData }) {
                 <Link to={`/`}>Home</Link>
               </li>
               <li>
-                <span>Cars for Sale</span>
+                <span>Thông tin xe</span>
               </li>
             </ul>
-            <h2>Volvo XC90</h2>
-            <div className="text">
-              2.0 D5 PowerPulse Momentum 5dr AWD Geartronic Estate
-            </div>
+            <h2>{detailData ? detailData.name : ""}</h2>
             <ul className="spectes-list">
               <li>
                 <span>
@@ -90,7 +63,7 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  2023
+                  {detailData ? detailData.manufacturingYear : ""}
                 </span>
               </li>
               <li>
@@ -101,7 +74,7 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  35,000 miles
+                  {detailData ? detailData.kmDriven + " km" : ""}
                 </span>
               </li>
               <li>
@@ -112,7 +85,7 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  Automatic
+                  {detailData ? detailData.drivetrain : ""}
                 </span>
               </li>
               <li>
@@ -123,7 +96,7 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  Diesel
+                  {detailData ? detailData.fuel.name : ""}
                 </span>
               </li>
             </ul>
@@ -171,47 +144,27 @@ export default function Single2({ detailData }) {
                       <div className="content-box">
                         <ul className="video-list">
                           <li>
-                            <a onClick={() => setOpen(true)}>
-                              <img
-                                src="/images/resource/video1-1.svg"
-                                width={18}
-                                height={18}
-                                alt=""
-                              />
-                              Video
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="/images/resource/video1-2.svg"
-                                width={18}
-                                height={18}
-                                alt=""
-                              />
-                              360 View
-                            </a>
-                          </li>
-                          <li>
-                            <Item
-                              original="/images/resource/inventory1-6.png"
-                              thumbnail="/images/resource/inventory1-6.png"
-                              width={924}
-                              height={550}
-                            >
-                              {({ ref, open }) => (
-                                <a onClick={open}>
-                                  <img
-                                    ref={ref}
-                                    src="/images/resource/video1-4.svg"
-                                    width={18}
-                                    height={18}
-                                    alt=""
-                                  />
-                                  All Photos
-                                </a>
-                              )}
-                            </Item>
+                            {detailData && (
+                              <Item
+                                original={detailData.logo}
+                                thumbnail={detailData.logo}
+                                width={924}
+                                height={550}
+                              >
+                                {({ ref, open }) => (
+                                  <a onClick={open}>
+                                    <img
+                                      ref={ref}
+                                      src="/images/resource/video1-4.svg"
+                                      width={18}
+                                      height={18}
+                                      alt=""
+                                    />
+                                    Xem tất cả
+                                  </a>
+                                )}
+                              </Item>
+                            )}
                           </li>
                         </ul>
                       </div>{" "}

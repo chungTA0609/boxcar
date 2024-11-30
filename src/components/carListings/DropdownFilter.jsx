@@ -6,7 +6,7 @@ export default function DropdownFilter({ carListChange }) {
   const dropdownValues = useStoreState((state) => state.dropdownValues);
   const [brandList, setBrandList] = useState([]);
   const [paramChanged, setParamChanged] = useState([]);
-
+  const [param, setParam] = useState({});
   const [provinces, setProvinces] = useState([]);
   const setDropdownValue = useStoreActions(
     (actions) => actions.setDropdownValue
@@ -24,7 +24,8 @@ export default function DropdownFilter({ carListChange }) {
   ];
   // Handle dropdown value change
   const handleDropdownChange = (key, value) => {
-    setParamChanged(paramChanged.push(key));
+    // setParamChanged(paramChanged.push(key));
+    setParam({ ...param, [key]: value });
     setDropdownValue({ key, value }); // Update the store
   };
   const getAllCities = async () => {
@@ -32,12 +33,12 @@ export default function DropdownFilter({ carListChange }) {
       const res = await axiosInstance.get("/address/cities");
       setProvinces(res.data.data);
     } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "Lỗi",
-        detail: "Lỗi hệ thống",
-        life: 3000,
-      });
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
     }
   };
   // Handle form submission
@@ -69,8 +70,18 @@ export default function DropdownFilter({ carListChange }) {
     }
   };
   const queryCar = async () => {
-    const res = await axiosInstance.post("/cars/query", { ...dropdownValues });
-    carListChange(res.data.data.list);
+    try {
+      console.log({
+        ...dropdownValues,
+        ...param,
+      });
+
+      const res = await axiosInstance.post("/cars/query", {
+        ...dropdownValues,
+        ...param,
+      });
+      carListChange(res.data.data.list);
+    } catch (error) {}
   };
   return (
     <section className="inventory-pager style-1">
@@ -81,7 +92,7 @@ export default function DropdownFilter({ carListChange }) {
               options={brandList}
               value={
                 brandList.find((el) => el.id === dropdownValues.brandId)
-                  ?.name ?? dropdownValues.brandId
+                  ?.name ?? "Hãng xe"
               }
               onChange={(value) => handleDropdownChange("brandId", value.id)}
             />{" "}
@@ -89,8 +100,14 @@ export default function DropdownFilter({ carListChange }) {
           <div className="form_boxes line-r">
             <SelectComponent
               options={dropdownItems}
-              value={dropdownValues.status}
-              onChange={(value) => handleDropdownChange("status", value.name)}
+              value={
+                dropdownValues.status
+                  ? dropdownItems.find(
+                      (el) => (el.code === dropdownValues.status)
+                    ).name ?? "Tình trạng xe"
+                  : "Tình trạng xe"
+              }
+              onChange={(value) => handleDropdownChange("status", value.code)}
             />
           </div>
           <div className="form_boxes line-r">
@@ -98,7 +115,7 @@ export default function DropdownFilter({ carListChange }) {
               options={provinces}
               value={
                 provinces.find((el) => el.id === dropdownValues.cityId)?.name ??
-                dropdownValues.cityId
+                "Thành phố"
               }
               onChange={(value) => handleDropdownChange("cityId", value.id)}
             />{" "}
@@ -107,8 +124,11 @@ export default function DropdownFilter({ carListChange }) {
             <SelectComponent
               options={gearItems}
               value={
-                gearItems.find((el) => el.code === dropdownValues.transmission)
-                  ?.name ?? dropdownValues.transmission
+                dropdownValues.transmission
+                  ? gearItems.find(
+                      (el) => (el.code === dropdownValues.transmission)
+                    ).name ?? "Hộp số"
+                  : "Hộp sô"
               }
               onChange={(value) =>
                 handleDropdownChange("transmission", value.code)

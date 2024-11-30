@@ -78,7 +78,7 @@ export default function Listings1() {
               <div className="inner-box">
                 <div className="image-box">
                   <figure className="image">
-                    <Link to={`/inventory-page-single-v1/${car.slug}`}>
+                    <Link to={`/inventory-page-single-v2/${car.slug}`}>
                       <img
                         alt={car.alt}
                         src={car.logo}
@@ -91,7 +91,7 @@ export default function Listings1() {
                 </div>
                 <div className="content-box">
                   <h6 className="title">
-                    <Link to={`/inventory-page-single-v1/${car.id}`}>
+                    <Link to={`/inventory-page-single-v2/${car.slug}`}>
                       {car.title}
                     </Link>
                   </h6>

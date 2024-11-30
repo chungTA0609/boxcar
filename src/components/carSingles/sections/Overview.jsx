@@ -18,6 +18,12 @@ const transmissionList = [
     name: "AWD - 4 bánh toàn thời gian",
   },
 ];
+const gearItems = [
+  { name: "Số sàn", code: "Manual" },
+  { name: "Số tự động", code: "Automatic" },
+  { name: "Hybrid", code: "Hybird" },
+  { name: "Khác", code: "Other" },
+];
 export default function Overview({ detailData }) {
   const [vehicleDetails, setVehicleDetails] = useState([
     {
@@ -151,7 +157,17 @@ export default function Overview({ detailData }) {
         label: "Hệ dẫn động",
         value: detailData
           ? transmissionList.find((el) => el.code === detailData.transmission)
-              .name
+              .name ?? ""
+          : "",
+        width: 18,
+        height: 18,
+      },
+      {
+        icon: "/images/resource/insep1-6.svg",
+        label: "Động cơ",
+        value: detailData
+          ? gearItems.find((el) => el.code === detailData.drivetrain)?.name ??
+            ""
           : "",
         width: 18,
         height: 18,
@@ -173,29 +189,43 @@ export default function Overview({ detailData }) {
       },
       {
         icon: "/images/resource/insep1-9.svg",
-        label: "Doors",
-        value: "5-door",
+        label: "Số chỗ ngồi",
+        value: detailData ? detailData.seatCapacity : "",
         width: 18,
         height: 18,
       },
       {
         icon: "/images/resource/insep1-10.svg",
-        label: "Cylinders",
-        value: "6",
+        label: "Nội thất",
+        value: detailData ? detailData.insideColor.name : "",
         width: 18,
         height: 18,
       },
       {
         icon: "/images/resource/insep1-11.svg",
-        label: "Color",
-        value: "Blue",
+        label: "Ngoại thất",
+        value: detailData ? detailData.outsideColor.name : "",
         width: 18,
         height: 18,
       },
       {
         icon: "/images/resource/insep1-12.svg",
-        label: "VIN",
-        value: "ZN682AVA2P7429564",
+        label: "Mã sản phẩm",
+        value: detailData ? detailData.code : "",
+        width: 18,
+        height: 18,
+      },
+      {
+        icon: "/images/resource/insep1-12.svg",
+        label: "Xuất xứ",
+        value: detailData ? detailData.origin.name : "",
+        width: 18,
+        height: 18,
+      },
+      {
+        icon: "/images/resource/insep1-12.svg",
+        label: "Phiên bản",
+        value: detailData ? detailData.version : "",
         width: 18,
         height: 18,
       },

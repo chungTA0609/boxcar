@@ -52,51 +52,41 @@ export default function ModelList() {
             <div className="list-title">
               <h3 className="title">Quản lý Kiểu xe</h3>
             </div>
-            <div
-              className="my-listing-table wrap-listing"
-              style={{ display: "flex" }}
-            >
-              <div className="col-lg-2">
-                <div
-                  className="form_boxes"
-                  style={{
-                    border: "1px solid rgb(225, 225, 225)",
-                    borderRadius: "12px",
-                    marginRight: "20px",
-                  }}
-                >
-                  <SelectComponent
-                    options={brandList}
-                    value={
-                      (brand &&
-                        brandList.find((el) => el.id === brand.id)?.name) ??
-                      "Tên Hãng"
-                    }
-                    onChange={(value) => setBrand(value)}
-                  />
-                </div>
-              </div>
-              <div className="col-lg-12" style={{ paddingBottom: "20px" }}>
-                <div className="form-submit">
-                  <button
-                    className="theme-btn"
-                    onClick={addStyle}
-                    style={{ height: "76px" }}
+            <div className="my-listing-table wrap-listing">
+              <div style={{ display: "flex" }}>
+                <div className="col-lg-4">
+                  <div
+                    className="form_boxes"
+                    style={{
+                      border: "1px solid rgb(225, 225, 225)",
+                      borderRadius: "12px",
+                      marginRight: "20px",
+                    }}
                   >
-                    Thêm mẫu xe
-                  </button>
+                    <SelectComponent
+                      options={brandList}
+                      value={
+                        (brand &&
+                          brandList.find((el) => el.id === brand.id)?.name) ??
+                        "Tên Hãng"
+                      }
+                      onChange={(value) => setBrand(value)}
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-8" style={{ paddingBottom: "20px" }}>
+                  <div className="form-submit">
+                    <button
+                      className="theme-btn"
+                      onClick={addStyle}
+                      style={{ height: "76px" }}
+                    >
+                      Thêm mẫu xe
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
