@@ -76,7 +76,10 @@ export default function Nav() {
         </Link>
       </li>
       <li className="current-dropdown">
-        <Link className={isMenuActive(shopLinks) ? "menuActive" : ""}>
+        <Link
+          to={"/inventory-sidebar-rows"}
+          className={isMenuActive(shopLinks) ? "menuActive" : ""}
+        >
           Tin mua xe
         </Link>
       </li>

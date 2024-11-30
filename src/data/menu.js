@@ -82,6 +82,7 @@ export const shopLinks = [
   { href: "/shop-single/1", label: "Shop Single" },
   { href: "/cart", label: "Cart" },
   { href: "/checkout", label: "Checkout" },
+  { href: "/inventory-sidebar-rows", label: "Checkout" },
 ];
 export const pages = [
   {
