@@ -33,9 +33,9 @@ export default function HeaderDashboard() {
                   <img
                     alt=""
                     title="Boxcar"
-                    width={108}
-                    height={26}
-                    src="/images/logo.svg"
+                    width={200}
+                    height={50}
+                    src="/images/logo.png"
                   />
                 </Link>
               </div>

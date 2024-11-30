@@ -2035,7 +2035,7 @@ Main Header
 }
 
 .header-style-v1 .header-inner .c-box .logo-inner .logo img {
-  max-width: 110px;
+  /* max-width: 110px; */
 }
 
 .header-style-v1 .header-inner .c-box .logo-inner .search-btn a {

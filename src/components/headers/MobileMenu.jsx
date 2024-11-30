@@ -120,10 +120,8 @@ export default function MobileMenu() {
                   isMenuActive(homeLinks) ? "current" : ""
                 }`}
               >
-                <a
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                >
-                  Trang chủ 
+                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
+                  Trang chủ
                 </a>
               </li>
               <li
@@ -131,9 +129,7 @@ export default function MobileMenu() {
                   isMenuActive(blogLinks) ? "current" : ""
                 }`}
               >
-                <a
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                >
+                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
                   Tìm kiếm xe
                 </a>
               </li>
@@ -142,9 +138,7 @@ export default function MobileMenu() {
                   isMenuActive(shopLinks) ? "current" : ""
                 }`}
               >
-                <a
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                >
+                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
                   Đăng tin mua xe
                 </a>
               </li>
@@ -170,6 +164,18 @@ export default function MobileMenu() {
                   onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
                   Đăng tin bán xe
+                </a>
+              </li>
+              <li
+                className={`current-dropdown mm-listitem ${
+                  isMenuActive(pages) ? "current" : ""
+                }`}
+              >
+                <a
+                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                  onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+                >
+                  Admin
                 </a>
               </li>
             </ul>

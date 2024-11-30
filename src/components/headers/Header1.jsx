@@ -72,17 +72,17 @@ export default function Header1({
                     <img
                       alt=""
                       title="Boxcar"
-                      src="/images/logo2.svg"
-                      width="108"
-                      height="26"
+                      src="/images/logo.png"
+                      width="200"
+                      height="50"
                     />
                   ) : (
                     <img
                       alt=""
                       title="Boxcar"
-                      src="/images/logo.svg"
-                      width={108}
-                      height={26}
+                      src="/images/logo.png"
+                      width={200}
+                      height={50}
                     />
                   )}
                 </Link>
