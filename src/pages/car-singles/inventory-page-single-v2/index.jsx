@@ -32,7 +32,9 @@ export default function InventorySinglePage2() {
   }, []);
   return (
     <>
-      <MetaComponent meta={metadata} />
+      <MetaComponent
+        meta={{ title: detailData.name, description: detailData.name }}
+      />
       <Header1 headerClass="boxcar-header header-style-v1 style-two inner-header cus-style-1" />
       <Single2 detailData={detailData} />
       <Footer1 parentClass="boxcar-footer footer-style-one v1 cus-st-1" />

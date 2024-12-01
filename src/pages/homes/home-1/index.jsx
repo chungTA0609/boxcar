@@ -15,8 +15,8 @@ import Listings1 from "@/components/carListings/Listings1";
 
 import MetaComponent from "@/components/common/Metacomonent";
 const metadata = {
-  title: "Home 1 || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Trang chủ",
+  description: "Trang chủ",
 };
 export default function HomePage1() {
   return (

@@ -6,8 +6,8 @@ import React from "react";
 
 import MetaComponent from "@/components/common/Metacomonent";
 const metadata = {
-  title: "Inventory Sidebar Rows || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Tin mua xe",
+  description: "Tin mua xe",
 };
 export default function InventorySidebarRowsPage() {
   return (

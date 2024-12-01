@@ -16,15 +16,21 @@ export default function Hero() {
                 data-wow-delay="300ms"
               >
                 <div className="form-tab-pane current" id="tab-1">
-                  <form onSubmit={(e) => e.preventDefault()} style={{border: '1px solid #000'}}>
-                    <div className="form_boxes" style={{display: 'flex', width: '90%', height: '90%'}}>
+                  <form
+                    onSubmit={(e) => e.preventDefault()}
+                    style={{ border: "1px solid #000" }}
+                  >
+                    <div
+                      className="form_boxes"
+                      style={{ display: "flex", width: "90%", height: "90%" }}
+                    >
                       <input
                         type="email"
                         name="email"
                         className="email"
                         defaultValue=""
                         placeholder="Tìm kiếm"
-                        style={{borderRadius: '35px'}}
+                        style={{ borderRadius: "35px" }}
                         required
                       />
                     </div>

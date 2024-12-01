@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import MetaComponent from "@/components/common/Metacomonent";
 import Style from "@/components/dashboard/Style";
 const metadata = {
-  title: "Add Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Admin",
+  description: "Admin",
 };
 export default function StyleListPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6

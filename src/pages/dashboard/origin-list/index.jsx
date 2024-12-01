@@ -8,8 +8,8 @@ import MetaComponent from "@/components/common/Metacomonent";
 import StyleList from "@/components/dashboard/StyleList";
 import OriginList from "@/components/dashboard/OriginList";
 const metadata = {
-  title: "My Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Admin",
+  description: "Admin",
 };
 export default function ListOriginPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6

@@ -5,8 +5,8 @@ import HeaderDashboard from "@/components/headers/HeaderDashboard";
 import MetaComponent from "@/components/common/Metacomonent";
 import Fuel from "@/components/dashboard/Fuel";
 const metadata = {
-  title: "Add Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Admin",
+  description: "Admin",
 };
 export default function FuelPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6

@@ -61,12 +61,12 @@ export default function DropdownFilter({ carListChange }) {
         })
       );
     } catch (error) {
-      toast.add({
-        severity: "error",
-        summary: "Lỗi",
-        detail: "Lỗi hệ thống",
-        life: 3000,
-      });
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
     }
   };
   const queryCar = async () => {

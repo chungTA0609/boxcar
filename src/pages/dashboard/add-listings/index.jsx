@@ -6,8 +6,8 @@ import React from "react";
 
 import MetaComponent from "@/components/common/Metacomonent";
 const metadata = {
-  title: "Add Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Đăng tin bán xe",
+  description: "Đăng tin bán xe",
 };
 export default function AddListingsPage() {
   return (

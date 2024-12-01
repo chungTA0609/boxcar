@@ -21,8 +21,8 @@ export default function AddListings() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
 
   const metadata = {
-    title: "Add Listings || Boxcar - Reactjs Car Template",
-    description: "Boxcar - Reactjs Car Template",
+    title: "Đăng tin mua xe",
+    description: "Đăng tin mua xe",
   };
   const validateForm = () => {
     if (!priceFrom || !priceTo || isNaN(priceFrom) || isNaN(priceTo)) {

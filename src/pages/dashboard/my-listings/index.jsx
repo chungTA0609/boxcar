@@ -6,8 +6,8 @@ import { useStoreState } from "easy-peasy";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 const metadata = {
-  title: "My Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Admin",
+  description: "Admin",
 };
 export default function MyListingsPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6

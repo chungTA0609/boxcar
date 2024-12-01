@@ -66,6 +66,9 @@ export default function Sidebar() {
     getAllColor();
     getAllStyle();
   }, []);
+  useEffect(() => {
+    console.log(dropdownValues);
+  }, [dropdownValues]);
   const getAllFuel = async () => {
     try {
       const res = await axiosInstance.get("/fuels");
@@ -142,7 +145,7 @@ export default function Sidebar() {
                     }
                     value={
                       fuelList.find((el) => el.id === dropdownValues.fuelId)
-                        ?.name ?? dropdownValues.fuelId
+                        ?.name ?? "Loại nhiên liệu"
                     }
                   />
                 </div>
@@ -158,7 +161,7 @@ export default function Sidebar() {
                     }
                     value={
                       originList.find((el) => el.id === dropdownValues.originId)
-                        ?.name ?? dropdownValues.originId
+                        ?.name ?? "Xuất xứ"
                     }
                   />
                 </div>
@@ -175,7 +178,7 @@ export default function Sidebar() {
                     value={
                       colorList.find(
                         (el) => el.id === dropdownValues.outsideColorId
-                      )?.name ?? dropdownValues.outsideColorId
+                      )?.name ?? "Màu xe"
                     }
                   />
                 </div>
@@ -189,7 +192,10 @@ export default function Sidebar() {
                     onChange={(value) =>
                       handleDropdownChange("styleId", value.id)
                     }
-                    value={dropdownValues.styleId}
+                    value={
+                      styleList.find((el) => el.id === dropdownValues.styleId)
+                        ?.name ?? "Kiểu dáng"
+                    }
                   />
                 </div>
               </div>
@@ -205,7 +211,7 @@ export default function Sidebar() {
                     value={
                       transmissionList.find(
                         (el) => el.code === dropdownValues.drivetrain
-                      )?.name ?? dropdownValues.drivetrain
+                      )?.name ?? "Dẫn động"
                     }
                   />
                 </div>

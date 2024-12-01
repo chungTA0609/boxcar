@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import MetaComponent from "@/components/common/Metacomonent";
 import FuelList from "@/components/dashboard/FuelList";
 const metadata = {
-  title: "My Listings || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Admin",
+  description: "Admin",
 };
 export default function ListFuelPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6

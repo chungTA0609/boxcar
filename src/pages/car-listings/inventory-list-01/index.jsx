@@ -8,8 +8,8 @@ import MetaComponent from "@/components/common/Metacomonent";
 import Listings2 from "@/components/carListings/Listings2";
 
 const metadata = {
-  title: "Inventory List 1 || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Tìm kiếm xe",
+  description: "Tìm kiếm xe",
 };
 export default function InventoryListPage1() {
   const [cars, setCars] = useState([]);

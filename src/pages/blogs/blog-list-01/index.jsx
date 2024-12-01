@@ -77,8 +77,8 @@ export default function AddListings() {
     { name: "Khác", code: "Other" },
   ];
   const metadata = {
-    title: "Add Listings || Boxcar - Reactjs Car Template",
-    description: "Boxcar - Reactjs Car Template",
+    title: "Đăng tin bán xe",
+    description: "Đăng tin bán xe",
   };
   const [brandList, setBrandList] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -106,9 +106,6 @@ export default function AddListings() {
       (_, imgIndex) => imgIndex !== index
     );
     setImagesBinanry(newImagesBinary);
-  };
-  const handleDropdownChange = (key, value) => {
-    // setDropdownValue({ key, value }); // Update the store
   };
   const getAllCities = async () => {
     try {
@@ -148,13 +145,6 @@ export default function AddListings() {
       //   life: 3000,
       // });
     }
-  };
-  // Handle form submission
-  const handleSubmit = () => {
-    // console.log("Selected Filters:", dropdownValues);
-    queryCar();
-    // e.preventDefault();
-    // Add logic to filter results based on selected values
   };
   const uploadImg = async (element) => {
     try {
