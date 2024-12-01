@@ -33,7 +33,10 @@ export default function InventorySinglePage2() {
   return (
     <>
       <MetaComponent
-        meta={{ title: detailData.name, description: detailData.name }}
+        meta={{
+          title: detailData ? detailData.name : "Xe",
+          description: detailData ? detailData.name : "Xe",
+        }}
       />
       <Header1 headerClass="boxcar-header header-style-v1 style-two inner-header cus-style-1" />
       <Single2 detailData={detailData} />
