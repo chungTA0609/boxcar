@@ -565,7 +565,7 @@ export default function AddListings() {
                       </div>
                       <div className="form-column col-lg-4">
                         <div className="form_boxes">
-                          <label>Giá</label>
+                          <label>Giá(triệu đồng)</label>
 
                           <input
                             name="name"

@@ -23,8 +23,8 @@ export default function HomePage1() {
     <>
       <MetaComponent meta={metadata} />
       <Header1 />
-      <Hero />
-      <Brands />
+      {/* <Hero />
+      <Brands /> */}
       <Listings1 />
       {/* <Features /> */}
       {/* <Facts /> */}

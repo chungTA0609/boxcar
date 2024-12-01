@@ -50,14 +50,6 @@ export default function HeaderDashboard() {
               {/* Main Menu End*/}
             </div>
             <div className="right-box">
-              <a href="#" className="haeder-img">
-                <img
-                  width={50}
-                  height={50}
-                  src="/images/resource/header-img.png"
-                  alt=""
-                />
-              </a>
               <div className="mobile-navigation">
                 <a href="#nav-mobile" title="">
                   <svg

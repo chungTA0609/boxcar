@@ -6,6 +6,7 @@ import {
   shopLinks,
 } from "@/data/menu";
 import { Link, useLocation } from "react-router-dom";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 import React, { useEffect, useState } from "react";
 
@@ -38,6 +39,8 @@ export default function MobileMenu() {
       );
     };
   }, [pathname]); // Empty dependency array ensures it only runs on mount/unmount
+  const userData = useStoreState((state) => state.userData);
+  const isLogin = useStoreState((state) => state.isLogin);
 
   const closeMenu = () => {
     const mobileNavigation = document.querySelector(".mobile-navigation");
@@ -120,64 +123,91 @@ export default function MobileMenu() {
                   isMenuActive(homeLinks) ? "current" : ""
                 }`}
               >
-                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
+                <Link
+                  to={"/"}
+                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                >
                   Trang chủ
-                </a>
+                </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
                   isMenuActive(blogLinks) ? "current" : ""
                 }`}
               >
-                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
+                <Link
+                  to={`/inventory-list-01`}
+                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                >
                   Tìm kiếm xe
-                </a>
+                </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
                   isMenuActive(shopLinks) ? "current" : ""
                 }`}
               >
-                <a className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text">
-                  Đăng tin mua xe
-                </a>
+                <Link
+                  to={"/blog-list-01"}
+                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                >
+                  Đăng tin bán
+                </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
                   isMenuActive(pages) ? "current" : ""
                 }`}
               >
-                <a
+                <Link
+                  to={"/inventory-sidebar-rows"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
                   Tin mua xe
-                </a>
+                </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
                   isMenuActive(pages) ? "current" : ""
                 }`}
               >
-                <a
+                <Link
+                  to={"/team-list"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
-                  Đăng tin bán xe
-                </a>
+                  Đăng tin mua xe
+                </Link>
               </li>
-              <li
-                className={`current-dropdown mm-listitem ${
-                  isMenuActive(pages) ? "current" : ""
-                }`}
-              >
-                <a
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                  onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+              {userData && userData.role === "ADMIN" && (
+                <li
+                  className={`current-dropdown mm-listitem ${
+                    isMenuActive(pages) ? "current" : ""
+                  }`}
                 >
-                  Admin
-                </a>
-              </li>
+                  <a
+                    className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                    onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+                  >
+                    Admin
+                  </a>
+                </li>
+              )}
+              {isLogin && (
+                <li
+                  className={`current-dropdown mm-listitem ${
+                    isMenuActive(pages) ? "current" : ""
+                  }`}
+                >
+                  <a
+                    className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                    onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+                  >
+                    Đăng xuất
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
