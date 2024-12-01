@@ -1,10 +1,11 @@
 import Slider from "react-slick";
 import RelatedCars from "./RelatedCars";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
 import Overview from "./sections/Overview";
+import axiosInstance from "@/core/axiosInstance";
 export default function Single2({ detailData }) {
   const slickOptions = {
     infinite: true,
@@ -39,7 +40,36 @@ export default function Single2({ detailData }) {
       // instead of a settings object
     ],
   };
+  const [relatedList, setRelatedList] = useState([]);
+  const getRelatedList = async () => {
+    try {
+      const res = await axiosInstance.post("/cars/query", {
+        // ...queryParams,
+        brandId: detailData.brand.id,
+        page: 0,
+        pageSize: 12,
+        sortItems: [
+          {
+            field: "brandId",
+            desc: true,
+          },
+        ],
+      });
+      setRelatedList(res.data.data.list);
+    } catch (error) {
+      console.log(error);
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
+    }
+  };
   const [isOpen, setOpen] = useState(false);
+  useEffect(() => {
+    if (detailData) getRelatedList();
+  }, [detailData]);
   return (
     <>
       <section className="inventory-section pb-0 layout-radius">
@@ -233,7 +263,7 @@ export default function Single2({ detailData }) {
           </div>
         </div>
         {/* cars-section-three */}
-        <RelatedCars />
+        <RelatedCars relatedList={relatedList} />
         {/* End shop section two */}
       </section>
     </>

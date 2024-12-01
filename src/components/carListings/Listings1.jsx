@@ -284,7 +284,7 @@ export default function Listings1() {
                   <div className="content-box">
                     <h6 className="title">
                       <Link to={`/inventory-page-single-v2/${car.slug}`}>
-                        {car.title}
+                        {car.name}
                       </Link>
                     </h6>
                     <div className="text">

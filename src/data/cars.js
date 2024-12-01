@@ -31,228 +31,229 @@ export const carData = [
     filterCategories: ["New cars", "Used Cars", "In Stock"],
     filterBrands: ["SUV", "Hatchback", "Coupe", "Convertible"],
   },
-  {
-    id: 2,
-    images: [
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-3.jpg",
-      "/images/resource/shop3-1.jpg",
-    ],
-    title: "Tesla Model 3", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$933", // Random price
-    oldPrice: "$399",
-    lat: 38.1738017565271,
-    long: -118.34227408812067,
-    brand: ["Mercedes", "BMW"],
-    filterCategories: ["New cars", "In Stock"],
-    filterBrands: ["SUV", "Hatchback", "Convertible"],
-  },
-  {
-    id: 3,
-    images: [
-      "/images/resource/shop3-3.jpg",
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-1.jpg",
-    ],
-    badge: "Great Price",
-    title: "BMW 3 Series", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$602", // Random price
-    oldPrice: "$399",
-    lat: 29.38690953884771,
-    long: -94.91651439187791,
-    brand: ["Audi", "Mercedes"],
-    filterCategories: ["New cars", "Used Cars"],
-    filterBrands: ["SUV", "Coupe", "Convertible"],
-  },
-  {
-    id: 4,
-    images: [
-      "/images/resource/shop3-4.jpg",
-      "/images/resource/shop3-5.jpg",
-      "/images/resource/shop3-2.jpg",
-    ],
-    title: "Jaguar XE", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$912", // Random price
-    oldPrice: "$399",
-    lat: 39.62158564223682,
-    long: -80.15625432727268,
-    brand: ["Audi", "BMW"],
-    filterCategories: ["New cars", "In Stock"],
-    filterBrands: ["SUV", "Sedan", "Hatchback"],
-  },
-  {
-    id: 5,
-    images: [
-      "/images/resource/shop3-1.jpg",
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-3.jpg",
-    ],
-    badge: "Low Mileage",
-    title: "Lexus IS", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$577", // Random price
-    oldPrice: "$399",
-    lat: 43.71210927454257,
-    long: -117.1392712537564,
-    brand: ["Audi", "BMW", "Mercedes"],
-    filterCategories: ["New cars", "Used Cars", "In Stock"],
-    filterBrands: ["SUV", "Sedan", "Convertible"],
-  },
-  {
-    id: 3,
-    images: [
-      "/images/resource/shop3-3.jpg",
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-1.jpg",
-    ],
-    badge: "Great Price",
-    title: "BMW 3 Series", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$602", // Random price
-    oldPrice: "$399",
-    lat: 29.38690953884771,
-    long: -94.91651439187791,
-    brand: ["Audi", "Mercedes"],
-    filterCategories: ["New cars", "In Stock"],
-    filterBrands: ["SUV", "Sedan", "Hatchback"],
-  },
-  {
-    id: 2,
-    images: [
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-3.jpg",
-      "/images/resource/shop3-1.jpg",
-    ],
-    title: "Tesla Model 3", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$933", // Random price
-    oldPrice: "$399",
-    lat: 38.1738017565271,
-    long: -118.34227408812067,
-    brand: ["Mercedes", "BMW"],
-    filterCategories: ["New cars", "Used Cars", "In Stock"],
-    filterBrands: ["SUV", "Sedan", "Convertible"],
-  },
-  {
-    id: 3,
-    images: [
-      "/images/resource/shop3-3.jpg",
-      "/images/resource/shop3-2.jpg",
-      "/images/resource/shop3-1.jpg",
-    ],
-    badge: "Great Price",
-    title: "BMW 3 Series", // Random title
-    description: "2023 C300e AMG Line Night Ed Premiu...",
-    specs: [
-      {
-        icon: "flaticon-gasoline-pump",
-        text: "72,925 miles",
-      },
-      {
-        icon: "flaticon-speedometer",
-        text: "Petrol",
-      },
-      {
-        icon: "flaticon-gearbox",
-        text: "Automatic",
-      },
-    ],
-    price: "$602", // Random price
-    oldPrice: "$399",
-    lat: 29.38690953884771,
-    long: -94.91651439187791,
-    brand: ["Audi", "Mercedes"],
-    filterCategories: ["New cars", "Used Cars"],
-    filterBrands: ["SUV", "Sedan"],
-  },
+  // {
+  //   id: 2,
+  //   images: [
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-3.jpg",
+  //     "/images/resource/shop3-1.jpg",
+  //   ],
+  //   title: "Tesla Model 3", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$933", // Random price
+  //   oldPrice: "$399",
+  //   lat: 38.1738017565271,
+  //   long: -118.34227408812067,
+  //   brand: ["Mercedes", "BMW"],
+  //   filterCategories: ["New cars", "In Stock"],
+  //   filterBrands: ["SUV", "Hatchback", "Convertible"],
+  // },
+  // {
+  //   id: 3,
+  //   images: [
+  //     "/images/resource/shop3-3.jpg",
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-1.jpg",
+  //   ],
+  //   badge: "Great Price",
+  //   title: "BMW 3 Series", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$602", // Random price
+  //   oldPrice: "$399",
+  //   lat: 29.38690953884771,
+  //   long: -94.91651439187791,
+  //   brand: ["Audi", "Mercedes"],
+  //   filterCategories: ["New cars", "Used Cars"],
+  //   filterBrands: ["SUV", "Coupe", "Convertible"],
+  // },
+  // {
+  //   id: 4,
+  //   images: [
+  //     "/images/resource/shop3-4.jpg",
+  //     "/images/resource/shop3-5.jpg",
+  //     "/images/resource/shop3-2.jpg",
+  //   ],
+  //   title: "Jaguar XE", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$912", // Random price
+  //   oldPrice: "$399",
+  //   lat: 39.62158564223682,
+  //   long: -80.15625432727268,
+  //   brand: ["Audi", "BMW"],
+  //   filterCategories: ["New cars", "In Stock"],
+  //   filterBrands: ["SUV", "Sedan", "Hatchback"],
+  // },
+  // {
+  //   id: 5,
+  //   images: [
+  //     "/images/resource/shop3-1.jpg",
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-3.jpg",
+  //   ],
+  //   badge: "Low Mileage",
+  //   title: "Lexus IS", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$577", // Random price
+  //   oldPrice: "$399",
+  //   lat: 43.71210927454257,
+  //   long: -117.1392712537564,
+  //   brand: ["Audi", "BMW", "Mercedes"],
+  //   filterCategories: ["New cars", "Used Cars", "In Stock"],
+  //   filterBrands: ["SUV", "Sedan", "Convertible"],
+  // },
+  // {
+  //   id: 3,
+  //   images: [
+  //     "/images/resource/shop3-3.jpg",
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-1.jpg",
+  //   ],
+  //   badge: "Great Price",
+  //   title: "BMW 3 Series", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$602", // Random price
+  //   oldPrice: "$399",
+  //   lat: 29.38690953884771,
+  //   long: -94.91651439187791,
+  //   brand: ["Audi", "Mercedes"],
+  //   filterCategories: ["New cars", "In Stock"],
+  //   filterBrands: ["SUV", "Sedan", "Hatchback"],
+  // },
+  // {
+  //   id: 2,
+  //   images: [
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-3.jpg",
+  //     "/images/resource/shop3-1.jpg",
+  //   ],
+  //   title: "Tesla Model 3", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$933", // Random price
+  //   oldPrice: "$399",
+  //   lat: 38.1738017565271,
+  //   long: -118.34227408812067,
+  //   brand: ["Mercedes", "BMW"],
+  //   filterCategories: ["New cars", "Used Cars", "In Stock"],
+  //   filterBrands: ["SUV", "Sedan", "Convertible"],
+  // },
+  // {
+  //   id: 3,
+  //   images: [
+  //     "/images/resource/shop3-3.jpg",
+  //     "/images/resource/shop3-2.jpg",
+  //     "/images/resource/shop3-1.jpg",
+  //   ],
+  //   badge: "Great Price",
+  //   title: "BMW 3 Series", // Random title
+  //   description: "2023 C300e AMG Line Night Ed Premiu...",
+  //   specs: [
+  //     {
+  //       icon: "flaticon-gasoline-pump",
+  //       text: "72,925 miles",
+  //     },
+  //     {
+  //       icon: "flaticon-speedometer",
+  //       text: "Petrol",
+  //     },
+  //     {
+  //       icon: "flaticon-gearbox",
+  //       text: "Automatic",
+  //     },
+  //   ],
+  //   price: "$602", // Random price
+  //   oldPrice: "$399",
+  //   lat: 29.38690953884771,
+  //   long: -94.91651439187791,
+  //   brand: ["Audi", "Mercedes"],
+  //   filterCategories: ["New cars", "Used Cars"],
+  //   filterBrands: ["SUV", "Sedan"],
+  // },
 ];
+
 export const cars = [
   {
     id: 9,

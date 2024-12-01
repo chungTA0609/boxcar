@@ -9,7 +9,6 @@ export default function Pagination({ totalPages, onPageChange }) {
   };
   const [activePage, setActivePage] = useState(1);
 
-
   return (
     <ul className="pagination">
       <li className="page-item">
@@ -49,42 +48,48 @@ export default function Pagination({ totalPages, onPageChange }) {
           </li>
         );
       })}
-      {activePage == 6 && (
-        <li className={`page-item ${activePage === 6 ? "active" : ""}`}>
-          <a className="page-link" onClick={() => handlePageClick(6)}>
-            {6}
-          </a>
-        </li>
-      )}
-      {activePage >= 7 && activePage <= 18 && (
+      {activePage >= 7 && activePage <= totalPages - 2 && (
         <li className="page-item">
           <a className="page-link" href="#">
             ...
           </a>
         </li>
       )}
-      {activePage >= 7 && activePage <= 18 && (
+      {activePage >= 7 && activePage <= totalPages - 2 && (
         <li className={`page-item active`}>
           <a className="page-link">{activePage}</a>
         </li>
       )}
-      <li className="page-item">
-        <a className="page-link" href="#">
-          ...
-        </a>
-      </li>
-      {activePage == 19 && (
-        <li className={`page-item ${activePage === 19 ? "active" : ""}`}>
-          <a className="page-link" onClick={() => handlePageClick(19)}>
-            {19}
+      {totalPages >= 6 && (
+        <li className="page-item">
+          <a className="page-link" href="#">
+            ...
           </a>
         </li>
       )}
-      <li className={`page-item ${activePage === totalPages ? "active" : ""}`}>
-        <a className="page-link" onClick={() => handlePageClick(totalPages)}>
-          {totalPages}
-        </a>
-      </li>
+      {totalPages >= 6 && activePage == totalPages - 1 && (
+        <li
+          className={`page-item ${
+            activePage === totalPages - 1 ? "active" : ""
+          }`}
+        >
+          <a
+            className="page-link"
+            onClick={() => handlePageClick(totalPages - 1)}
+          >
+            {totalPages - 1}
+          </a>
+        </li>
+      )}
+      {totalPages >= 6 && (
+        <li
+          className={`page-item ${activePage === totalPages ? "active" : ""}`}
+        >
+          <a className="page-link" onClick={() => handlePageClick(totalPages)}>
+            {totalPages}
+          </a>
+        </li>
+      )}
 
       <li className="page-item">
         <a
