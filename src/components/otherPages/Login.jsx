@@ -26,6 +26,9 @@ export default function Login() {
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [ward, setWard] = useState([]);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showReigisterPassword, setShowRegisterPassword] = useState(false); // State to toggle password visibility
+  const [showRePassword, setShowRePassword] = useState(false); // State to toggle password visibility
 
   const [formErrors, setFormErrors] = useState({
     email: "",
@@ -270,15 +273,30 @@ export default function Login() {
                       className="form_boxes"
                       style={{
                         borderColor: formErrors.password ? "red" : "",
+                        position: "relative",
                       }}
                     >
                       <label>Password</label>
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        style={{ paddingRight: "30px" }} // Add space for the icon
                       />
+                      <span
+                        onClick={() => setShowPassword(!showPassword)} // Toggle the state
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {showPassword ? "👁️" : "🙈"}{" "}
+                        {/* Change the icon based on state */}
+                      </span>
                       {formErrors.password && (
                         <span className="error-input-text">
                           {formErrors.password}
@@ -308,16 +326,18 @@ export default function Login() {
               >
                 <div className="form-box two">
                   <form onSubmit={(e) => e.preventDefault()}>
-                    <div className="form_boxes">
+                    <div
+                      className="form_boxes"
+                      style={{
+                        borderColor: formErrors.username ? "red" : "",
+                      }}
+                    >
                       <label>Username</label>
                       <input
                         type="text"
                         name="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        style={{
-                          borderColor: formErrors.username ? "red" : "",
-                        }}
                       />
                       {formErrors.username && (
                         <span className="error-input-text">
@@ -325,16 +345,18 @@ export default function Login() {
                         </span>
                       )}
                     </div>
-                    <div className="form_boxes">
+                    <div
+                      className="form_boxes"
+                      style={{
+                        borderColor: formErrors.phoneNumber ? "red" : "",
+                      }}
+                    >
                       <label>Số điện thoại</label>
                       <input
                         type="text"
                         name="phone"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        style={{
-                          borderColor: formErrors.phoneNumber ? "red" : "",
-                        }}
                       />
                       {formErrors.phoneNumber && (
                         <span className="error-input-text">
@@ -342,16 +364,18 @@ export default function Login() {
                         </span>
                       )}
                     </div>
-                    <div className="form_boxes">
+                    <div
+                      className="form_boxes"
+                      style={{
+                        borderColor: formErrors.fullName ? "red" : "",
+                      }}
+                    >
                       <label>Tên đầy đủ</label>
                       <input
                         type="text"
                         name="fullName"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        style={{
-                          borderColor: formErrors.fullName ? "red" : "",
-                        }}
                       />
                       {formErrors.fullName && (
                         <span className="error-input-text">
@@ -362,33 +386,66 @@ export default function Login() {
                     <div
                       className="form_boxes"
                       style={{
+                        position: "relative",
                         borderColor: formErrors.registerPassword ? "red" : "",
                       }}
                     >
                       <label>Mật khẩu</label>
                       <input
-                        type="password"
+                        type={showReigisterPassword ? "text" : "password"}
                         name="password"
                         value={registerPassword}
                         onChange={(e) => setRegisterPassword(e.target.value)}
                       />
-                    </div>
-                    {formErrors.registerPassword && (
-                      <span className="error-input-text">
-                        {formErrors.registerPassword}
+                      <span
+                        onClick={() =>
+                          setShowRegisterPassword(!showReigisterPassword)
+                        } // Toggle the state
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {showReigisterPassword ? "👁️" : "🙈"}{" "}
+                        {/* Change the icon based on state */}
                       </span>
-                    )}
-                    <div className="form_boxes">
+                      {formErrors.registerPassword && (
+                        <span className="error-input-text">
+                          {formErrors.registerPassword}
+                        </span>
+                      )}
+                    </div>
+
+                    <div
+                      className="form_boxes"
+                      style={{
+                        position: "relative",
+                        borderColor: formErrors.rePassword ? "red" : "",
+                      }}
+                    >
                       <label>Nhập lại mật khẩu</label>
                       <input
-                        type="password"
+                        type={showRePassword ? "text" : "password"}
                         name="rePassword"
                         value={rePassword}
                         onChange={(e) => setRePassword(e.target.value)}
-                        style={{
-                          borderColor: formErrors.rePassword ? "red" : "",
-                        }}
                       />
+                      <span
+                        onClick={() => setShowRePassword(!showRePassword)} // Toggle the state
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {showRePassword ? "👁️" : "🙈"}{" "}
+                        {/* Change the icon based on state */}
+                      </span>
                       {formErrors.rePassword && (
                         <span className="error-input-text">
                           {formErrors.rePassword}
