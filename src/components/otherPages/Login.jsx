@@ -4,6 +4,9 @@ import SelectComponent from "@/components/common/SelectComponent";
 import { useTokenCookie } from "@/core/useTokenCookie";
 import { useStoreActions } from "easy-peasy"; // Import actions for store
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
+
 export default function Login() {
   const { setTokenCookie } = useTokenCookie();
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
@@ -100,7 +103,9 @@ export default function Login() {
     try {
       const res = await axiosInstance.get("/address/cities");
       setProvinces(res.data.data);
-    } catch (error) {}
+    } catch (error) {
+      // toast.error("Không thể lấy danh sách tỉnh/thành phố.");
+    }
   };
 
   const getDistrictByCity = async (cityCode) => {
@@ -111,6 +116,8 @@ export default function Login() {
       setDistricts(res.data.data);
     } catch (error) {
       console.log(error);
+      toast.error("Không thể lấy danh sách quận.");
+
       // toast.add({
       //   severity: "error",
       //   summary: "Lỗi",
@@ -139,12 +146,7 @@ export default function Login() {
       setWards(res.data.data);
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
+      toast.error("Không thể lấy danh sách xã/phường.");
     }
   };
 
@@ -160,9 +162,11 @@ export default function Login() {
       });
       setIsLogin(true);
       setTokenCookie(res.data.data.token, 1);
+      toast.success("Đăng nhập thành công")
       getMe();
     } catch (error) {
       console.log(error);
+      toast.error("Lỗi đăng nhập");
     }
   };
 
@@ -203,9 +207,11 @@ export default function Login() {
       // You could handle login automatically after successful registration here
       setTokenCookie(res.data.data.token, 1);
       getMe();
+      toast.success("Đăng ký thành công")
     } catch (error) {
       console.log(error);
       setRegisterError("Có lỗi xảy ra, vui lòng thử lại.");
+      toast.error(error.response.data.msg);
     }
   };
 

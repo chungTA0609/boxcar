@@ -33,7 +33,8 @@ import InvoicePage from "./pages/otherPages/invoice";
 import LoginPage from "./pages/otherPages/login";
 import TeamListPage from "./pages/otherPages/team-list";
 import "./styles/style.css";
-
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 function App() {
   const { pathname } = useLocation();
 
@@ -55,20 +56,15 @@ function App() {
   return (
     <>
       <Context>
+        <ToastContainer /> {/* Add ToastContainer */}
         <MobileMenu />
         <div className="boxcar-wrapper">
           <Routes>
             <Route path="/">
               <Route index element={<HomePage1 />} />
 
-              <Route
-                path="tim-kiem-xe"
-                element={<InventoryListPage1 />}
-              />
-              <Route
-                path="tin-mua"
-                element={<InventorySidebarRowsPage />}
-              />
+              <Route path="tim-kiem-xe" element={<InventoryListPage1 />} />
+              <Route path="tin-mua" element={<InventorySidebarRowsPage />} />
 
               <Route
                 path="thong-tin-xe/:id"
