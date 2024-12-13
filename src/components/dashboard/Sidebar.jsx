@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
   {
-    href: "/my-listings",
+    href: "/brands",
     src: "/images/icons/dash2.svg",
     width: 25,
     height: 22,

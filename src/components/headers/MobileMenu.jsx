@@ -136,7 +136,7 @@ export default function MobileMenu() {
                 }`}
               >
                 <Link
-                  to={`/inventory-list-01`}
+                  to={`/tim-kiem-xe`}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                 >
                   Tìm kiếm xe
@@ -148,7 +148,7 @@ export default function MobileMenu() {
                 }`}
               >
                 <Link
-                  to={"/blog-list-01"}
+                  to={"/dang-tin-ban"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                 >
                   Đăng tin bán
@@ -160,7 +160,7 @@ export default function MobileMenu() {
                 }`}
               >
                 <Link
-                  to={"/inventory-sidebar-rows"}
+                  to={"/tin-mua"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
@@ -173,7 +173,7 @@ export default function MobileMenu() {
                 }`}
               >
                 <Link
-                  to={"/team-list"}
+                  to={"/dang-tin-mua"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >

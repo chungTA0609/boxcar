@@ -160,7 +160,7 @@ export default function Header1({
               )}
               {userData && userData.role === "ADMIN" && (
                 <div className="btn">
-                  <Link to={`/my-listings`} className="header-btn-two">
+                  <Link to={`/brands`} className="header-btn-two">
                     Admin
                   </Link>
                 </div>

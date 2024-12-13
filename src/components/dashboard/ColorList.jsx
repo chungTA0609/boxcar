@@ -39,26 +39,17 @@ export default function ColorList() {
         <div className="content-column">
           <div className="inner-column">
             <div className="list-title">
-              <h3 className="title">Quản lý loại nhiên liệu</h3>
+              <h3 className="title">Quản lý màu sắc</h3>
             </div>
             <div className="my-listing-table wrap-listing">
               <div className="col-lg-12" style={{ paddingBottom: "20px" }}>
                 <div className="form-submit">
                   <button className="theme-btn" onClick={addColor}>
-                    Thêm loại nhiên liệu
+                    Thêm màu sắc
                   </button>
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
@@ -70,7 +61,9 @@ export default function ColorList() {
                     {colorList.map((item, index) => (
                       <tr key={index}>
                         <td>
-                          <span>{item.name}</span>
+                          <span style={{ color: item.hex, fontWeight: 900 }}>
+                            <b>{item.name}</b>
+                          </span>
                         </td>
                         <td>
                           <a className="remove-cart-item">

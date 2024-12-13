@@ -15,11 +15,11 @@ export const megaMenuData = [
   {
     title: "Inventory List",
     links: [
-      { href: "/inventory-list-01", label: "Inventory List v1" },
+      { href: "/tim-kiem-xe", label: "Inventory List v1" },
       { href: "/inventory-list-02", label: "Inventory List v2" },
       { href: "/inventory-map-cards", label: "Map - Cards" },
       { href: "/inventory-map-rows", label: "Map - Rows" },
-      { href: "/inventory-sidebar-rows", label: "Sidebar - Rows" },
+      { href: "/tin-mua", label: "Sidebar - Rows" },
       { href: "/inventory-sidebar-cards", label: "Sidebar - Cards" },
     ],
   },
@@ -27,7 +27,7 @@ export const megaMenuData = [
     title: "Inventory Single",
     links: [
       { href: "/inventory-page-single-v1/1", label: "Inventory Single v1" },
-      { href: "/inventory-page-single-v2", label: "Inventory Single v2" },
+      { href: "/thong-tin-xe", label: "Inventory Single v2" },
       { href: "/inventory-page-single-v3", label: "Inventory Single v3" },
       { href: "/inventory-page-single-v4", label: "Inventory Single v4" },
       { href: "/inventory-page-single-v5", label: "Inventory Single v5" },
@@ -72,7 +72,7 @@ export const megaMenuData = [
   },
 ];
 export const blogLinks = [
-  { href: "/blog-list-01", label: "Blog List 01" },
+  { href: "/dang-tin-ban", label: "Blog List 01" },
   { href: "/blog-list-02", label: "Blog List 02" },
   { href: "/blog-list-03", label: "Blog List 03" },
   { href: "/blog-single/1", label: "Blog Single" },
@@ -82,7 +82,7 @@ export const shopLinks = [
   { href: "/shop-single/1", label: "Shop Single" },
   { href: "/cart", label: "Cart" },
   { href: "/checkout", label: "Checkout" },
-  { href: "/inventory-sidebar-rows", label: "Checkout" },
+  { href: "/tin-mua", label: "Checkout" },
 ];
 export const pages = [
   {
@@ -91,7 +91,7 @@ export const pages = [
     iconClass: "fa fa-angle-right",
     links: [
       { title: "Dashboard", href: "/dashboard" },
-      { title: "My Listings", href: "/my-listings" },
+      { title: "My Listings", href: "/brands" },
       { title: "Add Listings", href: "/add-listings" },
       { title: "Favorites", href: "/favorite" },
       { title: "Saved Search", href: "/saved" },
@@ -105,7 +105,7 @@ export const pages = [
   { title: "FAQs", href: "/faq" },
   { title: "Pricing", href: "/pricing" },
   { title: "Terms", href: "/terms" },
-  { title: "Team List", href: "/team-list" },
+  { title: "Team List", href: "/dang-tin-mua" },
   { title: "Team Single", href: "/team-single/1" },
   { title: "Dealer List", href: "/dealer" },
   { title: "Dealer Single", href: "/dealer-single/1" },

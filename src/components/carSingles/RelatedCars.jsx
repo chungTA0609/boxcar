@@ -76,7 +76,7 @@ export default function RelatedCars({ relatedList }) {
                 <div className="inner-box">
                   <div className="image-box">
                     <figure className="image">
-                      <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>
                         <img
                           alt={car.alt}
                           src={car.logo}
@@ -89,7 +89,7 @@ export default function RelatedCars({ relatedList }) {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>
                         {car.name}
                       </Link>
                     </h6>
@@ -112,7 +112,7 @@ export default function RelatedCars({ relatedList }) {
                       <span>{car.price.toLocaleString("en-US")} triệu</span>
                       {/* <small>{car.discountPrice}</small> */}
                       <Link
-                        to={`/inventory-page-single-v2/${car.slug}`}
+                        to={`/thong-tin-xe/${car.slug}`}
                         className="details"
                       >
                         Xem chi tiết
@@ -159,7 +159,7 @@ export default function RelatedCars({ relatedList }) {
                   >
                     <div className="slider-thumb">
                       <div className="image">
-                        <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                        <Link to={`/thong-tin-xe/${car.slug}`}>
                           <img
                             alt={car.alt}
                             src={car.logo}
@@ -173,7 +173,7 @@ export default function RelatedCars({ relatedList }) {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>
                         {car.name}
                       </Link>
                     </h6>
@@ -195,7 +195,7 @@ export default function RelatedCars({ relatedList }) {
                     <div className="btn-box">
                       <span>{car.price.toLocaleString("en-US")} triệu</span>
                       <Link
-                        to={`/inventory-page-single-v2/${car.slug}`}
+                        to={`/thong-tin-xe/${car.slug}`}
                         className="details"
                       >
                         View Details

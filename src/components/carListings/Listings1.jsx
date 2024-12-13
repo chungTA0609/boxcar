@@ -184,7 +184,7 @@ export default function Listings1() {
         <div className="boxcar-container">
           <div className="boxcar-title">
             <h2 className="wow fadeInUp">Lựa chọn hãng xe</h2>
-            <Link to={`/inventory-list-01`} className="btn-title">
+            <Link to={`/tim-kiem-xe`} className="btn-title">
               Show All Brands
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -234,7 +234,7 @@ export default function Listings1() {
                     >
                       <div className="image-box">
                         <figure className="image">
-                          <Link to={`/inventory-list-01`}>
+                          <Link to={`/tim-kiem-xe`}>
                             <img
                               alt={car.title}
                               src={car.src}
@@ -246,7 +246,7 @@ export default function Listings1() {
                       </div>
                       <div className="content-box">
                         <h6 className="title">
-                          <Link to={`/inventory-list-01`}>{car.title}</Link>
+                          <Link to={`/tim-kiem-xe`}>{car.title}</Link>
                         </h6>
                       </div>
                     </div>
@@ -270,7 +270,7 @@ export default function Listings1() {
                 <div className="inner-box">
                   <div className="image-box">
                     <figure className="image">
-                      <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>
                         <img
                           alt={car.alt}
                           src={car.logo}
@@ -283,7 +283,7 @@ export default function Listings1() {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/inventory-page-single-v2/${car.slug}`}>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>
                         {car.name}
                       </Link>
                     </h6>
@@ -306,7 +306,7 @@ export default function Listings1() {
                       <span>{car.price.toLocaleString("en-US")} triệu</span>
                       {/* <small>{car.discountPrice}</small> */}
                       <Link
-                        to={`/inventory-page-single-v2/${car.slug}`}
+                        to={`/thong-tin-xe/${car.slug}`}
                         className="details"
                       >
                         Xem chi tiết

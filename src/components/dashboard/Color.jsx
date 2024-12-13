@@ -17,7 +17,7 @@ export default function Color() {
 
   useEffect(() => {
     if (colorData) {
-      setParams({ name: colorData.name });
+      setParams({ name: colorData.name, hex: colorData.hex });
       setIsEdit(true);
     }
   }, []);
@@ -42,19 +42,19 @@ export default function Color() {
         <div className="content-column">
           <div className="inner-column">
             <div className="list-title">
-              <h3 className="title">Thông tin loại nhiên liệu</h3>
+              <h3 className="title">Thông tin màu</h3>
             </div>
             <div className="gallery-sec">
               <div className="form-sec">
                 <form onSubmit={(e) => e.preventDefault()} className="row">
                   <div className="col-lg-12">
                     <div className="form_boxes">
-                      <label>Tên loại nhiên liệu</label>
+                      <label>Tên màu</label>
                       <input
                         name="name"
                         required
                         type="text"
-                        placeholder="Tên loại nhiên liệu..."
+                        placeholder="Tên màu..."
                         onChange={(value) =>
                           setParams({
                             ...params,
@@ -69,20 +69,20 @@ export default function Color() {
                     <div className="form_boxes">
                       <label htmlFor="color">Màu sắc</label>
                       <SketchPicker
-                        color={params.color} // Current color value
+                        color={params.hex} // Current color value
                         onChange={handleColorChange} // Update color value
                       />
                       <div
                         style={{
                           marginTop: "10px",
                           padding: "5px",
-                          backgroundColor: params.color,
+                          backgroundColor: params.hex,
                           color: "#fff",
                           textAlign: "center",
                           borderRadius: "5px",
                         }}
                       >
-                        Mã màu đã chọn: {params.color}
+                        Mã màu đã chọn: {params.hex}
                       </div>
                     </div>
                   </div>

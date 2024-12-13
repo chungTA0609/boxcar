@@ -23,8 +23,8 @@ export default function Login() {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-  const [province, setProvince] = useState([]);
-  const [district, setDistrict] = useState([]);
+  const [province, setProvince] = useState(null);
+  const [district, setDistrict] = useState(null);
   const [ward, setWard] = useState([]);
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [showReigisterPassword, setShowRegisterPassword] = useState(false); // State to toggle password visibility
@@ -47,32 +47,32 @@ export default function Login() {
     let isValid = true;
 
     if (!username) {
-      errors.username = "Username is required.";
+      errors.username = "Vui lòng nhập tên tài khoản.";
       isValid = false;
     }
 
     if (!phoneNumber) {
-      errors.phoneNumber = "Phone number is required.";
+      errors.phoneNumber = "Vui lòng nhập số điện thoại.";
       isValid = false;
     }
 
     if (!fullName) {
-      errors.fullName = "Full name is required.";
+      errors.fullName = "Vui lòng điền tên đầy đủ.";
       isValid = false;
     }
 
     if (!registerPassword) {
-      errors.registerPassword = "Password is required.";
+      errors.registerPassword = "Vui lòng nhập mật khẩu.";
       isValid = false;
     }
 
     if (registerPassword !== rePassword) {
-      errors.rePassword = "Passwords do not match.";
+      errors.rePassword = "Mật khẩu không trùng khớp.";
       isValid = false;
     }
 
     if (!address) {
-      errors.address = "Address is required.";
+      errors.address = "Vui lòng nhập địa chỉ.";
       isValid = false;
     }
 
@@ -84,12 +84,12 @@ export default function Login() {
     let isValid = true;
 
     if (!email) {
-      errors.email = "Email is required.";
+      errors.email = "Vui lòng nhập tài khoản.";
       isValid = false;
     }
 
     if (!password) {
-      errors.password = "Password is required.";
+      errors.password = "Vui lòng nhập mật khẩu.";
       isValid = false;
     }
 
@@ -124,10 +124,12 @@ export default function Login() {
     getAllCities();
   }, []);
   useEffect(() => {
-    getDistrictByCity(provinces.find((el) => el.id === province)?.code);
+    if (province)
+      getDistrictByCity(provinces.find((el) => el.id === province)?.code ?? "");
   }, [province]);
   useEffect(() => {
-    getWardByDistrict(districts.find((el) => el.id === district)?.code);
+    if (district)
+      getWardByDistrict(districts.find((el) => el.id === district)?.code ?? "");
   }, [district]);
   const getWardByDistrict = async (districtCode) => {
     try {
@@ -183,7 +185,7 @@ export default function Login() {
     try {
       if (registerPassword !== rePassword) {
         console.log("a");
-        setRegisterError("Passwords do not match");
+        setRegisterError("Mật khẩu không trùng khớp");
         return;
       }
       if (!validateForm()) {
@@ -203,7 +205,7 @@ export default function Login() {
       getMe();
     } catch (error) {
       console.log(error);
-      setRegisterError("Registration failed. Please try again.");
+      setRegisterError("Có lỗi xảy ra, vui lòng thử lại.");
     }
   };
 
@@ -224,7 +226,7 @@ export default function Login() {
                   aria-controls="nav-home"
                   aria-selected="true"
                 >
-                  Sign in
+                  Đăng nhập
                 </button>
                 <button
                   className="nav-link"
@@ -236,7 +238,7 @@ export default function Login() {
                   aria-controls="nav-profile"
                   aria-selected="false"
                 >
-                  Register
+                  Đăng ký
                 </button>
               </div>
             </nav>
@@ -255,7 +257,7 @@ export default function Login() {
                         borderColor: formErrors.email ? "red" : "",
                       }}
                     >
-                      <label>Username</label>
+                      <label>Tên tài khoản</label>
                       <input
                         type="text"
                         name="email"
@@ -276,7 +278,7 @@ export default function Login() {
                         position: "relative",
                       }}
                     >
-                      <label>Password</label>
+                      <label>Mật khẩu</label>
                       <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -307,12 +309,12 @@ export default function Login() {
                     <div className="btn-box">
                       <label className="contain"></label>
                       <a href="#" className="pasword-btn">
-                        Forgotten password?
+                        Quên mật khẩu?
                       </a>
                     </div>
                     <div className="form-submit">
                       <button className="theme-btn" onClick={onLogin}>
-                        Login
+                        Đăng nhập
                       </button>
                     </div>
                   </form>
@@ -332,7 +334,7 @@ export default function Login() {
                         borderColor: formErrors.username ? "red" : "",
                       }}
                     >
-                      <label>Username</label>
+                      <label>Tên tài khoản</label>
                       <input
                         type="text"
                         name="username"
@@ -496,12 +498,12 @@ export default function Login() {
                     </div>
                     <div className="form-submit">
                       <button onClick={onRegister} className="theme-btn">
-                        Register{" "}
+                        Đăng ký{" "}
                       </button>
                     </div>
                     <div className="btn-box">
                       <label className="contain">
-                        I accept the privacy policy
+                        Tôi đồng ý với chính sách và điều khoản
                         <input
                           required
                           type="checkbox"

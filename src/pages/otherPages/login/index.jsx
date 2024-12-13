@@ -6,8 +6,8 @@ import React from "react";
 
 import MetaComponent from "@/components/common/Metacomonent";
 const metadata = {
-  title: "Login || Boxcar - Reactjs Car Template",
-  description: "Boxcar - Reactjs Car Template",
+  title: "Đăng nhập - Đăng ký",
+  description: "Đăng nhập - Đăng ký",
 };
 export default function LoginPage() {
   return (

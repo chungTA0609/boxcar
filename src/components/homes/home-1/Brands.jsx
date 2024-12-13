@@ -72,7 +72,7 @@ export default function Brands() {
       <div className="boxcar-container">
         <div className="boxcar-title">
           <h2 className="wow fadeInUp">Lựa chọn hãng xe</h2>
-          <Link to={`/inventory-list-01`} className="btn-title">
+          <Link to={`/tim-kiem-xe`} className="btn-title">
             Show All Brands
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ export default function Brands() {
               >
                 <div className="image-box">
                   <figure className="image">
-                    <Link to={`/inventory-list-01`}>
+                    <Link to={`/tim-kiem-xe`}>
                       <img
                         alt={car.title}
                         src={car.src}
@@ -134,7 +134,7 @@ export default function Brands() {
                 </div>
                 <div className="content-box">
                   <h6 className="title">
-                    <Link to={`/inventory-list-01`}>{car.title}</Link>
+                    <Link to={`/tim-kiem-xe`}>{car.title}</Link>
                   </h6>
                 </div>
               </div>

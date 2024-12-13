@@ -25,11 +25,11 @@ export default function MyListings() {
   }, []);
   const addBrand = () => {
     setBrand(null);
-    navigate("/brands");
+    navigate("/brand");
   };
   const editBrand = (element) => {
     setBrand(element);
-    navigate("/brands");
+    navigate("/brand");
   };
   return (
     <section className="dashboard-widget">

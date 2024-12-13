@@ -83,7 +83,7 @@ export default function Cars() {
       <div className="boxcar-container">
         <div className="boxcar-title wow fadeInUp">
           <h2>Explore All Vehicles</h2>
-          <Link to={`/inventory-list-01`} className="btn-title">
+          <Link to={`/tim-kiem-xe`} className="btn-title">
             View All
             <svg
               xmlns="http://www.w3.org/2000/svg"

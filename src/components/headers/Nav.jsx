@@ -61,7 +61,7 @@ export default function Nav() {
       </li>
       <li className="current-dropdown">
         <Link
-          to={`/inventory-list-01`}
+          to={`/tim-kiem-xe`}
           className={isMenuActive(megaMenuData) ? "menuActive" : ""}
         >
           Tìm kiếm xe
@@ -69,7 +69,7 @@ export default function Nav() {
       </li>
       <li className="current-dropdown">
         <Link
-          to={"/blog-list-01"}
+          to={"/dang-tin-ban"}
           className={isMenuActive(blogLinks) ? "menuActive" : ""}
         >
           Đăng tin bán
@@ -77,7 +77,7 @@ export default function Nav() {
       </li>
       <li className="current-dropdown">
         <Link
-          to={"/inventory-sidebar-rows"}
+          to={"/tin-mua"}
           className={isMenuActive(shopLinks) ? "menuActive" : ""}
         >
           Tin mua xe
@@ -85,7 +85,7 @@ export default function Nav() {
       </li>
       <li className="current-dropdown right-one">
         <Link
-          to={"/team-list"}
+          to={"/dang-tin-mua"}
           className={isMenuActive(pages) ? "menuActive" : ""}
         >
           Đăng tin mua xe
