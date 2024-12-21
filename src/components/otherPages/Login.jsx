@@ -6,7 +6,8 @@ import { useStoreActions } from "easy-peasy"; // Import actions for store
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
-
+import showPass from "../../../public/images/icons/show.png";
+import hidePass from "../../../public/images/icons/hide.png";
 export default function Login() {
   const { setTokenCookie } = useTokenCookie();
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
@@ -15,6 +16,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("login"); // State to manage active tab
+
   // States for register form
   const [username, setUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -73,13 +76,16 @@ export default function Login() {
       errors.rePassword = "Mật khẩu không trùng khớp.";
       isValid = false;
     }
-
+    if (!province) isValid = false;
+    if (!district) isValid = false;
+    if (!ward) isValid = false;
     if (!address) {
       errors.address = "Vui lòng nhập địa chỉ.";
       isValid = false;
     }
 
     setFormErrors(errors);
+    if (!isValid) toast.error("Vui lòng điền đầy đủ thông tin");
     return isValid;
   };
   const validateFormLogin = () => {
@@ -97,6 +103,8 @@ export default function Login() {
     }
 
     setFormErrors(errors);
+    if (!isValid) toast.error("Vui lòng điền đầy đủ thông tin");
+
     return isValid;
   };
   const getAllCities = async () => {
@@ -150,7 +158,7 @@ export default function Login() {
     }
   };
 
-  const onLogin = async (values) => {
+  const onLogin = async () => {
     try {
       if (!validateFormLogin()) {
         return;
@@ -162,7 +170,7 @@ export default function Login() {
       });
       setIsLogin(true);
       setTokenCookie(res.data.data.token, 1);
-      toast.success("Đăng nhập thành công")
+      toast.success("Đăng nhập thành công");
       getMe();
     } catch (error) {
       console.log(error);
@@ -188,7 +196,6 @@ export default function Login() {
   const onRegister = async () => {
     try {
       if (registerPassword !== rePassword) {
-        console.log("a");
         setRegisterError("Mật khẩu không trùng khớp");
         return;
       }
@@ -203,15 +210,16 @@ export default function Login() {
         wardId: ward,
         password: registerPassword,
       });
-
-      // You could handle login automatically after successful registration here
-      setTokenCookie(res.data.data.token, 1);
-      getMe();
-      toast.success("Đăng ký thành công")
+      setEmail(username);
+      setPassword(registerPassword);
+      toast.success("Đăng ký thành công");
+      setActiveTab("login");
     } catch (error) {
       console.log(error);
       setRegisterError("Có lỗi xảy ra, vui lòng thử lại.");
-      toast.error(error.response.data.msg);
+      if (error.response.data.msg === "Username already exists")
+        toast.error("Tài khoản đã tồn tại");
+      else toast.error("Có lỗi xảy ra, vui lòng thử lại.");
     }
   };
 
@@ -223,26 +231,20 @@ export default function Login() {
             <nav>
               <div className="nav nav-tabs" id="nav-tab" role="tablist">
                 <button
-                  className="nav-link active"
-                  id="nav-home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-home"
+                  className={`nav-link ${
+                    activeTab === "login" ? "active" : ""
+                  }`}
+                  onClick={() => setActiveTab("login")}
                   type="button"
-                  role="tab"
-                  aria-controls="nav-home"
-                  aria-selected="true"
                 >
                   Đăng nhập
                 </button>
                 <button
-                  className="nav-link"
-                  id="nav-profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-profile"
+                  className={`nav-link ${
+                    activeTab === "register" ? "active" : ""
+                  }`}
+                  onClick={() => setActiveTab("register")}
                   type="button"
-                  role="tab"
-                  aria-controls="nav-profile"
-                  aria-selected="false"
                 >
                   Đăng ký
                 </button>
@@ -255,271 +257,280 @@ export default function Login() {
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <div className="form-box">
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <div
-                      className="form_boxes"
-                      style={{
-                        borderColor: formErrors.email ? "red" : "",
-                      }}
-                    >
-                      <label>Tên tài khoản</label>
-                      <input
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      {formErrors.email && (
-                        <span className="error-input-text">
-                          {formErrors.email}
-                        </span>
-                      )}
-                    </div>
-
-                    <div
-                      className="form_boxes"
-                      style={{
-                        borderColor: formErrors.password ? "red" : "",
-                        position: "relative",
-                      }}
-                    >
-                      <label>Mật khẩu</label>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{ paddingRight: "30px" }} // Add space for the icon
-                      />
-                      <span
-                        onClick={() => setShowPassword(!showPassword)} // Toggle the state
+                {activeTab === "login" && (
+                  <div className="form-box">
+                    {/* Login form fields */}
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      <div
+                        className="form_boxes"
                         style={{
-                          position: "absolute",
-                          right: "10px",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          cursor: "pointer",
+                          borderColor: formErrors.email ? "red" : "",
                         }}
                       >
-                        {showPassword ? "👁️" : "🙈"}{" "}
-                        {/* Change the icon based on state */}
-                      </span>
-                      {formErrors.password && (
-                        <span className="error-input-text">
-                          {formErrors.password}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="btn-box">
-                      <label className="contain"></label>
-                      <a href="#" className="pasword-btn">
-                        Quên mật khẩu?
-                      </a>
-                    </div>
-                    <div className="form-submit">
-                      <button className="theme-btn" onClick={onLogin}>
-                        Đăng nhập
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="nav-profile"
-                role="tabpanel"
-                aria-labelledby="nav-profile-tab"
-              >
-                <div className="form-box two">
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <div
-                      className="form_boxes"
-                      style={{
-                        borderColor: formErrors.username ? "red" : "",
-                      }}
-                    >
-                      <label>Tên tài khoản</label>
-                      <input
-                        type="text"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                      {formErrors.username && (
-                        <span className="error-input-text">
-                          {formErrors.username}
-                        </span>
-                      )}
-                    </div>
-                    <div
-                      className="form_boxes"
-                      style={{
-                        borderColor: formErrors.phoneNumber ? "red" : "",
-                      }}
-                    >
-                      <label>Số điện thoại</label>
-                      <input
-                        type="text"
-                        name="phone"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                      />
-                      {formErrors.phoneNumber && (
-                        <span className="error-input-text">
-                          {formErrors.phoneNumber}
-                        </span>
-                      )}
-                    </div>
-                    <div
-                      className="form_boxes"
-                      style={{
-                        borderColor: formErrors.fullName ? "red" : "",
-                      }}
-                    >
-                      <label>Tên đầy đủ</label>
-                      <input
-                        type="text"
-                        name="fullName"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                      />
-                      {formErrors.fullName && (
-                        <span className="error-input-text">
-                          {formErrors.fullName}
-                        </span>
-                      )}
-                    </div>
-                    <div
-                      className="form_boxes"
-                      style={{
-                        position: "relative",
-                        borderColor: formErrors.registerPassword ? "red" : "",
-                      }}
-                    >
-                      <label>Mật khẩu</label>
-                      <input
-                        type={showReigisterPassword ? "text" : "password"}
-                        name="password"
-                        value={registerPassword}
-                        onChange={(e) => setRegisterPassword(e.target.value)}
-                      />
-                      <span
-                        onClick={() =>
-                          setShowRegisterPassword(!showReigisterPassword)
-                        } // Toggle the state
-                        style={{
-                          position: "absolute",
-                          right: "10px",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {showReigisterPassword ? "👁️" : "🙈"}{" "}
-                        {/* Change the icon based on state */}
-                      </span>
-                      {formErrors.registerPassword && (
-                        <span className="error-input-text">
-                          {formErrors.registerPassword}
-                        </span>
-                      )}
-                    </div>
-
-                    <div
-                      className="form_boxes"
-                      style={{
-                        position: "relative",
-                        borderColor: formErrors.rePassword ? "red" : "",
-                      }}
-                    >
-                      <label>Nhập lại mật khẩu</label>
-                      <input
-                        type={showRePassword ? "text" : "password"}
-                        name="rePassword"
-                        value={rePassword}
-                        onChange={(e) => setRePassword(e.target.value)}
-                      />
-                      <span
-                        onClick={() => setShowRePassword(!showRePassword)} // Toggle the state
-                        style={{
-                          position: "absolute",
-                          right: "10px",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {showRePassword ? "👁️" : "🙈"}{" "}
-                        {/* Change the icon based on state */}
-                      </span>
-                      {formErrors.rePassword && (
-                        <span className="error-input-text">
-                          {formErrors.rePassword}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="form_boxes">
-                      <label>Thành phố</label>
-                      <SelectComponent
-                        options={provinces}
-                        value={
-                          provinces.find((el) => el.id === province)?.name ??
-                          "Thành phố"
-                        }
-                        onChange={(value) => setProvince(value.id)}
-                      />{" "}
-                    </div>
-
-                    <div className="form_boxes">
-                      <label>Huyện</label>
-                      <SelectComponent
-                        options={districts}
-                        value={
-                          districts.find((el) => el.id === district)?.name ??
-                          "Huyện"
-                        }
-                        onChange={(value) => setDistrict(value.id)}
-                      />{" "}
-                    </div>
-
-                    <div className="form_boxes">
-                      <label>Xã</label>
-                      <SelectComponent
-                        options={wards}
-                        value={wards.find((el) => el.id === ward)?.name ?? "Xã"}
-                        onChange={(value) => setWard(value.id)}
-                      />
-                    </div>
-                    <div className="form_boxes">
-                      <label>Địa chỉ</label>
-                      <input
-                        type="text"
-                        name="address"
-                        value={address}
-                        onChange={(e) => setAdress(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-submit">
-                      <button onClick={onRegister} className="theme-btn">
-                        Đăng ký{" "}
-                      </button>
-                    </div>
-                    <div className="btn-box">
-                      <label className="contain">
-                        Tôi đồng ý với chính sách và điều khoản
+                        <label>Tên tài khoản</label>
                         <input
-                          required
-                          type="checkbox"
-                          defaultChecked="checked"
+                          type="text"
+                          name="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
-                        <span className="checkmark" />
-                      </label>
-                    </div>
-                  </form>
-                </div>
+                        {formErrors.email && (
+                          <span className="error-input-text">
+                            {formErrors.email}
+                          </span>
+                        )}
+                      </div>
+
+                      <div
+                        className="form_boxes"
+                        style={{
+                          borderColor: formErrors.password ? "red" : "",
+                          position: "relative",
+                        }}
+                      >
+                        <label>Mật khẩu</label>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          style={{ paddingRight: "30px" }} // Add space for the icon
+                        />
+                        <img
+                          src={showPassword ? showPass : hidePass}
+                          alt={showPassword ? "Hide Password" : "Show Password"}
+                          onClick={() => setShowPassword(!showPassword)} // Toggle the state
+                          style={{
+                            position: "absolute",
+                            right: "10px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        {formErrors.password && (
+                          <span className="error-input-text">
+                            {formErrors.password}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="btn-box">
+                        <label className="contain"></label>
+                        <a href="#" className="pasword-btn">
+                          Quên mật khẩu?
+                        </a>
+                      </div>
+                      <div className="form-submit">
+                        <button className="theme-btn" onClick={onLogin}>
+                          Đăng nhập
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+                {activeTab === "register" && (
+                  <div className="form-box two">
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      <div
+                        className="form_boxes"
+                        style={{
+                          borderColor: formErrors.username ? "red" : "",
+                        }}
+                      >
+                        <label>Tên tài khoản</label>
+                        <input
+                          type="text"
+                          name="username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                        />
+                        {formErrors.username && (
+                          <span className="error-input-text">
+                            {formErrors.username}
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        className="form_boxes"
+                        style={{
+                          borderColor: formErrors.phoneNumber ? "red" : "",
+                        }}
+                      >
+                        <label>Số điện thoại</label>
+                        <input
+                          type="text"
+                          name="phone"
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                        {formErrors.phoneNumber && (
+                          <span className="error-input-text">
+                            {formErrors.phoneNumber}
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        className="form_boxes"
+                        style={{
+                          borderColor: formErrors.fullName ? "red" : "",
+                        }}
+                      >
+                        <label>Tên đầy đủ</label>
+                        <input
+                          type="text"
+                          name="fullName"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                        />
+                        {formErrors.fullName && (
+                          <span className="error-input-text">
+                            {formErrors.fullName}
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        className="form_boxes"
+                        style={{
+                          position: "relative",
+                          borderColor: formErrors.registerPassword ? "red" : "",
+                        }}
+                      >
+                        <label>Mật khẩu</label>
+                        <input
+                          type={showReigisterPassword ? "text" : "password"}
+                          name="password"
+                          value={registerPassword}
+                          onChange={(e) => setRegisterPassword(e.target.value)}
+                        />
+                        <img
+                          src={showReigisterPassword ? showPass : hidePass}
+                          alt={
+                            showReigisterPassword
+                              ? "Hide Password"
+                              : "Show Password"
+                          }
+                          onClick={() =>
+                            setShowRegisterPassword(!showReigisterPassword)
+                          } // Toggle the state
+                          style={{
+                            position: "absolute",
+                            right: "10px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        {formErrors.registerPassword && (
+                          <span className="error-input-text">
+                            {formErrors.registerPassword}
+                          </span>
+                        )}
+                      </div>
+
+                      <div
+                        className="form_boxes"
+                        style={{
+                          position: "relative",
+                          borderColor: formErrors.rePassword ? "red" : "",
+                        }}
+                      >
+                        <label>Nhập lại mật khẩu</label>
+                        <input
+                          type={showRePassword ? "text" : "password"}
+                          name="rePassword"
+                          value={rePassword}
+                          onChange={(e) => setRePassword(e.target.value)}
+                        />
+                        <img
+                          src={showRePassword ? showPass : hidePass}
+                          alt={
+                            showRePassword ? "Hide Password" : "Show Password"
+                          }
+                          onClick={() => setShowRePassword(!showRePassword)} // Toggle the state
+                          style={{
+                            position: "absolute",
+                            right: "10px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        {formErrors.rePassword && (
+                          <span className="error-input-text">
+                            {formErrors.rePassword}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="form_boxes">
+                        <label>Thành phố</label>
+                        <SelectComponent
+                          options={provinces}
+                          value={
+                            provinces.find((el) => el.id === province)?.name ??
+                            "Thành phố"
+                          }
+                          onChange={(value) => setProvince(value.id)}
+                        />{" "}
+                      </div>
+
+                      <div className="form_boxes">
+                        <label>Huyện</label>
+                        <SelectComponent
+                          options={districts}
+                          value={
+                            districts.find((el) => el.id === district)?.name ??
+                            "Huyện"
+                          }
+                          onChange={(value) => setDistrict(value.id)}
+                        />{" "}
+                      </div>
+
+                      <div className="form_boxes">
+                        <label>Xã</label>
+                        <SelectComponent
+                          options={wards}
+                          value={
+                            wards.find((el) => el.id === ward)?.name ?? "Xã"
+                          }
+                          onChange={(value) => setWard(value.id)}
+                        />
+                      </div>
+                      <div className="form_boxes">
+                        <label>Địa chỉ</label>
+                        <input
+                          type="text"
+                          name="address"
+                          value={address}
+                          onChange={(e) => setAdress(e.target.value)}
+                        />
+                      </div>
+                      <div className="form-submit">
+                        <button onClick={onRegister} className="theme-btn">
+                          Đăng ký{" "}
+                        </button>
+                      </div>
+                      <div className="btn-box">
+                        <label className="contain">
+                          Tôi đồng ý với chính sách và điều khoản
+                          <input
+                            required
+                            type="checkbox"
+                            defaultChecked="checked"
+                          />
+                          <span className="checkmark" />
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
           </div>

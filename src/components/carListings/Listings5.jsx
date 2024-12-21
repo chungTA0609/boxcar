@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { cars } from "@/data/cars";
 
 import axiosInstance from "@/core/axiosInstance";
 import { Link } from "react-router-dom";
 import Pagination from "../common/Pagination";
 export default function Listings5() {
   const [price, setPrice] = useState([0, 0]);
-  const [carss, setCars] = useState([]);
+  const [cars, setCars] = useState([]);
   const [params, setParams] = useState({
-    min: 0,
-    max: 0,
     keyword: "",
     page: 0,
     pageSize: 10,
@@ -126,22 +123,26 @@ export default function Listings5() {
           <div className="col-xl-9 col-md-12 col-sm-12">
             <div className="right-box">
               {/* service-block-thirteen */}
-              {carss.slice(0, 7).map((elm, i) => (
+              {cars.map((elm, i) => (
                 <div key={i} className="service-block-thirteen">
                   <div className="inner-box">
                     <div
                       className="right-box"
-                      style={{ borderRadius: "16px 0 0 16px" }}
+                      style={{
+                        borderRadius: "16px 0 0 16px",
+                        display: "block",
+                        minWidth: "250px",
+                      }}
                     >
                       <h4 className="title">
                         <span>Mã tin</span>
                       </h4>
                       <div className="text">{elm.code}</div>
                     </div>
-                    <div className="right-box">
+                    <div className="right-box" style={{ minWidth: "824px" }}>
                       <div
                         className="content-box"
-                        style={{ minWidth: "500px" }}
+                        style={{ maxWidth: "500px" }}
                       >
                         <h4 className="title">
                           <span to={`/inventory-page-single-v1/${elm.id}`}>
@@ -153,10 +154,13 @@ export default function Listings5() {
                           dangerouslySetInnerHTML={{ __html: elm.content }}
                         />{" "}
                       </div>
-                      <div className="content-box-two">
+                      <div
+                        className="content-box-two"
+                        style={{ minWidth: "150px", textAlign: "right" }}
+                      >
                         <h4 className="title">
-                          {elm.min?.toLocaleString("en-US")} -{" "}
-                          {elm.max?.maxtoLocaleString("en-US")}
+                          {elm?.min?.toLocaleString("en-US")} -{" "}
+                          {elm?.max?.toLocaleString("en-US")}
                         </h4>
                         <span>Liên hệ</span>
                         <div className="image-box">
@@ -164,9 +168,10 @@ export default function Listings5() {
                             src="/images/resource/phone1-2.svg"
                             width={18}
                             height={18}
+                            style={{ margin: "5px" }}
                             alt=""
                           />
-                          {elm ? elm.userPhoneNum : ""}
+                          {elm ? elm.user?.phoneNum : ""}
                         </div>
                         <div className="image-box">
                           <img
@@ -174,8 +179,9 @@ export default function Listings5() {
                             width={18}
                             height={18}
                             alt=""
+                            style={{ margin: "5px" }}
                           />
-                          {elm ? elm.address : ""}
+                          {elm ? elm.user?.ward?.pathWithType : ""}
                         </div>
                       </div>
                     </div>
@@ -183,7 +189,7 @@ export default function Listings5() {
                 </div>
               ))}
             </div>
-            {carss.length > 0 && (
+            {cars.length > 0 && (
               <div className="pagination-sec">
                 <nav aria-label="Page navigation example">
                   <ul className="pagination">

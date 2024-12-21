@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SelectComponent({ options = [], value, onChange }) {
+export default function SelectComponent({
+  options = [],
+  value,
+  onChange,
+  isSearch,
+}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchQuery2, setsearchQuery2] = useState("");
+
   const ref = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -25,7 +32,7 @@ export default function SelectComponent({ options = [], value, onChange }) {
     <div
       ref={ref}
       className={`drop-menu ${isDropdownOpen ? "active" : ""}`}
-      onClick={() => setIsDropdownOpen((prev) => !prev)}
+      onClick={() => setIsDropdownOpen(true)}
     >
       <div className="select">
         <span>{value}</span>
@@ -50,19 +57,29 @@ export default function SelectComponent({ options = [], value, onChange }) {
               }
         }
       >
-        {options.map((option, index) => (
-          <li
-            onClick={(event) => {
-              event.stopPropagation(); // Prevent parent click event
+        {isSearch && (
+          <input
+            type="text"
+            placeholder="Tìm kiếm"
+            className="search-field"
+            onChange={(e) => setsearchQuery2(e.target.value)}
+          />
+        )}
+        {options
+          .filter((elm) => elm.name.toLowerCase().includes(searchQuery2))
+          .map((option, index) => (
+            <li
+              onClick={(event) => {
+                event.stopPropagation(); // Prevent parent click event
 
-              setIsDropdownOpen(false); // Close the dropdown
-              onChange(option); // Notify the parent of the selected value
-            }}
-            key={index}
-          >
-            {option.name}
-          </li>
-        ))}
+                setIsDropdownOpen(false); // Close the dropdown
+                onChange(option); // Notify the parent of the selected value
+              }}
+              key={index}
+            >
+              {option.name}
+            </li>
+          ))}
       </ul>
     </div>
   );

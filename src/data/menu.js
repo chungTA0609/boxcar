@@ -72,12 +72,13 @@ export const megaMenuData = [
   },
 ];
 export const blogLinks = [
-  { href: "/dang-tin-ban", label: "Blog List 01" },
+  { href: "/tim-kiem-xe", label: "Đăng tin bán xe" },
   { href: "/blog-list-02", label: "Blog List 02" },
   { href: "/blog-list-03", label: "Blog List 03" },
   { href: "/blog-single/1", label: "Blog Single" },
 ];
 export const shopLinks = [
+  { href: "/dang-tin-ban", label: "Checkout" },
   { href: "/shop-list", label: "Shop List" },
   { href: "/shop-single/1", label: "Shop Single" },
   { href: "/cart", label: "Cart" },
@@ -85,6 +86,7 @@ export const shopLinks = [
   { href: "/tin-mua", label: "Checkout" },
 ];
 export const pages = [
+  { title: "UI Elements", href: "/tin-mua" },
   {
     title: "Dashboard",
 
@@ -115,3 +117,10 @@ export const pages = [
   { title: "Invoice", href: "/invoice" },
   { title: "UI Elements", href: "/ui-elements" },
 ];
+export const dangTinMua = [{ title: "", href: "/dang-tin-mua" }];
+export const admin = [{ title: "", href: "/brands" }];
+export const style = [{ title: "", href: "/style-list" }];
+export const origin = [{ title: "", href: "/origin-list" }];
+export const model = [{ title: "", href: "/model-list" }];
+export const fuel = [{ title: "", href: "/fuel-list" }];
+export const color = [{ title: "", href: "/color-list" }];

@@ -1,22 +1,22 @@
-import { useTokenCookie } from "@/core/useTokenCookie";
 import {
-  admin,
+  blogLinks,
   homeLinks,
-  origin,
-  model,
-  fuel,
-  color,
-  style,
+  megaMenuData,
+  pages,
+  shopLinks,
+  dangTinMua,
+  admin,
 } from "@/data/menu";
-import { useStoreActions, useStoreState } from "easy-peasy";
 import { Link, useLocation } from "react-router-dom";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import { useTokenCookie } from "@/core/useTokenCookie";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; // Import toast and ToastContainer
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 
-export default function MobileMenu() {
+export default function AddminMenu() {
   const { pathname } = useLocation();
   const [memuOpen, setMemuOpen] = useState(-1);
   const [showMenu, setShowMenu] = useState(false);
@@ -119,83 +119,72 @@ export default function MobileMenu() {
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
-                  isMenuActive(admin) ? "current" : ""
+                  isMenuActive(blogLinks) ? "current" : ""
                 }`}
               >
                 <Link
-                  to={"/brands"}
+                  to={"/tim-kiem-xe"}
                   onClick={() => {
                     resetDropDownValue();
                   }}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                 >
-                  Quản lý hãng
+                  Tìm kiếm xe
                 </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
-                  isMenuActive(style) ? "current" : ""
+                  isMenuActive(shopLinks) ? "current" : ""
                 }`}
               >
                 <Link
-                  to={"/style-list"}
+                  to={"/dang-tin-ban"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                 >
-                  Quản lý kiểu xe
+                  Đăng tin bán
                 </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
-                  isMenuActive(origin) ? "current" : ""
+                  isMenuActive(pages) ? "current" : ""
                 }`}
               >
                 <Link
-                  to={"/origin-list"}
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                  // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
-                >
-                  Xuất xứ
-                </Link>
-              </li>
-              <li
-                className={`current-dropdown mm-listitem ${
-                  isMenuActive(model) ? "current" : ""
-                }`}
-              >
-                <Link
-                  to={"/model-list"}
+                  to={"/tin-mua"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
-                  Mẫu xe
+                  Tin mua xe
                 </Link>
               </li>
               <li
                 className={`current-dropdown mm-listitem ${
-                  isMenuActive(fuel) ? "current" : ""
+                  isMenuActive(dangTinMua) ? "current" : ""
                 }`}
               >
                 <Link
-                  to={`/fuel-list`}
+                  to={"/dang-tin-mua"}
                   className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                 >
-                  Nhiên liệu
+                  Đăng tin mua xe
                 </Link>
               </li>
-              <li
-                className={`current-dropdown mm-listitem ${
-                  isMenuActive(color) ? "current" : ""
-                }`}
-              >
-                <Link
-                  to={`/color-list`}
-                  className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
-                  // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+              {userData && userData.role === "ADMIN" && (
+                <li
+                  className={`current-dropdown mm-listitem ${
+                    isMenuActive(admin) ? "current" : ""
+                  }`}
                 >
-                  Màu sắc
-                </Link>
-              </li>
+                  <Link
+                    to={`/brands`}
+                    className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                    // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
               {isLogin && (
                 <li className={`current-dropdown mm-listitem `}>
                   <a

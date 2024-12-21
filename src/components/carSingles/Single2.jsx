@@ -83,7 +83,20 @@ export default function Single2({ detailData }) {
                 <span>Thông tin xe</span>
               </li>
             </ul>
-            <h2>{detailData ? detailData.name : ""}</h2>
+            <h2>
+              {detailData ? detailData.name : ""}
+              {detailData &&
+              detailData.name &&
+              (detailData.manufacturingYear ? detailData.manufacturingYear : "")
+                ? " -"
+                : ""}
+              {detailData
+                ? " " +
+                  (detailData.manufacturingYear
+                    ? detailData.manufacturingYear
+                    : "")
+                : ""}
+            </h2>
             <ul className="spectes-list">
               <li>
                 <span>
@@ -93,7 +106,9 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  {detailData ? detailData.manufacturingYear : ""}
+                  {detailData && detailData.manufacturingYear
+                    ? detailData.manufacturingYear
+                    : ""}
                 </span>
               </li>
               <li>
@@ -104,7 +119,9 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  {detailData ? detailData.kmDriven + " km" : ""}
+                  {detailData && detailData.kmDriven
+                    ? detailData.kmDriven + " km"
+                    : ""}
                 </span>
               </li>
               <li>
@@ -115,7 +132,9 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  {detailData ? detailData.drivetrain : ""}
+                  {detailData && detailData.drivetrain
+                    ? detailData.drivetrain
+                    : ""}
                 </span>
               </li>
               <li>
@@ -126,7 +145,7 @@ export default function Single2({ detailData }) {
                     height={18}
                     alt=""
                   />
-                  {detailData ? detailData.fuel.name : ""}
+                  {detailData && detailData.fuel ? detailData.fuel.name : ""}
                 </span>
               </li>
             </ul>
@@ -142,7 +161,10 @@ export default function Single2({ detailData }) {
                         className="inner-column inventry-slider-two inner-slide"
                       >
                         {detailData &&
-                          detailData.images.map((src, index) => (
+                          (detailData.images.length === 1
+                            ? [...detailData.images, detailData.images[0]]
+                            : detailData.images
+                          ).map((src, index) => (
                             <div key={index} className="image-box d-block">
                               <figure className="image">
                                 <Item
@@ -222,6 +244,7 @@ export default function Single2({ detailData }) {
                   <h3 className="title">
                     {detailData && Number(detailData.price).toLocaleString()}
                   </h3>
+                  <h3>{"(" + (detailData && detailData.priceText) + ")"}</h3>
                 </div>
                 <div className="contact-box">
                   <div className="content-box">

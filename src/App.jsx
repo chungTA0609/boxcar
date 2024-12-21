@@ -35,6 +35,21 @@ import TeamListPage from "./pages/otherPages/team-list";
 import "./styles/style.css";
 import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
+import AddminMenu from "./components/headers/AddminMenu";
+const adminPath = [
+  "/brands",
+  "/brand",
+  "/style-list",
+  "/style",
+  "/origin-list",
+  "/origin",
+  "/model-list",
+  "/model",
+  "/fuel-list",
+  "/fuel",
+  "/color-list",
+  "/color",
+];
 function App() {
   const { pathname } = useLocation();
 
@@ -57,7 +72,8 @@ function App() {
     <>
       <Context>
         <ToastContainer /> {/* Add ToastContainer */}
-        <MobileMenu />
+        {adminPath.includes(pathname) && <MobileMenu />}
+        {!adminPath.includes(pathname) && <AddminMenu />}
         <div className="boxcar-wrapper">
           <Routes>
             <Route path="/">
@@ -97,7 +113,6 @@ function App() {
               <Route path="color-list" element={<ListColorPage />} />
               <Route path="color" element={<ColorPage />} />
 
-              <Route path="add-listings" element={<AddListingsPage />} />
               <Route path="login" element={<LoginPage />} />
               {/* <Route path="pricing" element={<PricingPage />} /> */}
               <Route path="dang-tin-mua" element={<TeamListPage />} />

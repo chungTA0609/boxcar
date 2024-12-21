@@ -1,10 +1,8 @@
-import SelectComponent from "@/components/common/SelectComponent";
-import MetaComponent from "@/components/common/Metacomonent";
-import DropdownFilter from "@/components/carListings/DropdownFilter";
-import Header1 from "@/components/headers/Header1";
 import Sidebar from "@/components/carListings/Sidebar";
+import MetaComponent from "@/components/common/Metacomonent";
+import SelectComponent from "@/components/common/SelectComponent";
 import Footer1 from "@/components/footers/Footer1";
-import React from "react";
+import Header1 from "@/components/headers/Header1";
 
 import { useState } from "react";
 export default function AddListings() {
@@ -33,28 +31,7 @@ export default function AddListings() {
     const newImages = images.filter((_, imgIndex) => imgIndex !== index);
     setImages(newImages);
   };
-  const [images2, setImages2] = useState([
-    "/images/resource/list2-1.png",
-    "/images/resource/list2-2.png",
-    "/images/resource/list2-3.png",
-  ]);
 
-  const handleImageChange2 = (e, index) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newImages = [...images2];
-        newImages[index] = file.name;
-        setImages2(newImages);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const handleDelete2 = (index) => {
-    const newImages = images2.filter((_, imgIndex) => imgIndex !== index);
-    setImages2(newImages);
-  };
   return (
     <>
       <MetaComponent meta={metadata} />
@@ -69,20 +46,20 @@ export default function AddListings() {
               <div className="list-title">
                 <h3 className="title">Đăng tin bán xe</h3>
                 <div className="text">
-                  <p class="line-height-3 m-0 mt-4 red">
+                  <p className="line-height-3 m-0 mt-4 red">
                     Chú ý: Tin đăng của bạn sẽ không được duyệt (ko được đăng)
                     nếu :
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     - Nội dung tin đăng không đúng, tin đăng có dạng quảng cáo,
                     spam
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     - Trong phần mô tả để thông tin liên hệ (số ĐT hay email).
                     (Thông tin liên hệ sẽ được lấy trong phần thông tin cá nhân
                     tương ứng với tài khoản của bạn).
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     <b>
                       Bạn vui lòng nhập đúng thông tin và đúng quy định để tin
                       đăng được kiểm duyệt nhanh, xin cảm ơn !{" "}

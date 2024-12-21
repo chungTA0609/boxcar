@@ -5,6 +5,7 @@ import React, { useState } from "react";
 const categories = ["All", "New", "Used"];
 export default function Hero() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+
   return (
     <section className="boxcar-banner-section-v1 inventory-pager">
       <div className="container">

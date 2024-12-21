@@ -114,8 +114,6 @@ export default function Overview({ detailData }) {
     },
   ]);
   useEffect(() => {
-    console.log(detailData);
-
     setVehicleDetails([
       {
         icon: "/images/resource/insep1-1.svg",
@@ -148,7 +146,10 @@ export default function Overview({ detailData }) {
       {
         icon: "/images/resource/insep1-5.svg",
         label: "Hộp số",
-        value: detailData ? detailData.drivetrain : "",
+        value: detailData
+          ? gearItems.find((el) => el.code === detailData.transmission)?.name ??
+            ""
+          : "",
         width: 16,
         height: 16,
       },
@@ -156,19 +157,16 @@ export default function Overview({ detailData }) {
         icon: "/images/resource/insep1-6.svg",
         label: "Hệ dẫn động",
         value: detailData
-          ? transmissionList.find((el) => el.code === detailData.transmission)
-              .name ?? ""
+          ? transmissionList.find((el) => el.code === detailData.drivetrain)
+              ?.name ?? ""
           : "",
         width: 18,
         height: 18,
       },
       {
-        icon: "/images/resource/insep1-6.svg",
-        label: "Động cơ",
-        value: detailData
-          ? gearItems.find((el) => el.code === detailData.drivetrain)?.name ??
-            ""
-          : "",
+        icon: "/images/resource/insep1-12.svg",
+        label: "Phiên bản",
+        value: detailData ? detailData.version : "",
         width: 18,
         height: 18,
       },
@@ -219,13 +217,6 @@ export default function Overview({ detailData }) {
         icon: "/images/resource/insep1-12.svg",
         label: "Xuất xứ",
         value: detailData ? detailData.origin.name : "",
-        width: 18,
-        height: 18,
-      },
-      {
-        icon: "/images/resource/insep1-12.svg",
-        label: "Phiên bản",
-        value: detailData ? detailData.version : "",
         width: 18,
         height: 18,
       },

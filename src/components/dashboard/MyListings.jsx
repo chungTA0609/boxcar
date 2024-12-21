@@ -49,19 +49,9 @@ export default function MyListings() {
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
-                      <th>Logo</th>
                       <th>Tên hãng</th>
                       <th>Chỉnh sửa</th>
                     </tr>
@@ -69,18 +59,6 @@ export default function MyListings() {
                   <tbody>
                     {brandList.map((item, index) => (
                       <tr key={index}>
-                        <td>
-                          <div className="shop-cart-product">
-                            <div className="shop-product-cart-img">
-                              <img
-                                alt={item.name}
-                                src={item.logo}
-                                width={120}
-                                height={105}
-                              />
-                            </div>
-                          </div>
-                        </td>
                         <td>
                           <span>{item.name}</span>
                         </td>

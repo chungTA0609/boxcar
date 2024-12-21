@@ -5,9 +5,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import Pagination from "../common/Pagination";
+import { useNavigate } from "react-router-dom";
 
 export default function Listings1() {
   const [carList, setCarList] = useState([]); // State for cars list
+  const setSearchBrand = useStoreActions((actions) => actions.setSearchBrand);
+  const navigate = useNavigate();
+  const resetDropDownValue = useStoreActions(
+    (actions) => actions.resetDropDownValue
+  );
   // const dropdownValues = useStoreState((state) => state.dropdownValues);
   const options = {
     infinite: false,
@@ -111,7 +117,7 @@ export default function Listings1() {
   };
   const handlePageChange = (page) => {
     setPagination((prev) => ({ ...prev, page })); // Update the page in the pagination state
-    setDropdownValue("page", page);
+    setDropdownValue({ key: "page", value: page - 1 });
   };
 
   // React to pagination changes
@@ -122,10 +128,31 @@ export default function Listings1() {
   useEffect(() => {
     // Fetch data using the Axios instance
     queryCar();
+    getAllBrand();
   }, []);
   const handleKeyUp = (event) => {
     if (event.key === "Enter") {
       queryCar();
+    }
+  };
+
+  const [brandList, setBrandList] = useState([]);
+
+  const getAllBrand = async () => {
+    try {
+      const res = await axiosInstance.get("/brands");
+      setBrandList(
+        res.data.data.map((element) => {
+          return element;
+        })
+      );
+    } catch (error) {
+      // toast.add({
+      //   severity: "error",
+      //   summary: "Lỗi",
+      //   detail: "Lỗi hệ thống",
+      //   life: 3000,
+      // });
     }
   };
 
@@ -145,10 +172,7 @@ export default function Listings1() {
                       onSubmit={(e) => e.preventDefault()}
                       style={{ border: "1px solid #000" }}
                     >
-                      <div
-                        className="form_boxes"
-                        style={{ display: "flex", width: "90%", height: "90%" }}
-                      >
+                      <div className="form_boxes" style={{ display: "flex" }}>
                         <input
                           type="email"
                           name="email"
@@ -184,8 +208,14 @@ export default function Listings1() {
         <div className="boxcar-container">
           <div className="boxcar-title">
             <h2 className="wow fadeInUp">Lựa chọn hãng xe</h2>
-            <Link to={`/tim-kiem-xe`} className="btn-title">
-              Show All Brands
+            <span
+              onClick={() => {
+                navigate(`/tim-kiem-xe`);
+                resetDropDownValue();
+              }}
+              className="btn-title"
+            >
+              Xem thêm
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={14}
@@ -205,7 +235,7 @@ export default function Listings1() {
                   </clipPath>
                 </defs>
               </svg>
-            </Link>
+            </span>
           </div>
           <div
             className="tab-content wow fadeInUp"
@@ -223,7 +253,7 @@ export default function Listings1() {
                 className="row car-slider-three slider-layout-1 "
                 data-preview="4.8"
               >
-                {carBrands.map((car, index) => (
+                {brandList.map((car, index) => (
                   <div
                     key={index}
                     className="cars-block style-1 col-lg-2 col-md-6 col-sm-6"
@@ -232,22 +262,22 @@ export default function Listings1() {
                       className={`inner-box wow fadeInUp`}
                       data-wow-delay={car.wowDelay}
                     >
-                      <div className="image-box">
-                        <figure className="image">
-                          <Link to={`/tim-kiem-xe`}>
-                            <img
-                              alt={car.title}
-                              src={car.src}
-                              width={car.width}
-                              height={car.height}
-                            />
-                          </Link>
-                        </figure>
-                      </div>
                       <div className="content-box">
-                        <h6 className="title">
-                          <Link to={`/tim-kiem-xe`}>{car.title}</Link>
-                        </h6>
+                        <div className="title">
+                          <span
+                            onClick={() => {
+                              navigate(`/tim-kiem-xe`, {
+                                state: { brandId: car.id },
+                              });
+                              setDropdownValue({
+                                key: "brandId",
+                                value: car.id,
+                              });
+                            }}
+                          >
+                            {car.name}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,11 +313,9 @@ export default function Listings1() {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/thong-tin-xe/${car.slug}`}>
-                        {car.name}
-                      </Link>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
                     </h6>
-                    <div className="text">
+                    <div className="text" style={{ minHeight: "70px" }}>
                       {car.description.slice(0, 50)}...
                     </div>
                     <ul>

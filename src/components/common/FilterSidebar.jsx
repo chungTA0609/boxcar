@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 export default function FilterSidebar() {
   const { pathname } = useLocation();
   useEffect(() => {
-    console.log(pathname);
-
     const filterPopup = document.querySelector(".filter-popup");
     const wrapFixedSidebar = document.querySelector(".wrap-fixed-sidebar");
     const closeButtons = document.querySelectorAll(

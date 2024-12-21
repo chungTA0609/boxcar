@@ -6,6 +6,8 @@ import { useTokenCookie } from "@/core/useTokenCookie";
 import axiosInstance from "@/core/axiosInstance";
 import { carItemsSearch } from "@/data/cars";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 
 export default function Header1({
   headerClass = "header-style-v1 header-default",
@@ -171,6 +173,7 @@ export default function Header1({
                   onClick={() => {
                     logOut();
                     navigate("/");
+                    toast.success("Đăng xuất thành công")
                   }}
                 >
                   <a className="header-btn-two">Đăng xuất</a>
@@ -224,7 +227,7 @@ export default function Header1({
                 type="search"
                 name="search-field"
                 defaultValue=""
-                placeholder="Search..."
+                placeholder="Tìm kiếm..."
                 required
               />
               <button type="submit">

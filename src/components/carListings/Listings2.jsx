@@ -1,12 +1,8 @@
-import React from "react";
-import { useEffect, useState } from "react";
 import axiosInstance from "@/core/axiosInstance";
-import SelectComponent from "../common/SelectComponent";
-import { cars } from "@/data/cars";
-import { Link } from "react-router-dom";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Pagination from "../common/Pagination";
-import DropdownFilter from "./DropdownFilter";
-import { useStoreState, useStoreActions } from "easy-peasy";
 
 export default function Listings2({ carSearch }) {
   const [carList, setCarList] = useState([]); // State for cars list
@@ -14,44 +10,26 @@ export default function Listings2({ carSearch }) {
   const setDropdownValue = useStoreActions(
     (actions) => actions.setDropdownValue
   );
+  const location = useLocation();
+  const { brandId } = location.state || {};
+  const resetDropDownValue = useStoreActions(
+    (actions) => actions.resetDropDownValue
+  );
   const [pagination, setPagination] = useState({
     page: 0,
     pageSize: 12,
     total: 0,
   });
-  const searchBrand = async () => {
-    const res = await axiosInstance.post("/cars/query", {
-      // ...queryParams,
-      brandId: branchSearch.value.id,
-      page: pagination.page,
-      pageSize: 10,
-      sortItems: [
-        {
-          field: "brandId",
-          desc: true,
-        },
-      ],
-    });
-    car.value = res.data.data;
-  };
   const queryCar = async () => {
-    const res = await axiosInstance.post("/cars/query", {
-      // ...queryParams,
-      // brandId: branchSearch.value,
-      page: pagination.page <= 0 ? 0 : pagination.page - 1,
-      pageSize: 12,
-      sortItems: [
-        {
-          field: "districtId",
-          desc: true,
-        },
-      ],
-    });
-    setCarList(res.data.data.list);
-    setPagination((prev) => ({ ...prev, total: res.data.data.totalSize }));
+    try {
+      const res = await axiosInstance.post("/cars/query", dropdownValues);
+      setCarList(res.data.data.list);
+      setPagination((prev) => ({ ...prev, total: res.data.data.totalSize }));
+    } catch (error) {}
   };
   const handlePageChange = (page) => {
     setPagination((prev) => ({ ...prev, page })); // Update the page in the pagination state
+    setDropdownValue({ key: "page", value: page - 1 });
   };
   useEffect(() => {
     setCarList(carSearch);
@@ -60,13 +38,15 @@ export default function Listings2({ carSearch }) {
   // React to pagination changes
   useEffect(() => {
     queryCar();
-    setDropdownValue({ key: "page", value: pagination.page }); // Update the store
-  }, [pagination.page]); // Trigger queryCar whenever pagination.page changes
+  }, [pagination.page, brandId]);
 
-  useEffect(() => {
-    // Fetch data using the Axios instance
-    queryCar();
-  }, []);
+  // useEffect(() => {
+  //   if (brandId) {
+  //     setDropdownValue({ key: "brandId", value: brandId });
+  //   } else {
+  //     resetDropDownValue();
+  //   }
+  // }, [brandId]);
 
   return (
     <section className="cars-section-four v1 layout-radius">
@@ -95,9 +75,7 @@ export default function Listings2({ carSearch }) {
                 </div>
                 <div className="content-box">
                   <h6 className="title">
-                    <Link to={`/thong-tin-xe/${car.slug}`}>
-                      {car.title}
-                    </Link>
+                    <Link to={`/thong-tin-xe/${car.slug}`}>{car.title}</Link>
                   </h6>
                   <div className="text">{car.description.slice(0, 50)}...</div>
                   <ul>
@@ -114,10 +92,7 @@ export default function Listings2({ carSearch }) {
                   <div className="btn-box">
                     <span>{car.price.toLocaleString("en-US")} triệu</span>
                     {/* <small>{car.discountPrice}</small> */}
-                    <Link
-                      to={`/thong-tin-xe/${car.slug}`}
-                      className="details"
-                    >
+                    <Link to={`/thong-tin-xe/${car.slug}`} className="details">
                       Xem chi tiết
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -145,16 +120,18 @@ export default function Listings2({ carSearch }) {
             </div>
           ))}
         </div>
-        <div className="pagination-sec">
-          <nav aria-label="Page navigation example">
-            <ul className="pagination">
-              <Pagination
-                totalPages={Math.floor(pagination.total / 12) + 1}
-                onPageChange={handlePageChange}
-              />
-            </ul>
-          </nav>
-        </div>
+        {carList.length > 0 && (
+          <div className="pagination-sec">
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <Pagination
+                  totalPages={Math.floor(pagination.total / 12) + 1}
+                  onPageChange={handlePageChange}
+                />
+              </ul>
+            </nav>
+          </div>
+        )}
       </div>
     </section>
   );

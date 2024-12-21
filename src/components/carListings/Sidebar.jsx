@@ -66,9 +66,6 @@ export default function Sidebar() {
     getAllColor();
     getAllStyle();
   }, []);
-  useEffect(() => {
-    console.log(dropdownValues);
-  }, [dropdownValues]);
   const getAllFuel = async () => {
     try {
       const res = await axiosInstance.get("/fuels");
@@ -172,6 +169,7 @@ export default function Sidebar() {
 
                   <SelectComponent
                     options={colorList}
+                    isSearch={true}
                     onChange={(value) =>
                       handleDropdownChange("outsideColorId", value.id)
                     }
@@ -189,6 +187,7 @@ export default function Sidebar() {
 
                   <SelectComponent
                     options={styleList}
+                    isSearch={true}
                     onChange={(value) =>
                       handleDropdownChange("styleId", value.id)
                     }

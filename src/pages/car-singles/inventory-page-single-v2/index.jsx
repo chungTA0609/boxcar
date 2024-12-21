@@ -29,7 +29,7 @@ export default function InventorySinglePage2() {
   };
   useEffect(() => {
     getDataBySlug();
-  }, []);
+  }, [params.id]);
   return (
     <>
       <MetaComponent

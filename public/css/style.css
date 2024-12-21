@@ -5738,9 +5738,8 @@ Section Title
 
 @media (max-width: 991px) {
   .boxcar-banner-section-v1 .banner-content .form-submit {
-    width: 25%;
     position: relative;
-    right: 25px;
+    right: 0px;
   }
 }
 
@@ -7758,7 +7757,7 @@ Section Title
   padding: 0 40px 0 39px;
   border-radius: 16px;
   border: 1px solid var(--Border, #e1e1e1);
-  height: 180px;
+  height: 150px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -7798,9 +7797,9 @@ Section Title
 }
 
 .cars-block .inner-box .content-box .title {
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
   line-height: 27px;
 }
 
@@ -11074,7 +11073,7 @@ Section Title
 }
 
 .car-slider-three {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 .slider-layout-1 {
@@ -12448,8 +12447,8 @@ Section Title
 }
 
 .service-block-thirteen .inner-box .right-box .content-box-two {
-  position: relative;
-  text-align: right;
+  /* position: relative;
+  text-align: right; */
   margin-top: 15px;
   margin-left: 51px;
 }
@@ -25450,7 +25449,7 @@ Chat Widget
 }
 
 .inventory-pager .inventory-form .form_boxes {
-  width: 20%;
+  width: 19%;
   height: 76px;
 }
 
@@ -29880,7 +29879,7 @@ Chat Widget
   }
 
   .inventory-pager .inventory-form .form_boxes {
-    width: 20%;
+    width: 19%;
     height: auto;
   }
 
@@ -29890,7 +29889,6 @@ Chat Widget
 
   .inventory-pager .inventory-form .form-submit .theme-btn {
     position: relative;
-    bottom: -15px;
   }
 
   .cars-section-four .form-box .form_boxes .drop-menu {
@@ -31254,7 +31252,7 @@ Chat Widget
   .boxcar-brand-section .row {
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
   }
 
   .boxcar-brand-section .col-sm-6 {

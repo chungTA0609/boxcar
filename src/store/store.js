@@ -3,7 +3,7 @@ import { createStore, action } from "easy-peasy";
 const store = createStore({
   dropdownValues: {
     page: 0,
-    pageSize: 10,
+    pageSize: 12,
     sortItems: [
       {
         field: "brandId",
@@ -18,6 +18,7 @@ const store = createStore({
   originData: null,
   fuelData: null,
   colorData: null,
+  searchBrand: "",
   // Action to update a dropdown value
   setDropdownValue: action((state, payload) => {
     const { key, value } = payload;
@@ -29,6 +30,18 @@ const store = createStore({
         : key === "page"
         ? "brandId"
         : key;
+  }),
+  resetDropDownValue: action((state) => {
+    state.dropdownValues = {
+      page: 0,
+      pageSize: 12,
+      sortItems: [
+        {
+          field: "brandId",
+          desc: true,
+        },
+      ],
+    };
   }),
   setUserData: action((state, payload) => {
     state.userData = payload;
@@ -50,6 +63,9 @@ const store = createStore({
   }),
   setColor: action((state, payload) => {
     state.colorData = payload;
+  }),
+  setSearchBrand: action((state, payload) => {
+    state.searchBrand = payload;
   }),
 });
 

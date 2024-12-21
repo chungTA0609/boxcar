@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import axiosInstance from "@/core/axiosInstance";
 import SelectComponent from "../common/SelectComponent";
+import { useLocation } from "react-router-dom";
+
 export default function DropdownFilter({ carListChange }) {
+  const location = useLocation();
+  const { brandId } = location.state || {};
   const dropdownValues = useStoreState((state) => state.dropdownValues);
   const [brandList, setBrandList] = useState([]);
   const [paramChanged, setParamChanged] = useState([]);
-  const [param, setParam] = useState({});
+  const [param, setParam] = useState({ brandId });
   const [provinces, setProvinces] = useState([]);
   const setDropdownValue = useStoreActions(
     (actions) => actions.setDropdownValue
   );
-  const dropdownItems = [
-    { name: "Tình trạng xe", code: "" },
+  const statusCar = [
     { name: "Xe mới", code: "NEW" },
     { name: "Xe cũ", code: "OLD" },
   ];
@@ -43,7 +46,6 @@ export default function DropdownFilter({ carListChange }) {
   };
   // Handle form submission
   const handleSubmit = () => {
-    console.log("Selected Filters:", dropdownValues);
     queryCar();
     // e.preventDefault();
     // Add logic to filter results based on selected values
@@ -71,11 +73,6 @@ export default function DropdownFilter({ carListChange }) {
   };
   const queryCar = async () => {
     try {
-      console.log({
-        ...dropdownValues,
-        ...param,
-      });
-
       const res = await axiosInstance.post("/cars/query", {
         ...dropdownValues,
         ...param,
@@ -90,6 +87,7 @@ export default function DropdownFilter({ carListChange }) {
           <div className="form_boxes line-r">
             <SelectComponent
               options={brandList}
+              isSearch={true}
               value={
                 brandList.find((el) => el.id === dropdownValues.brandId)
                   ?.name ?? "Hãng xe"
@@ -99,12 +97,11 @@ export default function DropdownFilter({ carListChange }) {
           </div>
           <div className="form_boxes line-r">
             <SelectComponent
-              options={dropdownItems}
+              options={statusCar}
               value={
                 dropdownValues.status
-                  ? dropdownItems.find(
-                      (el) => (el.code === dropdownValues.status)
-                    ).name ?? "Tình trạng xe"
+                  ? statusCar.find((el) => el.code === dropdownValues.status)
+                      .name ?? "Tình trạng xe"
                   : "Tình trạng xe"
               }
               onChange={(value) => handleDropdownChange("status", value.code)}
@@ -113,6 +110,7 @@ export default function DropdownFilter({ carListChange }) {
           <div className="form_boxes line-r">
             <SelectComponent
               options={provinces}
+              isSearch={true}
               value={
                 provinces.find((el) => el.id === dropdownValues.cityId)?.name ??
                 "Thành phố"
@@ -126,7 +124,7 @@ export default function DropdownFilter({ carListChange }) {
               value={
                 dropdownValues.transmission
                   ? gearItems.find(
-                      (el) => (el.code === dropdownValues.transmission)
+                      (el) => el.code === dropdownValues.transmission
                     ).name ?? "Hộp số"
                   : "Hộp sô"
               }
@@ -143,7 +141,7 @@ export default function DropdownFilter({ carListChange }) {
                 width={24}
                 height={24}
               />
-              More Filters
+              Bộ lọc khác
             </a>
           </div>
           <div className="form-submit">

@@ -1,12 +1,13 @@
-import SelectComponent from "@/components/common/SelectComponent";
-import MetaComponent from "@/components/common/Metacomonent";
-import Header1 from "@/components/headers/Header1";
 import Sidebar from "@/components/carListings/Sidebar";
+import MetaComponent from "@/components/common/Metacomonent";
+import SelectComponent from "@/components/common/SelectComponent";
 import Footer1 from "@/components/footers/Footer1";
-import React from "react";
+import Header1 from "@/components/headers/Header1";
 import axiosInstance from "@/core/axiosInstance";
+import { useStoreState } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { toast } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 
 import { useEffect, useState } from "react";
 export default function AddListings() {
@@ -22,33 +23,32 @@ export default function AddListings() {
   const [styleList, setStyleList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [params, setParams] = useState({
-    name: "string",
-    description: "string",
-    manufacturingYear: 0,
-    seatCapacity: 1,
-    status: "string",
-    transmission: "string",
-    drivetrain: "string",
+    name: "",
+    description: "",
+    manufacturingYear: "",
+    seatCapacity: "",
+    status: "",
+    transmission: "",
+    drivetrain: "",
     images: [],
-    slug: "string",
-    version: "string",
-    kmDriven: 0,
-    price: 0,
-    logo: "string",
-    brandId: 0,
-    modelId: 0,
-    styleId: 0,
-    originId: 0,
-    fuelId: 0,
-    outsideColorId: 0,
-    insideColorId: 0,
-    cityId: 0,
-    districtId: 0,
-    wardId: 0,
+    slug: "",
+    version: "",
+    kmDriven: "",
+    price: "",
+    logo: "",
+    brandId: "",
+    modelId: "",
+    styleId: "",
+    originId: "",
+    fuelId: "",
+    outsideColorId: "",
+    insideColorId: "",
+    cityId: "",
+    districtId: "",
+    wardId: "",
     address: "",
   });
-  const dropdownItems = [
-    { name: "Tình trạng xe", code: "" },
+  const statusCar = [
     { name: "Xe mới", code: "NEW" },
     { name: "Xe cũ", code: "OLD" },
   ];
@@ -111,6 +111,7 @@ export default function AddListings() {
     try {
       const res = await axiosInstance.get("/address/cities");
       setProvinces(res.data.data);
+      handleUserCity(res.data.data);
     } catch (error) {}
   };
 
@@ -120,6 +121,7 @@ export default function AddListings() {
         `/address/districts?cityCode=${cityCode}`
       );
       setDistricts(res.data.data);
+      handleUserDistrict(res.data.data);
     } catch (error) {
       console.log(error);
       // toast.add({
@@ -136,6 +138,7 @@ export default function AddListings() {
         `/address/wards?districtCode=${districtCode}`
       );
       setWards(res.data.data);
+      handleUserWard();
     } catch (error) {
       console.log(error);
       // toast.add({
@@ -182,16 +185,19 @@ export default function AddListings() {
     getAllStyle();
   }, []);
   useEffect(() => {
-    getDistrictByCity(provinces.find((el) => el.id === params.cityId)?.code);
+    if (params.cityId)
+      getDistrictByCity(provinces.find((el) => el.id === params.cityId)?.code);
   }, [params.cityId]);
   useEffect(() => {
     setParams({ ...params, modelId: null });
     getAllModel(provinces.find((el) => el.id === params.cityId)?.id);
   }, [params.brandId]);
   useEffect(() => {
-    getWardByDistrict(
-      districts.find((el) => el.id === params.districtId)?.code
-    );
+    if (params.districtId) {
+      getWardByDistrict(
+        districts.find((el) => el.id === params.districtId)?.code
+      );
+    }
   }, [params.districtId]);
   const getAllFuel = async () => {
     try {
@@ -243,7 +249,11 @@ export default function AddListings() {
   };
   const onSubmit = async () => {
     try {
-      console.log(imagesBinanry);
+      if (!validateField()) return;
+      if (!(imagesBinanry.length > 0)) {
+        toast.error("Vui lòng upload ảnh!");
+        return;
+      }
       await upLoadProcess();
       pushCar();
     } catch (error) {}
@@ -259,6 +269,7 @@ export default function AddListings() {
       await axiosInstance.post("/cars", {
         ...params,
         price: params.price * 1000000,
+        name: modelList.find((el) => el.id === params.modelId)?.name,
         slug: (params.name + " " + params.version + " " + Date.now())
           .split(" ")
           .join("-")
@@ -266,23 +277,19 @@ export default function AddListings() {
         manufacturingYear: parseInt(params.manufacturingYear),
         seatCapacity: parseInt(params.seatCapacity),
         kmDriven: parseInt(params.kmDriven),
-        address: [
-          params.address,
-          wards.find((el) => el.id === params.wardId)?.name,
-          districts.find((el) => el.id === params.districtId)?.name,
-          provinces.find((el) => el.id === params.provinces)?.name,
-        ].join(", "),
+        address:
+          (params.address ? params.address + ", " : "") +
+          [
+            wards.find((el) => el.id === params.wardId)?.name,
+            districts.find((el) => el.id === params.districtId)?.name,
+            provinces.find((el) => el.id === params.cityId)?.name,
+          ].join(", "),
         logo: params.images[0],
       });
       // isLoading.value = false;
-      // toast.add({
-      //   severity: "info",
-      //   summary: "Confirmed",
-      //   detail: "Đăng tin thành công",
-      //   life: 3000,
-      // });
+      toast.success("Đăng tin thành công");
       // confirmModal.value = false;
-      // router.push("/mua-xe");
+      navigate("/tim-kiem-xe");
     } catch (error) {
       // toast.add({
       //   severity: "error",
@@ -292,8 +299,117 @@ export default function AddListings() {
       // });
       // confirmModal.value = false;
       // isLoading.value = false;
+      toast.error("Có lỗi xảy ra, vui lòng thử lại!");
       console.log(error);
     }
+  };
+  const validateField = () => {
+    const requiredFields = [
+      "brandId",
+      "modelId",
+      "manufacturingYear",
+      "version",
+      "styleId",
+      "originId",
+      "status",
+      "kmDriven",
+      "drivetrain",
+      "transmission",
+      "fuelId",
+      "price",
+      "outsideColorId",
+      "insideColorId",
+      "seatCapacity",
+      "description",
+      "address",
+    ];
+
+    // Check for null or undefined parameters
+    for (const field of requiredFields) {
+      if (
+        !params[field] ||
+        (Array.isArray(params[field]) && params[field].length === 0)
+      ) {
+        toast.error(fieldText(field));
+        return false;
+      }
+    }
+    return true;
+  };
+  const fieldText = (field) => {
+    switch (field) {
+      case "description":
+        return "Vui lòng nhập mô tả.";
+
+      case "manufacturingYear":
+        return "Vui lòng nhập năm sản xuất.";
+
+      case "seatCapacity":
+        return "Vui lòng nhập số chỗ ngồi.";
+
+      case "status":
+        return "Vui lòng chọn tình trạng xe.";
+
+      case "transmission":
+        return "Vui lòng chọn loại hộp số.";
+
+      case "drivetrain":
+        return "Vui lòng chọn hệ dẫn động.";
+
+      case "images":
+        return "Vui lòng thêm hình ảnh.";
+
+      case "version":
+        return "Vui lòng nhập phiên bản.";
+
+      case "kmDriven":
+        return "Vui lòng nhập số km đã chạy.";
+
+      case "price":
+        return "Vui lòng nhập giá.";
+
+      case "brandId":
+        return "Vui lòng chọn hãng sản xuất.";
+
+      case "modelId":
+        return "Vui lòng chọn tên xe.";
+
+      case "styleId":
+        return "Vui lòng chọn kiểu dáng.";
+
+      case "originId":
+        return "Vui lòng chọn xuất xứ.";
+
+      case "fuelId":
+        return "Vui lòng chọn loại nhiên liệu.";
+
+      case "outsideColorId":
+        return "Vui lòng chọn màu ngoại thất.";
+
+      case "insideColorId":
+        return "Vui lòng chọn màu nội thất.";
+
+      case "address":
+        return "Vui lòng nhập địa chỉ.";
+
+      default:
+        break;
+    }
+  };
+  const handleUserCity = (array) => {
+    const addressArr = userData.ward.path.split(", ");
+    const city = array.find((el) => el.name === addressArr[2])?.id;
+    setParams({ ...params, cityId: city });
+  };
+  const handleUserDistrict = (array) => {
+    const addressArr = userData.ward.path.split(", ");
+    const district = array.find((el) => {
+      return el.name === addressArr[1];
+    })?.id;
+    setParams({ ...params, districtId: district });
+  };
+  const handleUserWard = () => {
+    setParams({ ...params, wardId: userData.ward.id });
   };
   return (
     <>
@@ -309,20 +425,20 @@ export default function AddListings() {
               <div className="list-title">
                 <h3 className="title">Đăng tin bán xe</h3>
                 <div className="text">
-                  <p class="line-height-3 m-0 mt-4 red">
+                  <p className="line-height-3 m-0 mt-4 red">
                     Chú ý: Tin đăng của bạn sẽ không được duyệt (ko được đăng)
                     nếu :
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     - Nội dung tin đăng không đúng, tin đăng có dạng quảng cáo,
                     spam
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     - Trong phần mô tả để thông tin liên hệ (số ĐT hay email).
                     (Thông tin liên hệ sẽ được lấy trong phần thông tin cá nhân
                     tương ứng với tài khoản của bạn).
                   </p>
-                  <p class="line-height-3 m-0 mt-1 red">
+                  <p className="line-height-3 m-0 mt-1 red">
                     <b>
                       Bạn vui lòng nhập đúng thông tin và đúng quy định để tin
                       đăng được kiểm duyệt nhanh, xin cảm ơn !
@@ -387,6 +503,7 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Hãng sản xuất</label>
                           <SelectComponent
+                            isSearch={true}
                             options={brandList}
                             value={
                               brandList.find((el) => el.id === params.brandId)
@@ -402,6 +519,7 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Tên xe</label>
                           <SelectComponent
+                            isSearch={true}
                             options={modelList}
                             value={
                               modelList.find((el) => el.id === params.modelId)
@@ -456,6 +574,7 @@ export default function AddListings() {
                           <label>Kiểu dáng</label>
                           <SelectComponent
                             options={styleList}
+                            isSearch={true}
                             value={
                               styleList.find((el) => el.id === params.styleId)
                                 ?.name ?? "Kiểu dáng"
@@ -485,11 +604,10 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Tình trạng</label>
                           <SelectComponent
-                            options={dropdownItems}
+                            options={statusCar}
                             value={
-                              dropdownItems.find(
-                                (el) => el.code === params.status
-                              )?.name ?? "Tình trạng"
+                              statusCar.find((el) => el.code === params.status)
+                                ?.name ?? "Tình trạng"
                             }
                             onChange={(value) =>
                               setParams({ ...params, status: value.code })
@@ -587,6 +705,7 @@ export default function AddListings() {
                           <label>Ngoại thất</label>
                           <SelectComponent
                             options={colorList}
+                            isSearch={true}
                             value={
                               colorList.find(
                                 (el) => el.id === params.outsideColorId
@@ -603,6 +722,7 @@ export default function AddListings() {
                           <label>Nội thất</label>
                           <SelectComponent
                             options={colorList}
+                            isSearch={true}
                             value={
                               colorList.find(
                                 (el) => el.id === params.insideColorId
@@ -640,7 +760,6 @@ export default function AddListings() {
                             <textarea
                               name="message"
                               placeholder="Thông tin mô tả"
-                              defaultValue={""}
                               value={params.description}
                               onChange={(value) =>
                                 setParams({
@@ -661,7 +780,7 @@ export default function AddListings() {
                     aria-labelledby="media-tab"
                   >
                     <div className="right-box-three">
-                      <h6 className="title">Gallery</h6>
+                      <h6 className="title">Tải lên ảnh của xe</h6>
                       <form className="gallery-box">
                         <div className="inner-box add-input-image">
                           {images.map((imgSrc, index) => (
@@ -722,7 +841,7 @@ export default function AddListings() {
                                   src="/images/resource/uplode.svg"
                                   alt="Upload"
                                 />
-                                <span>Upload</span>
+                                <span>Tải lên</span>
                               </label>
                               <input
                                 id="upload-new"
@@ -735,10 +854,6 @@ export default function AddListings() {
                               />
                             </div>
                           </div>
-                        </div>
-                        <div className="text">
-                          Max file size is 1MB, Minimum dimension: 330x300 And
-                          Suitable files are .jpg &amp; .png
                         </div>
                       </form>
                     </div>
@@ -771,6 +886,7 @@ export default function AddListings() {
                           <input
                             name="name"
                             required
+                            disabled
                             type="text"
                             placeholder="SĐT"
                             value={userData ? userData.phoneNum : ""}
@@ -781,6 +897,8 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Thành phố</label>
                           <SelectComponent
+                            disabled
+                            isSearch={true}
                             options={provinces}
                             value={
                               provinces.find((el) => el.id === params.cityId)
@@ -796,6 +914,8 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Huyện</label>
                           <SelectComponent
+                            disabled
+                            isSearch={true}
                             options={districts}
                             value={
                               districts.find(
@@ -812,7 +932,9 @@ export default function AddListings() {
                         <div className="form_boxes">
                           <label>Xã</label>
                           <SelectComponent
+                            isSearch={true}
                             options={wards}
+                            disabled
                             value={
                               wards.find((el) => el.id === params.wardId)
                                 ?.name ?? "Xã"
@@ -831,6 +953,7 @@ export default function AddListings() {
                             required
                             type="text"
                             placeholder="Địa chỉ"
+                            value={params.address}
                             onChange={(value) =>
                               setParams({
                                 ...params,

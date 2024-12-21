@@ -1,57 +1,32 @@
 import {
   blogLinks,
+  dangTinMua,
   homeLinks,
-  megaMenuData,
   pages,
   shopLinks,
 } from "@/data/menu";
+import { useStoreActions } from "easy-peasy";
 import { Link, useLocation } from "react-router-dom";
 
-import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
   const { pathname } = useLocation();
   const isMenuActive = (menuItem) => {
     let active = false;
-    if (menuItem.href?.includes("/")) {
-      if (menuItem.href?.split("/")[1] == pathname.split("/")[1]) {
+    if (menuItem.length) {
+      if (menuItem[0].href?.split("/")[1] === pathname.split("/")[1]) {
         active = true;
       }
-    }
-    if (menuItem.length) {
-      active = menuItem.some(
-        (elm) => elm.href?.split("/")[1] == pathname.split("/")[1]
-      );
-    }
-    if (menuItem.length) {
-      menuItem.forEach((item) => {
-        item.links?.forEach((elm2) => {
-          if (elm2.href?.includes("/")) {
-            if (elm2.href?.split("/")[1] == pathname.split("/")[1]) {
-              active = true;
-            }
-          }
-          if (elm2.length) {
-            elm2.forEach((item2) => {
-              item2?.links?.forEach((elm3) => {
-                if (elm3.href.split("/")[1] == pathname.split("/")[1]) {
-                  active = true;
-                }
-              });
-            });
-          }
-        });
-        if (item.href?.includes("/")) {
-          if (item.href?.split("/")[1] == pathname.split("/")[1]) {
-            active = true;
-          }
-        }
-      });
     }
 
     return active;
   };
+  const navigate = useNavigate();
 
+  const resetDropDownValue = useStoreActions(
+    (actions) => actions.resetDropDownValue
+  );
   return (
     <>
       <li className="current-dropdown current">
@@ -60,17 +35,20 @@ export default function Nav() {
         </Link>
       </li>
       <li className="current-dropdown">
-        <Link
-          to={`/tim-kiem-xe`}
-          className={isMenuActive(megaMenuData) ? "menuActive" : ""}
+        <span
+          className={isMenuActive(blogLinks) ? "menuActive" : ""}
+          onClick={() => {
+            navigate(`/tim-kiem-xe`);
+            resetDropDownValue();
+          }}
         >
           Tìm kiếm xe
-        </Link>
+        </span>
       </li>
       <li className="current-dropdown">
         <Link
           to={"/dang-tin-ban"}
-          className={isMenuActive(blogLinks) ? "menuActive" : ""}
+          className={isMenuActive(shopLinks) ? "menuActive" : ""}
         >
           Đăng tin bán
         </Link>
@@ -78,7 +56,7 @@ export default function Nav() {
       <li className="current-dropdown">
         <Link
           to={"/tin-mua"}
-          className={isMenuActive(shopLinks) ? "menuActive" : ""}
+          className={isMenuActive(pages) ? "menuActive" : ""}
         >
           Tin mua xe
         </Link>
@@ -86,7 +64,7 @@ export default function Nav() {
       <li className="current-dropdown right-one">
         <Link
           to={"/dang-tin-mua"}
-          className={isMenuActive(pages) ? "menuActive" : ""}
+          className={isMenuActive(dangTinMua) ? "menuActive" : ""}
         >
           Đăng tin mua xe
         </Link>

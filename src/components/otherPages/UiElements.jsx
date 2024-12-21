@@ -931,7 +931,7 @@ export default function UiElements() {
                     <div className="search-box">
                       <input
                         type="text"
-                        placeholder="Search"
+                        placeholder="Tìm kiếm"
                         className="search-field"
                         onChange={(e) => setsearchQuery2(e.target.value)}
                       />
