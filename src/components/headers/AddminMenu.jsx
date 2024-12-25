@@ -6,6 +6,7 @@ import {
   shopLinks,
   dangTinMua,
   admin,
+  myCars,
 } from "@/data/menu";
 import { Link, useLocation } from "react-router-dom";
 import { useStoreState, useStoreActions } from "easy-peasy";
@@ -170,6 +171,20 @@ export default function AddminMenu() {
                   Đăng tin mua xe
                 </Link>
               </li>
+              {userData && (
+                <li
+                  className={`current-dropdown mm-listitem ${
+                    isMenuActive(myCars) ? "current" : ""
+                  }`}
+                >
+                  <Link
+                    to={`/color-list`}
+                    className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
+                  >
+                    Xe tôi đã đăng
+                  </Link>
+                </li>
+              )}
               {userData && userData.role === "ADMIN" && (
                 <li
                   className={`current-dropdown mm-listitem ${

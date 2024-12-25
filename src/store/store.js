@@ -18,6 +18,7 @@ const store = createStore({
   originData: null,
   fuelData: null,
   colorData: null,
+  editCarData: null,
   searchBrand: "",
   // Action to update a dropdown value
   setDropdownValue: action((state, payload) => {
@@ -66,6 +67,9 @@ const store = createStore({
   }),
   setSearchBrand: action((state, payload) => {
     state.searchBrand = payload;
+  }),
+  setEditCarData: action((state, payload) => {
+    state.editCarData = payload;
   }),
 });
 

@@ -89,9 +89,7 @@ export default function RelatedCars({ relatedList }) {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/thong-tin-xe/${car.slug}`}>
-                        {car.name}
-                      </Link>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
                     </h6>
                     <div className="text">
                       {car.description.slice(0, 50)}...
@@ -109,7 +107,7 @@ export default function RelatedCars({ relatedList }) {
                       </li>
                     </ul>
                     <div className="btn-box">
-                      <span>{car.price.toLocaleString("en-US")} triệu</span>
+                      <span>{car.price.toLocaleString("en-US")}</span>
                       {/* <small>{car.discountPrice}</small> */}
                       <Link
                         to={`/thong-tin-xe/${car.slug}`}
@@ -173,9 +171,7 @@ export default function RelatedCars({ relatedList }) {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/thong-tin-xe/${car.slug}`}>
-                        {car.name}
-                      </Link>
+                      <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
                     </h6>
                     <div className="text">
                       {car.description.slice(0, 40)}...
@@ -193,7 +189,7 @@ export default function RelatedCars({ relatedList }) {
                       </li>
                     </ul>
                     <div className="btn-box">
-                      <span>{car.price.toLocaleString("en-US")} triệu</span>
+                      <span>{car.price.toLocaleString("en-US")}</span>
                       <Link
                         to={`/thong-tin-xe/${car.slug}`}
                         className="details"

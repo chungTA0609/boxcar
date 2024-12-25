@@ -45,14 +45,6 @@ export default function Listings5() {
     <section className="cars-section-thirteen layout-radius">
       <div className="boxcar-container">
         <div className="boxcar-title-three wow fadeInUp">
-          <ul className="breadcrumb">
-            <li>
-              <Link to={`/`}>Home</Link>
-            </li>
-            <li>
-              <span>Tin mua xe</span>
-            </li>
-          </ul>
           <h2>Tin mua xe</h2>
         </div>
         <div className="row">

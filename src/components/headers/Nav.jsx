@@ -4,8 +4,9 @@ import {
   homeLinks,
   pages,
   shopLinks,
+  myCars,
 } from "@/data/menu";
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import { Link, useLocation } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,7 @@ export default function Nav() {
     return active;
   };
   const navigate = useNavigate();
+  const userData = useStoreState((state) => state.userData);
 
   const resetDropDownValue = useStoreActions(
     (actions) => actions.resetDropDownValue
@@ -69,6 +71,16 @@ export default function Nav() {
           Đăng tin mua xe
         </Link>
       </li>
+      {userData && (
+        <li className="current-dropdown right-one">
+          <Link
+            to={"/my-cars"}
+            className={isMenuActive(myCars) ? "menuActive" : ""}
+          >
+            Xe tôi đã đăng
+          </Link>
+        </li>
+      )}
     </>
   );
 }

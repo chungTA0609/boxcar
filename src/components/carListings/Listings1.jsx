@@ -74,7 +74,12 @@ export default function Listings1() {
     ],
   };
   const [searchTerm, setSearchTerm] = useState(undefined); // Controlled state for search input
-
+  const gearItems = [
+    { name: "Số sàn", code: "Manual" },
+    { name: "Số tự động", code: "Automatic" },
+    { name: "Hybrid", code: "Hybird" },
+    { name: "Khác", code: "Other" },
+  ];
   const setDropdownValue = useStoreActions(
     (actions) => actions.setDropdownValue
   );
@@ -327,11 +332,13 @@ export default function Listings1() {
                         <i className="flaticon-speedometer" /> {car.fuel.name}
                       </li>
                       <li>
-                        <i className="flaticon-gearbox" /> {car.transmission}
+                        <i className="flaticon-gearbox" />{" "}
+                        {gearItems.find((el) => el.code === car.transmission)
+                          ?.name ?? ""}
                       </li>
                     </ul>
                     <div className="btn-box">
-                      <span>{car.price.toLocaleString("en-US")} triệu</span>
+                      <span>{car.price.toLocaleString("en-US")}</span>
                       {/* <small>{car.discountPrice}</small> */}
                       <Link
                         to={`/thong-tin-xe/${car.slug}`}

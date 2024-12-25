@@ -36,6 +36,8 @@ import "./styles/style.css";
 import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 import AddminMenu from "./components/headers/AddminMenu";
+import MyCars from "./pages/car-listings/my-cars";
+import EditCars from "./pages/edit-cars";
 const adminPath = [
   "/brands",
   "/brand",
@@ -88,7 +90,8 @@ function App() {
               />
 
               <Route path="dang-tin-ban" element={<BlogListingPage1 />} />
-              {/* <Route path="blog-single/:id" element={<BlogSinglePage />} /> */}
+              <Route path="my-cars" element={<MyCars />} />
+              <Route path="edit-cars" element={<EditCars />} />
 
               {/* <Route path="shop-list" element={<ShopListPage />} />
               <Route path="shop-single/:id" element={<ShopSinglePage />} /> */}

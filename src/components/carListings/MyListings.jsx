@@ -1,65 +1,39 @@
 import axiosInstance from "@/core/axiosInstance";
-import { useStoreActions, useStoreState } from "easy-peasy";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Pagination from "../common/Pagination";
+import { Link, useNavigate } from "react-router-dom";
 import Footer1 from "@/components/footers/Footer1";
 
-export default function Listings2({ carSearch }) {
+export default function MyListings() {
   const [carList, setCarList] = useState([]); // State for cars list
-  const dropdownValues = useStoreState((state) => state.dropdownValues);
-  const setDropdownValue = useStoreActions(
-    (actions) => actions.setDropdownValue
-  );
+
+  const userData = useStoreState((state) => state.userData);
+  const setEditCarData = useStoreActions((state) => state.setEditCarData);
+  const navigate = useNavigate(); // Use useNavigate for navigation in v6
+
+  const queryCar = async () => {
+    try {
+      const res = await axiosInstance.get(`/cars/${userData.id}/users`);
+      setCarList(res.data.data);
+    } catch (error) {}
+  };
   const gearItems = [
     { name: "Số sàn", code: "Manual" },
     { name: "Số tự động", code: "Automatic" },
     { name: "Hybrid", code: "Hybird" },
     { name: "Khác", code: "Other" },
   ];
-  const location = useLocation();
-  const { brandId } = location.state || {};
-  const resetDropDownValue = useStoreActions(
-    (actions) => actions.resetDropDownValue
-  );
-  const [pagination, setPagination] = useState({
-    page: 0,
-    pageSize: 12,
-    total: 0,
-  });
-  const queryCar = async () => {
-    try {
-      const res = await axiosInstance.post("/cars/query", dropdownValues);
-      setCarList(res.data.data.list);
-      setPagination((prev) => ({ ...prev, total: res.data.data.totalSize }));
-    } catch (error) {}
-  };
-  const handlePageChange = (page) => {
-    setPagination((prev) => ({ ...prev, page })); // Update the page in the pagination state
-    setDropdownValue({ key: "page", value: page - 1 });
-  };
-  useEffect(() => {
-    setCarList(carSearch);
-  }, [carSearch]); // Re-fetch car data whenever filters change
-
   // React to pagination changes
   useEffect(() => {
-    queryCar();
-  }, [pagination.page, brandId]);
-
-  // useEffect(() => {
-  //   if (brandId) {
-  //     setDropdownValue({ key: "brandId", value: brandId });
-  //   } else {
-  //     resetDropDownValue();
-  //   }
-  // }, [brandId]);
+    if (userData) queryCar();
+    else navigate("/login");
+  }, [userData]);
 
   return (
     <>
       <section className="cars-section-four v1 layout-radius">
         <div className="boxcar-container">
-          <h2>Danh sách xe</h2>
+          <h2>Danh sách xe tôi đã đăng</h2>
 
           <div className="row wow fadeInUp">
             {carList.map((car) => (
@@ -70,7 +44,13 @@ export default function Listings2({ carSearch }) {
                 <div className="inner-box">
                   <div className="image-box">
                     <figure className="image">
-                      <Link to={`/thong-tin-xe/${car.slug}`}>
+                      <Link
+                        to={`/edit-cars`}
+                        className="details"
+                        onClick={() => {
+                          setEditCarData(car);
+                        }}
+                      >
                         <img
                           alt={car.alt}
                           src={car.logo}
@@ -83,7 +63,15 @@ export default function Listings2({ carSearch }) {
                   </div>
                   <div className="content-box">
                     <h6 className="title">
-                      <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
+                      <Link
+                        to={`/edit-cars`}
+                        className="details"
+                        onClick={() => {
+                          setEditCarData(car);
+                        }}
+                      >
+                        {car.name}
+                      </Link>
                     </h6>
                     <div className="text">
                       {car.description.slice(0, 50)}...
@@ -103,13 +91,16 @@ export default function Listings2({ carSearch }) {
                       </li>
                     </ul>
                     <div className="btn-box">
-                      <span>{car.price.toLocaleString("en-US")} </span>
+                      <span>{car.price.toLocaleString("en-US")}</span>
                       {/* <small>{car.discountPrice}</small> */}
                       <Link
-                        to={`/thong-tin-xe/${car.slug}`}
+                        to={`/edit-cars`}
                         className="details"
+                        onClick={() => {
+                          setEditCarData(car);
+                        }}
                       >
-                        Xem chi tiết
+                        Chỉnh sửa
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width={14}
@@ -136,18 +127,6 @@ export default function Listings2({ carSearch }) {
               </div>
             ))}
           </div>
-          {carList.length > 0 && (
-            <div className="pagination-sec">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <Pagination
-                    totalPages={Math.floor(pagination.total / 12) + 1}
-                    onPageChange={handlePageChange}
-                  />
-                </ul>
-              </nav>
-            </div>
-          )}
         </div>
       </section>
       <Footer1 parentClass="boxcar-footer footer-style-one v1 cus-st-1" />

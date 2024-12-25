@@ -5720,7 +5720,7 @@ Section Title
 
 .boxcar-banner-section-v1 .banner-content .form-tab-pane form .form_boxes {
   width: 25%;
-  height: 76px;
+  /* height: 76px; */
   /* Small devices */
 }
 
