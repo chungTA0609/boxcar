@@ -33,6 +33,7 @@ import InvoicePage from "./pages/otherPages/invoice";
 import LoginPage from "./pages/otherPages/login";
 import TeamListPage from "./pages/otherPages/team-list";
 import "./styles/style.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 import AddminMenu from "./components/headers/AddminMenu";
@@ -83,7 +84,6 @@ function App() {
 
               <Route path="tim-kiem-xe" element={<InventoryListPage1 />} />
               <Route path="dang-tin-ban" element={<BlogListingPage1 />} />
-
 
               <Route path="tin-mua" element={<InventorySidebarRowsPage />} />
               <Route path="dang-tin-mua" element={<TeamListPage />} />
