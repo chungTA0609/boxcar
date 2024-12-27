@@ -1,11 +1,11 @@
 import Slider from "react-slick";
 import RelatedCars from "./RelatedCars";
 
+import axiosInstance from "@/core/axiosInstance";
 import { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
 import Overview from "./sections/Overview";
-import axiosInstance from "@/core/axiosInstance";
 export default function Single2({ detailData }) {
   const slickOptions = {
     infinite: true,
@@ -58,15 +58,8 @@ export default function Single2({ detailData }) {
       setRelatedList(res.data.data.list);
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
-  const [isOpen, setOpen] = useState(false);
   useEffect(() => {
     if (detailData) getRelatedList();
   }, [detailData]);

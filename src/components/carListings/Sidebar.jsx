@@ -70,53 +70,25 @@ export default function Sidebar() {
     try {
       const res = await axiosInstance.get("/fuels");
       setFuelList(res.data.data);
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   const getAllOrigin = async () => {
     try {
       const res = await axiosInstance.get("/origins");
       setOriginList(res.data.data);
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   const getAllColor = async () => {
     try {
       const res = await axiosInstance.get("/colors");
       setColorList(res.data.data);
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   const getAllStyle = async () => {
     try {
       const res = await axiosInstance.get("/styles");
       setStyleList(res.data.data);
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   return (
     <div className="wrap-fixed-sidebar">

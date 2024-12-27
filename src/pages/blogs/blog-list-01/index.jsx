@@ -8,7 +8,7 @@ import { useStoreState } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
-
+import FullScreenLoader from "@/components/otherPages/FullScreenLoader";
 import { useEffect, useState } from "react";
 export default function AddListings() {
   const isLogin = useStoreState((state) => state.isLogin);
@@ -83,6 +83,8 @@ export default function AddListings() {
   const [brandList, setBrandList] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [wards, setWards] = useState([]);
   const handleImageChange = (e, index) => {
     const file = e.target.files[0];
@@ -124,12 +126,6 @@ export default function AddListings() {
       handleUserDistrict(res.data.data);
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const getWardByDistrict = async (districtCode) => {
@@ -141,12 +137,6 @@ export default function AddListings() {
       handleUserWard();
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const uploadImg = async (element) => {
@@ -167,12 +157,6 @@ export default function AddListings() {
       setParams({ ...params, images: params.images.push(res.data.data) });
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   useEffect(() => {
@@ -239,12 +223,6 @@ export default function AddListings() {
       }
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const onSubmit = async () => {
@@ -254,9 +232,12 @@ export default function AddListings() {
         toast.error("Vui lòng upload ảnh!");
         return;
       }
+      setLoading(true);
       await upLoadProcess();
       pushCar();
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
   const upLoadProcess = async () => {
     for (const element of imagesBinanry) {
@@ -287,18 +268,14 @@ export default function AddListings() {
         logo: params.images[0],
       });
       // isLoading.value = false;
+      setLoading(false);
       toast.success("Đăng tin thành công");
       // confirmModal.value = false;
       navigate("/tim-kiem-xe");
     } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
       // confirmModal.value = false;
       // isLoading.value = false;
+      setLoading(false);
       toast.error("Có lỗi xảy ra, vui lòng thử lại!");
       console.log(error);
     }
@@ -413,6 +390,7 @@ export default function AddListings() {
   };
   return (
     <>
+      {loading && <FullScreenLoader />}
       <MetaComponent meta={metadata} />
 
       <Header1 headerClass="boxcar-header header-style-v1 style-two inner-header bb-0" />

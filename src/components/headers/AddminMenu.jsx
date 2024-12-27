@@ -178,7 +178,7 @@ export default function AddminMenu() {
                   }`}
                 >
                   <Link
-                    to={`/color-list`}
+                    to={`/my-cars`}
                     className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                   >
                     Xe tôi đã đăng

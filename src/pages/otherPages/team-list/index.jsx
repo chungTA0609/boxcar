@@ -10,7 +10,7 @@ import MetaComponent from "@/components/common/Metacomonent";
 import Header1 from "@/components/headers/Header1";
 import Sidebar from "@/components/carListings/Sidebar";
 import Footer1 from "@/components/footers/Footer1";
-
+import FullScreenLoader from "@/components/otherPages/FullScreenLoader";
 export default function AddListings() {
   const [description, setDescription] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
@@ -19,6 +19,7 @@ export default function AddListings() {
   const [errors, setErrors] = useState({});
   const isLogin = useStoreState((state) => state.isLogin);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const metadata = {
     title: "Đăng tin mua xe",
@@ -59,6 +60,7 @@ export default function AddListings() {
     e.preventDefault();
     if (validateForm()) {
       try {
+        setLoading(true);
         await pushCar();
       } catch (error) {
         console.error(error);
@@ -75,6 +77,7 @@ export default function AddListings() {
         content: description.trim(),
         code: "MX-" + Date.now(),
       });
+      setLoading(false);
       toast.success("Đăng tin thành công");
       setPriceFrom("");
       setPriceTo("");
@@ -84,6 +87,7 @@ export default function AddListings() {
       navigate("/tin-mua");
     } catch (error) {
       console.error(error);
+      setLoading(false);
       toast.error("Có lỗi xảy ra, vui lòng thử lại!");
     }
   };
@@ -94,6 +98,7 @@ export default function AddListings() {
 
   return (
     <>
+      {loading && <FullScreenLoader />}
       <MetaComponent meta={metadata} />
 
       <Header1 headerClass="boxcar-header header-style-v1 style-two inner-header bb-0" />

@@ -37,12 +37,6 @@ export default function Header1({
     } catch (error) {
       console.log(error);
       logOut();
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const logOut = () => {
@@ -173,7 +167,7 @@ export default function Header1({
                   onClick={() => {
                     logOut();
                     navigate("/");
-                    toast.success("Đăng xuất thành công")
+                    toast.success("Đăng xuất thành công");
                   }}
                 >
                   <a className="header-btn-two">Đăng xuất</a>

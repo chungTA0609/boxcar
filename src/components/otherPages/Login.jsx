@@ -125,13 +125,6 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       toast.error("Không thể lấy danh sách quận.");
-
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
 
@@ -185,12 +178,6 @@ export default function Login() {
       navigate("/");
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const onRegister = async () => {

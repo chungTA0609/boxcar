@@ -19,12 +19,6 @@ export default function InventorySinglePage1() {
       setDetaiData(res.data.data);
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   useEffect(() => {

@@ -124,12 +124,6 @@ export default function EditCars() {
       handleUserDistrict(res.data.data);
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const getWardByDistrict = async (districtCode) => {
@@ -141,12 +135,6 @@ export default function EditCars() {
       handleUserWard();
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const uploadImg = async (element) => {
@@ -167,12 +155,6 @@ export default function EditCars() {
       setParams({ ...params, images: params.images.push(res.data.data) });
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   useEffect(() => {
@@ -250,12 +232,6 @@ export default function EditCars() {
       }
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const onSubmit = async () => {
@@ -302,12 +278,6 @@ export default function EditCars() {
       // confirmModal.value = false;
       navigate("/my-cars");
     } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
       // confirmModal.value = false;
       // isLoading.value = false;
       toast.error("Có lỗi xảy ra, vui lòng thử lại!");

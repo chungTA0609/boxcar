@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "@/core/axiosInstance";
 import { Link } from "react-router-dom";
 import Pagination from "../common/Pagination";
+import NotfoundItem from "../otherPages/NotfoundItem";
 export default function Listings5() {
   const [price, setPrice] = useState([0, 0]);
   const [cars, setCars] = useState([]);
@@ -113,74 +114,77 @@ export default function Listings5() {
             </div>
           </div>
           <div className="col-xl-9 col-md-12 col-sm-12">
-            <div className="right-box">
-              {/* service-block-thirteen */}
-              {cars.map((elm, i) => (
-                <div key={i} className="service-block-thirteen">
-                  <div className="inner-box">
-                    <div
-                      className="right-box"
-                      style={{
-                        borderRadius: "16px 0 0 16px",
-                        display: "block",
-                        minWidth: "250px",
-                      }}
-                    >
-                      <h4 className="title">
-                        <span>Mã tin</span>
-                      </h4>
-                      <div className="text">{elm.code}</div>
-                    </div>
-                    <div className="right-box" style={{ minWidth: "824px" }}>
+            {cars.length === 0 && <NotfoundItem />}
+            {cars.length > 0 && (
+              <div className="right-box">
+                {/* service-block-thirteen */}
+                {cars.map((elm, i) => (
+                  <div key={i} className="service-block-thirteen">
+                    <div className="inner-box">
                       <div
-                        className="content-box"
-                        style={{ maxWidth: "500px" }}
+                        className="right-box"
+                        style={{
+                          borderRadius: "16px 0 0 16px",
+                          display: "block",
+                          minWidth: "250px",
+                        }}
                       >
                         <h4 className="title">
-                          <span to={`/inventory-page-single-v1/${elm.id}`}>
-                            {elm.title}
-                          </span>
+                          <span>Mã tin</span>
                         </h4>
-                        <div
-                          className="html-content text"
-                          dangerouslySetInnerHTML={{ __html: elm.content }}
-                        />{" "}
+                        <div className="text">{elm.code}</div>
                       </div>
-                      <div
-                        className="content-box-two"
-                        style={{ minWidth: "150px", textAlign: "right" }}
-                      >
-                        <h4 className="title">
-                          {elm?.min?.toLocaleString("en-US")} -{" "}
-                          {elm?.max?.toLocaleString("en-US")}
-                        </h4>
-                        <span>Liên hệ</span>
-                        <div className="image-box">
-                          <img
-                            src="/images/resource/phone1-2.svg"
-                            width={18}
-                            height={18}
-                            style={{ margin: "5px" }}
-                            alt=""
-                          />
-                          {elm ? elm.user?.phoneNum : ""}
+                      <div className="right-box" style={{ minWidth: "824px" }}>
+                        <div
+                          className="content-box"
+                          style={{ maxWidth: "500px" }}
+                        >
+                          <h4 className="title">
+                            <span to={`/inventory-page-single-v1/${elm.id}`}>
+                              {elm.title}
+                            </span>
+                          </h4>
+                          <div
+                            className="html-content text"
+                            dangerouslySetInnerHTML={{ __html: elm.content }}
+                          />{" "}
                         </div>
-                        <div className="image-box">
-                          <img
-                            src="/images/resource/phone1-1.svg"
-                            width={18}
-                            height={18}
-                            alt=""
-                            style={{ margin: "5px" }}
-                          />
-                          {elm ? elm.user?.ward?.pathWithType : ""}
+                        <div
+                          className="content-box-two"
+                          style={{ minWidth: "150px", textAlign: "right" }}
+                        >
+                          <h4 className="title">
+                            {elm?.min?.toLocaleString("en-US")} -{" "}
+                            {elm?.max?.toLocaleString("en-US")}
+                          </h4>
+                          <span>Liên hệ</span>
+                          <div className="image-box">
+                            <img
+                              src="/images/resource/phone1-2.svg"
+                              width={18}
+                              height={18}
+                              style={{ margin: "5px" }}
+                              alt=""
+                            />
+                            {elm ? elm.user?.phoneNum : ""}
+                          </div>
+                          <div className="image-box">
+                            <img
+                              src="/images/resource/phone1-1.svg"
+                              width={18}
+                              height={18}
+                              alt=""
+                              style={{ margin: "5px" }}
+                            />
+                            {elm ? elm.user?.ward?.pathWithType : ""}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             {cars.length > 0 && (
               <div className="pagination-sec">
                 <nav aria-label="Page navigation example">

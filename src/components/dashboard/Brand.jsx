@@ -60,12 +60,6 @@ export default function Brand() {
       setParams({ ...params, logo: res.data.data });
     } catch (error) {
       console.log(error);
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
     }
   };
   const onSubmit = async () => {

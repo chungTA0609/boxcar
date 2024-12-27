@@ -82,21 +82,18 @@ function App() {
               <Route index element={<HomePage1 />} />
 
               <Route path="tim-kiem-xe" element={<InventoryListPage1 />} />
+              <Route path="dang-tin-ban" element={<BlogListingPage1 />} />
+
+
               <Route path="tin-mua" element={<InventorySidebarRowsPage />} />
+              <Route path="dang-tin-mua" element={<TeamListPage />} />
 
               <Route
                 path="thong-tin-xe/:id"
                 element={<InventorySinglePage2 />}
               />
-
-              <Route path="dang-tin-ban" element={<BlogListingPage1 />} />
               <Route path="my-cars" element={<MyCars />} />
               <Route path="edit-cars" element={<EditCars />} />
-
-              {/* <Route path="shop-list" element={<ShopListPage />} />
-              <Route path="shop-single/:id" element={<ShopSinglePage />} /> */}
-              {/* <Route path="cart" element={<CartPage />} />
-              <Route path="checkout" element={<CheckoutPage />} /> */}
 
               <Route path="brands" element={<MyListingsPage />} />
               <Route path="brand" element={<BrandPage />} />
@@ -117,8 +114,6 @@ function App() {
               <Route path="color" element={<ColorPage />} />
 
               <Route path="login" element={<LoginPage />} />
-              {/* <Route path="pricing" element={<PricingPage />} /> */}
-              <Route path="dang-tin-mua" element={<TeamListPage />} />
               <Route path="404" element={<NotFoundPage />} />
               <Route path="invoice" element={<InvoicePage />} />
               <Route path="*" element={<NotFoundPage />} />

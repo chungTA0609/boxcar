@@ -35,14 +35,7 @@ export default function DropdownFilter({ carListChange }) {
     try {
       const res = await axiosInstance.get("/address/cities");
       setProvinces(res.data.data);
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   // Handle form submission
   const handleSubmit = () => {
@@ -62,14 +55,7 @@ export default function DropdownFilter({ carListChange }) {
           return element;
         })
       );
-    } catch (error) {
-      // toast.add({
-      //   severity: "error",
-      //   summary: "Lỗi",
-      //   detail: "Lỗi hệ thống",
-      //   life: 3000,
-      // });
-    }
+    } catch (error) {}
   };
   const queryCar = async () => {
     try {
