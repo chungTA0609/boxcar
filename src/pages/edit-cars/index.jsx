@@ -8,6 +8,7 @@ import { useStoreState } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
+import FullScreenLoader from "@/components/otherPages/FullScreenLoader";
 
 import { useEffect, useState } from "react";
 export default function EditCars() {
@@ -47,7 +48,10 @@ export default function EditCars() {
     districtId: "",
     wardId: "",
     address: editCarData.address.split(",")[0],
+    isPublish: editCarData.isPublish, // Initialize with existing data or default to false
   });
+  const [loading, setLoading] = useState(false);
+
   const statusCar = [
     { name: "Xe mới", code: "NEW" },
     { name: "Xe cũ", code: "OLD" },
@@ -241,9 +245,12 @@ export default function EditCars() {
         toast.error("Vui lòng upload ảnh!");
         return;
       }
+      setLoading(true);
       await upLoadProcess();
       pushCar();
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
   const upLoadProcess = async () => {
     for (const element of imagesBinanry) {
@@ -274,11 +281,14 @@ export default function EditCars() {
         logo: params.images[0],
       });
       // isLoading.value = false;
+      setLoading(false);
+
       toast.success("Chỉnh sửa xe thành công");
       // confirmModal.value = false;
       navigate("/my-cars");
     } catch (error) {
       // confirmModal.value = false;
+      setLoading(false);
       // isLoading.value = false;
       toast.error("Có lỗi xảy ra, vui lòng thử lại!");
       console.log(error);
@@ -304,13 +314,15 @@ export default function EditCars() {
       "description",
       "address",
     ];
-
+    const nameBrands = brandList.find((el) => el.id === params.brandId);
     // Check for null or undefined parameters
     for (const field of requiredFields) {
       if (
         !params[field] ||
         (Array.isArray(params[field]) && params[field].length === 0)
       ) {
+        if (field === "modelId" && "xe tải".includes(nameBrands.toLowerCase()))
+          return true;
         toast.error(fieldText(field));
         return false;
       }
@@ -394,6 +406,7 @@ export default function EditCars() {
   };
   return (
     <>
+      {loading && <FullScreenLoader />}
       <MetaComponent meta={metadata} />
 
       <Header1 headerClass="boxcar-header header-style-v1 style-two inner-header bb-0" />
@@ -479,6 +492,29 @@ export default function EditCars() {
                     role="tabpanel"
                     aria-labelledby="home-tab"
                   >
+                    <div
+                      className="box-switch"
+                      style={{ display: "flex", marginLeft: "20px" }}
+                    >
+                      <p style={{ marginRight: "20px" }}>Hiển thị tin xe</p>
+                      <ul className="box-check-el">
+                        <li>
+                          <input
+                            className="tf-switch-check"
+                            type="checkbox"
+                            id="sw1"
+                            checked={params.isPublish} // Bind to params.hidden
+                            onChange={(e) => {
+                              setParams((prevParams) => ({
+                                ...prevParams,
+                                isPublish: e.target.checked ? 1 : 0, // Update the hidden property
+                              }));
+                              console.log(e.target.checked);
+                            }}
+                          />
+                        </li>
+                      </ul>
+                    </div>
                     <form className="row">
                       <div className="form-column col-lg-4">
                         <div className="form_boxes">

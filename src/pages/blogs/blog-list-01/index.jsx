@@ -47,6 +47,7 @@ export default function AddListings() {
     districtId: "",
     wardId: "",
     address: "",
+    isPublish: 0, // Initialize with existing data or default to false
   });
   const statusCar = [
     { name: "Xe mới", code: "NEW" },
@@ -300,13 +301,15 @@ export default function AddListings() {
       "description",
       "address",
     ];
-
+    const nameBrands = brandList.find((el) => el.id === params.brandId);
     // Check for null or undefined parameters
     for (const field of requiredFields) {
       if (
         !params[field] ||
         (Array.isArray(params[field]) && params[field].length === 0)
       ) {
+        if (field === "modelId" && "xe tải".includes(nameBrands.toLowerCase()))
+          return true;
         toast.error(fieldText(field));
         return false;
       }
@@ -476,6 +479,28 @@ export default function AddListings() {
                     role="tabpanel"
                     aria-labelledby="home-tab"
                   >
+                    <div
+                      className="box-switch"
+                      style={{ display: "flex", marginLeft: "20px" }}
+                    >
+                      <p style={{ marginRight: "20px" }}>Ẩn xe</p>
+                      <ul className="box-check-el">
+                        <li>
+                          <input
+                            className="tf-switch-check"
+                            type="checkbox"
+                            id="sw1"
+                            checked={!params.isPublish} // Bind to params.hidden
+                            onChange={(e) =>
+                              setParams((prevParams) => ({
+                                ...prevParams,
+                                isPublish: e.target.checked ? 1 : 0, // Update the hidden property
+                              }))
+                            }
+                          />
+                        </li>
+                      </ul>
+                    </div>
                     <form className="row">
                       <div className="form-column col-lg-4">
                         <div className="form_boxes">

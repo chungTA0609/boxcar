@@ -137,3 +137,13 @@
   justify-content: center;
   z-index: 9999; /* Ensure it's on top of everything else */
 }
+.select-container {
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: 200px; /* Adjust width as needed */
+  li {
+    padding: 10px;
+  }
+}

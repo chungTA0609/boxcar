@@ -85,9 +85,13 @@ export default function Listings2({ carSearch }) {
                     </div>
                     <div className="content-box">
                       <h6 className="title">
-                        <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
+                        <Link to={`/thong-tin-xe/${car.slug}`}>
+                          {car.brand.name.toLowerCase().includes("xe tải")
+                            ? car.brand.name
+                            : car.name}
+                        </Link>
                       </h6>
-                      <div className="text">
+                      <div className="text" style={{ minHeight: "70px" }}>
                         {car.description.slice(0, 50)}...
                       </div>
                       <ul>
