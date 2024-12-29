@@ -39,6 +39,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
 import AddminMenu from "./components/headers/AddminMenu";
 import MyCars from "./pages/car-listings/my-cars";
 import EditCars from "./pages/edit-cars";
+import Zalo from "./components/common/Zalo";
 const adminPath = [
   "/brands",
   "/brand",
@@ -122,6 +123,7 @@ function App() {
         </div>{" "}
         <FilterSidebar />{" "}
       </Context>
+      <Zalo />
       <BackToTop />
       <ScrollTopBehaviour />
     </>
