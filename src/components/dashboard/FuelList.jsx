@@ -6,13 +6,12 @@ import Pagination from "../common/Pagination";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
 import { useStoreState, useStoreActions } from "easy-peasy";
-
+import BrandItem from "./BrandItem";
 import { useNavigate } from "react-router-dom";
 
 export default function FuelList() {
   const [fuelList, setFuelList] = useState([]);
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
-  const setFuel = useStoreActions((actions) => actions.setFuel);
 
   const getAllFuel = async () => {
     try {
@@ -28,9 +27,8 @@ export default function FuelList() {
 
     navigate("/fuel");
   };
-  const editFuel = (element) => {
-    setFuel(element);
-    navigate("/fuel");
+  const handleBrandDeleted = () => {
+    getAllFuel();
   };
   return (
     <section className="dashboard-widget">
@@ -50,15 +48,6 @@ export default function FuelList() {
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
@@ -68,32 +57,13 @@ export default function FuelList() {
                   </thead>
                   <tbody>
                     {fuelList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span>{item.name}</span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editFuel(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"fuel"}
+                      />
                     ))}
                   </tbody>
                 </table>

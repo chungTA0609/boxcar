@@ -16,6 +16,7 @@ const store = createStore({
   brandData: null,
   styleData: null,
   originData: null,
+  modelData: null,
   fuelData: null,
   colorData: null,
   editCarData: null,
@@ -58,6 +59,9 @@ const store = createStore({
   }),
   setOrigin: action((state, payload) => {
     state.originData = payload;
+  }),
+  setModel: action((state, payload) => {
+    state.modelData = payload;
   }),
   setFuel: action((state, payload) => {
     state.fuelData = payload;

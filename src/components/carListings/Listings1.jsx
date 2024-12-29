@@ -314,9 +314,7 @@ export default function Listings1() {
                     <div className="content-box">
                       <h6 className="title">
                         <Link to={`/thong-tin-xe/${car.slug}`}>
-                          {car.brand.name.toLowerCase().includes("xe tải")
-                            ? car.brand.name
-                            : car.name}
+                          {car.brand.isTruck ? car.brand.name : car.name}
                         </Link>
                       </h6>
                       <div className="text" style={{ minHeight: "70px" }}>

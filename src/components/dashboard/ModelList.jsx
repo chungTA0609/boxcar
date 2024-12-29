@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 import axiosInstance from "@/core/axiosInstance";
-import Pagination from "../common/Pagination";
+import { useStoreActions } from "easy-peasy";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SelectComponent from "../common/SelectComponent";
+import BrandItem from "./BrandItem";
+import Sidebar from "./Sidebar";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
-import SelectComponent from "../common/SelectComponent";
-import { useStoreState, useStoreActions } from "easy-peasy";
-
-import { useNavigate } from "react-router-dom";
 
 export default function ModelList() {
   const [modelList, setModelList] = useState([]);
@@ -15,7 +14,7 @@ export default function ModelList() {
   const [brand, setBrand] = useState(null);
 
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
-  const setStyle = useStoreActions((actions) => actions.setStyle);
+  const setModel = useStoreActions((actions) => actions.setModel);
   const getAllBrand = async () => {
     try {
       const res = await axiosInstance.get("/brands");
@@ -42,6 +41,9 @@ export default function ModelList() {
   const editStyle = (element) => {
     setStyle(element);
     navigate("/model");
+  };
+  const handleBrandDeleted = () => {
+    getModelByBrand();
   };
   return (
     <section className="dashboard-widget">
@@ -96,32 +98,13 @@ export default function ModelList() {
                   </thead>
                   <tbody>
                     {modelList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span>{item.name}</span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editStyle(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"model"}
+                      />
                     ))}
                   </tbody>
                 </table>

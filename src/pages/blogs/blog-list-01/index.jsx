@@ -301,15 +301,14 @@ export default function AddListings() {
       "description",
       "address",
     ];
-    const nameBrands = brandList.find((el) => el.id === params.brandId);
+    const findBrand = brandList.find((el) => el.id === params.brandId);
     // Check for null or undefined parameters
     for (const field of requiredFields) {
       if (
         !params[field] ||
         (Array.isArray(params[field]) && params[field].length === 0)
       ) {
-        if (field === "modelId" && "xe tải".includes(nameBrands.toLowerCase()))
-          return true;
+        if (field === "modelId" && findBrand.isTruck) continue;
         toast.error(fieldText(field));
         return false;
       }

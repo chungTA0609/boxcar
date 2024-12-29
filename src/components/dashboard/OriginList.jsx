@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 import axiosInstance from "@/core/axiosInstance";
-import SelectComponent from "../common/SelectComponent";
-import Pagination from "../common/Pagination";
+import { useStoreActions } from "easy-peasy";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BrandItem from "./BrandItem";
+import Sidebar from "./Sidebar";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
-import { useStoreState, useStoreActions } from "easy-peasy";
-
-import { useNavigate } from "react-router-dom";
 
 export default function OriginList() {
   const [originList, setOriginList] = useState([]);
@@ -28,9 +26,8 @@ export default function OriginList() {
 
     navigate("/origin");
   };
-  const editOrigin = (element) => {
-    setOrigin(element);
-    navigate("/origin");
+  const handleBrandDeleted = () => {
+    getAllOrigin();
   };
   return (
     <section className="dashboard-widget">
@@ -50,50 +47,22 @@ export default function OriginList() {
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
-                        <th>Xuất xứ</th>
+                      <th>Xuất xứ</th>
                       <th>Chỉnh sửa</th>
                     </tr>
                   </thead>
                   <tbody>
                     {originList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span>{item.name}</span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editOrigin(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"origin"}
+                      />
                     ))}
                   </tbody>
                 </table>

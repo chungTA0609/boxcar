@@ -6,7 +6,7 @@ import Pagination from "../common/Pagination";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
 import { useStoreState, useStoreActions } from "easy-peasy";
-
+import BrandItem from "./BrandItem";
 import { useNavigate } from "react-router-dom";
 
 export default function StyleList() {
@@ -28,9 +28,8 @@ export default function StyleList() {
 
     navigate("/style");
   };
-  const editStyle = (element) => {
-    setStyle(element);
-    navigate("/style");
+  const handleBrandDeleted = () => {
+    getAllStyle();
   };
   return (
     <section className="dashboard-widget">
@@ -50,15 +49,6 @@ export default function StyleList() {
                 </div>
               </div>
               <div className="cart-table">
-                {/* <div className="title-listing">
-                  <div className="text-box v1">
-                    <div className="form_boxes v3">
-                      <small>Sort by</small>
-
-                      <SelectComponent options={["Newest", "Oldest"]} />
-                    </div>
-                  </div>
-                </div> */}
                 <table>
                   <thead>
                     <tr>
@@ -68,32 +58,13 @@ export default function StyleList() {
                   </thead>
                   <tbody>
                     {brandList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span>{item.name}</span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editStyle(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        item={item}
+                        key={item.id}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"style"}
+                      />
                     ))}
                   </tbody>
                 </table>

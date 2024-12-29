@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 import axiosInstance from "@/core/axiosInstance";
-import SelectComponent from "../common/SelectComponent";
-import Pagination from "../common/Pagination";
-const removeIcon = "/images/icons/remove.svg";
-const editIcon = "/images/icons/edit.svg";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
+import { useEffect, useState } from "react";
+import BrandItem from "./BrandItem";
+import Sidebar from "./Sidebar";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,9 +24,8 @@ export default function MyListings() {
     setBrand(null);
     navigate("/brand");
   };
-  const editBrand = (element) => {
-    setBrand(element);
-    navigate("/brand");
+  const handleBrandDeleted = () => {
+    getAllBrand();
   };
   return (
     <section className="dashboard-widget">
@@ -58,32 +54,13 @@ export default function MyListings() {
                   </thead>
                   <tbody>
                     {brandList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span>{item.name}</span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editBrand(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"brand"}
+                      />
                     ))}
                   </tbody>
                 </table>

@@ -129,9 +129,7 @@ export default function Cardcar({ car, onCarDeleted }) {
                 setEditCarData(car);
               }}
             >
-              {car.brand.name.toLowerCase().includes("xe tải")
-                ? car.brand.name
-                : car.name}
+              {car.brand.isTruck ? car.brand.name : car.name}
             </Link>
           </h6>
           <div className="text">{car.description.slice(0, 50)}...</div>

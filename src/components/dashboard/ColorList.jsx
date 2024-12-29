@@ -6,7 +6,7 @@ import Pagination from "../common/Pagination";
 const removeIcon = "/images/icons/remove.svg";
 const editIcon = "/images/icons/edit.svg";
 import { useStoreState, useStoreActions } from "easy-peasy";
-
+import BrandItem from "./BrandItem";
 import { useNavigate } from "react-router-dom";
 
 export default function ColorList() {
@@ -31,6 +31,9 @@ export default function ColorList() {
   const editColor = (element) => {
     setColor(element);
     navigate("/color");
+  };
+  const handleBrandDeleted = () => {
+    getAllColor();
   };
   return (
     <section className="dashboard-widget">
@@ -59,34 +62,13 @@ export default function ColorList() {
                   </thead>
                   <tbody>
                     {colorList.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <span style={{ color: item.hex, fontWeight: 900 }}>
-                            <b>{item.name}</b>
-                          </span>
-                        </td>
-                        <td>
-                          <a className="remove-cart-item">
-                            <img
-                              alt="Remove item"
-                              src={removeIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                          <a
-                            className="remove-cart-item"
-                            onClick={() => editColor(item)}
-                          >
-                            <img
-                              alt="Edit item"
-                              src={editIcon}
-                              width={18}
-                              height={18}
-                            />
-                          </a>
-                        </td>
-                      </tr>
+                      <BrandItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onBrandDelete={handleBrandDeleted}
+                        type={"color"}
+                      />
                     ))}
                   </tbody>
                 </table>
