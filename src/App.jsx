@@ -123,7 +123,7 @@ function App() {
         </div>{" "}
         <FilterSidebar />{" "}
       </Context>
-      <Zalo />
+      {!adminPath.includes(pathname) && <Zalo />}
       <BackToTop />
       <ScrollTopBehaviour />
     </>
