@@ -660,6 +660,37 @@ Scroll To Top style
 .zalo:hover {
   color: #ffffff;
 }
+.phone {
+  position: fixed;
+  right: 20px;
+  bottom: 160px;
+  width: 60px;
+  height: 60px;
+  font-size: 16px;
+  line-height: 40px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  background: url('../../public/images/icons/phone.svg') no-repeat center;
+  z-index: 100;
+  display: none;
+  border-radius: 50%;
+  margin: 0 auto;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+.phone-icon{
+  display: inline-block;
+    padding: 20px 20px;
+    background-size: contain; /* Adjust size of the SVG */
+    color: #fff; /* Text color */
+    font-size: 16px; /* Adjust as needed */
+}
+.phone:hover {
+  color: #ffffff;
+}
 
 /*======================
     Tabs Box

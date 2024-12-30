@@ -40,6 +40,7 @@ import AddminMenu from "./components/headers/AddminMenu";
 import MyCars from "./pages/car-listings/my-cars";
 import EditCars from "./pages/edit-cars";
 import Zalo from "./components/common/Zalo";
+import Phone from "./components/common/Phone";
 const adminPath = [
   "/brands",
   "/brand",
@@ -124,6 +125,7 @@ function App() {
         <FilterSidebar />{" "}
       </Context>
       {!adminPath.includes(pathname) && <Zalo />}
+      {!adminPath.includes(pathname) && <Phone />}
       <BackToTop />
       <ScrollTopBehaviour />
     </>

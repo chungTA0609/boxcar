@@ -47,7 +47,7 @@ export default function AddListings() {
     districtId: "",
     wardId: "",
     address: "",
-    isPublish: 0, // Initialize with existing data or default to false
+    isPublish: 1, // Initialize with existing data or default to false
   });
   const statusCar = [
     { name: "Xe mới", code: "NEW" },
@@ -482,20 +482,20 @@ export default function AddListings() {
                       className="box-switch"
                       style={{ display: "flex", marginLeft: "20px" }}
                     >
-                      <p style={{ marginRight: "20px" }}>Ẩn xe</p>
+                      <p style={{ marginRight: "20px" }}>Hiển thị tin xe</p>
                       <ul className="box-check-el">
                         <li>
                           <input
                             className="tf-switch-check"
                             type="checkbox"
                             id="sw1"
-                            checked={!params.isPublish} // Bind to params.hidden
-                            onChange={(e) =>
+                            checked={params.isPublish} // Bind to params.hidden
+                            onChange={(e) => {
                               setParams((prevParams) => ({
                                 ...prevParams,
                                 isPublish: e.target.checked ? 1 : 0, // Update the hidden property
-                              }))
-                            }
+                              }));
+                            }}
                           />
                         </li>
                       </ul>
