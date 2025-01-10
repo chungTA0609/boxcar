@@ -16,7 +16,6 @@ export default function Cardcar({ car, onCarDeleted }) {
   const handleDialogDeleteClose = (confirmed) => {
     setShowDeleteDialog(false);
     if (!confirmed) {
-      console.log("Dialog closed without submission.");
     }
   };
   const handleDialogDeleteSubmit = () => {

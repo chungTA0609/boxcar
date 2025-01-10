@@ -1,5 +1,5 @@
 import MetaComponent from "@/components/common/Metacomonent";
-import MyListings from "@/components/dashboard/MyListings";
+import BrandList from "@/components/dashboard/MyListings";
 import Footer1 from "@/components/footers/Footer1";
 import HeaderDashboard from "@/components/headers/HeaderDashboard";
 import { useStoreState } from "easy-peasy";
@@ -9,7 +9,7 @@ const metadata = {
   title: "Admin",
   description: "Admin",
 };
-export default function MyListingsPage() {
+export default function BrandListPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
   const userData = useStoreState((state) => state.userData);
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function MyListingsPage() {
       <div style={{ background: "var(--theme-color-dark)" }}>
         <HeaderDashboard />
 
-        <MyListings />
+        <BrandList />
         <Footer1 parentClass="boxcar-footer footer-style-one v2" />
       </div>
     </>

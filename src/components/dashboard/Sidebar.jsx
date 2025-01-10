@@ -44,6 +44,20 @@ const menuItems = [
     height: 18,
     label: "Màu sắc",
   },
+  {
+    href: "/list-user",
+    src: "/images/icons/dash5.svg",
+    width: 18,
+    height: 18,
+    label: "Quản lý tài khoản",
+  },
+  {
+    href: "/waiting-approve-car",
+    src: "/images/icons/dash5.svg",
+    width: 18,
+    height: 18,
+    label: "Xe đang chờ duyệt",
+  },
 ];
 export default function Sidebar() {
   const { pathname } = useLocation();

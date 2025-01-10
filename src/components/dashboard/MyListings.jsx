@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 
 import { useNavigate } from "react-router-dom";
 
-export default function MyListings() {
+export default function BrandList() {
   const [brandList, setBrandList] = useState([]);
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
   const setBrand = useStoreActions((actions) => actions.setBrand);

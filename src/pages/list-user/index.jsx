@@ -1,15 +1,16 @@
-import MetaComponent from "@/components/common/Metacomonent";
-import OriginList from "@/components/dashboard/OriginList";
 import Footer1 from "@/components/footers/Footer1";
 import HeaderDashboard from "@/components/headers/HeaderDashboard";
-import { useStoreState } from "easy-peasy";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
+import MetaComponent from "@/components/common/Metacomonent";
+import ColorList from "@/components/dashboard/ColorList";
+import UserList from "@/components/dashboard/UserList";
 const metadata = {
   title: "Admin",
   description: "Admin",
 };
-export default function ListOriginPage() {
+export default function ListUserPage() {
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
   const userData = useStoreState((state) => state.userData);
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function ListOriginPage() {
       <div style={{ background: "var(--theme-color-dark)" }}>
         <HeaderDashboard />
 
-        <OriginList />
+        <UserList />
         <Footer1 parentClass="boxcar-footer footer-style-one v2" />
       </div>
     </>

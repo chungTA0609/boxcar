@@ -41,6 +41,12 @@ import MyCars from "./pages/car-listings/my-cars";
 import EditCars from "./pages/edit-cars";
 import Zalo from "./components/common/Zalo";
 import Phone from "./components/common/Phone";
+import ListUser from "./pages/list-user";
+import ListUserPage from "./pages/list-user";
+import WatingApproveCarPage from "./pages/waiting-approve-car";
+import WatingApproveCarDetailPage from "./pages/waiting-approve-car-detail";
+import UserDetailPage from "./pages/user-detail";
+import BrandListPage from "./pages/dashboard/my-listings";
 const adminPath = [
   "/brands",
   "/brand",
@@ -97,7 +103,7 @@ function App() {
               <Route path="my-cars" element={<MyCars />} />
               <Route path="edit-cars" element={<EditCars />} />
 
-              <Route path="brands" element={<MyListingsPage />} />
+              <Route path="brands" element={<BrandListPage />} />
               <Route path="brand" element={<BrandPage />} />
 
               <Route path="style-list" element={<MyListStylePage />} />
@@ -114,6 +120,18 @@ function App() {
 
               <Route path="color-list" element={<ListColorPage />} />
               <Route path="color" element={<ColorPage />} />
+
+              <Route path="list-user" element={<ListUserPage />} />
+              <Route path="user-detail/:id" element={<UserDetailPage />} />
+
+              <Route
+                path="waiting-approve-car"
+                element={<WatingApproveCarPage />}
+              />
+              <Route
+                path="waiting-approve-car-detail/:id"
+                element={<WatingApproveCarDetailPage />}
+              />
 
               <Route path="login" element={<LoginPage />} />
               <Route path="404" element={<NotFoundPage />} />

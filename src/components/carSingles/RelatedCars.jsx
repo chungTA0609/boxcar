@@ -71,7 +71,7 @@ export default function RelatedCars({ relatedList }) {
             {relatedList.map((car, index) => (
               <div
                 key={index}
-                className="car-block-three col-lg-3 col-md-6 col-sm-12"
+                className="car-block-four col-xl-3 col-lg-4 col-md-6 col-sm-6"
               >
                 <div className="inner-box">
                   <div className="image-box">
@@ -91,7 +91,7 @@ export default function RelatedCars({ relatedList }) {
                     <h6 className="title">
                       <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
                     </h6>
-                    <div className="text">
+                    <div className="text" style={{ minHeight: "70px" }}>
                       {car.description.slice(0, 50)}...
                     </div>
                     <ul>
@@ -147,7 +147,7 @@ export default function RelatedCars({ relatedList }) {
             relatedList.map((car, index) => (
               <div
                 key={index}
-                className="car-block-three col-lg-3 col-md-6 col-sm-12"
+                className="car-block-four col-xl-3 col-lg-4 col-md-6 col-sm-6"
               >
                 <div className="inner-box">
                   <div
@@ -173,7 +173,7 @@ export default function RelatedCars({ relatedList }) {
                     <h6 className="title">
                       <Link to={`/thong-tin-xe/${car.slug}`}>{car.name}</Link>
                     </h6>
-                    <div className="text">
+                    <div className="text" style={{ minHeight: "70px" }}>
                       {car.description.slice(0, 40)}...
                     </div>
                     <ul>

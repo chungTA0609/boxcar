@@ -26,7 +26,6 @@ export default function BrandItem({ item, index, onBrandDelete, type }) {
   const handleDialogDeleteClose = (confirmed) => {
     setShowDeleteDialog(false);
     if (!confirmed) {
-      console.log("Dialog closed without submission.");
     }
   };
   const editBrand = (element) => {

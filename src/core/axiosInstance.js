@@ -3,7 +3,7 @@ import { useTokenCookie } from "./useTokenCookie";
 const { getTokenCookie } = useTokenCookie();
 
 const axiosInstance = axios.create({
-  baseURL: "https://sanotonghean.vn/api", // Replace with your API base URL
+  baseURL: "http://localhost:8080/api", // Replace with your API base URL
   withCredentials: true, // Allow cookies to be sent with requests
 });
 

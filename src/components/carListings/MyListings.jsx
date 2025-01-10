@@ -1,9 +1,8 @@
-import axiosInstance from "@/core/axiosInstance";
-import { useStoreState, useStoreActions } from "easy-peasy";
-import { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Footer1 from "@/components/footers/Footer1";
-import Dialog from "../otherPages/Dialog";
+import axiosInstance from "@/core/axiosInstance";
+import { useStoreState } from "easy-peasy";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NotfoundItem from "../otherPages/NotfoundItem";
 import Cardcar from "./CardCar";
 export default function MyListings() {
@@ -11,30 +10,7 @@ export default function MyListings() {
 
   const userData = useStoreState((state) => state.userData);
   const navigate = useNavigate(); // Use useNavigate for navigation in v6
-  const [showHideDialog, setShowHideDialog] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  const handleDialogHideClose = (confirmed) => {
-    setShowHideDialog(false);
-    if (!confirmed) {
-      console.log("Dialog closed without submission.");
-    }
-  };
-  const handleDialogDeleteClose = (confirmed) => {
-    setShowDeleteDialog(false);
-    if (!confirmed) {
-      console.log("Dialog closed without submission.");
-    }
-  };
-
-  const handleDialogHideSubmit = () => {
-    console.log("Form submitted!");
-    // Add your submission logic here
-  };
-  const handleDialogDeleteSubmit = () => {
-    console.log("Form submitted!");
-    // Add your submission logic here
-  };
   const queryCar = async () => {
     try {
       const res = await axiosInstance.get(`/cars/${userData.id}/users`);
@@ -68,22 +44,6 @@ export default function MyListings() {
                 />
               ))}
             </div>
-          )}
-          {showHideDialog && (
-            <Dialog
-              title="Ẩn tin bán xe"
-              content="Bạn chắc chắn muốn ẩn xe này?"
-              onClose={handleDialogHideClose}
-              onSubmit={handleDialogHideSubmit}
-            />
-          )}
-          {showDeleteDialog && (
-            <Dialog
-              title="Xóa tin bán xe "
-              content="Bạn chắc chắn muốn xóa xe này?"
-              onClose={handleDialogDeleteClose}
-              onSubmit={handleDialogDeleteSubmit}
-            />
           )}
         </div>
       </section>
