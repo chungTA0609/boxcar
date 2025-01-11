@@ -192,7 +192,7 @@ export default function AddminMenu() {
                   }`}
                 >
                   <Link
-                    to={`/brands`}
+                    to={`/dashboard`}
                     className="mm-btn mm-btn_next mm-listitem__btn mm-listitem__text"
                     // onClick={() => setMemuOpen((pre) => (pre == 5 ? -1 : 5))}
                   >
