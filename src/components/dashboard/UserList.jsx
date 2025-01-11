@@ -68,14 +68,6 @@ export default function UserList() {
                     ))}
                   </tbody>
                 </table>
-                {/* <div className="pagination-sec">
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                      <Pagination />
-                    </ul>
-                    <div className="text">Showing results 1-30 of 1,415</div>
-                  </nav>
-                </div> */}
               </div>
             </div>
           </div>

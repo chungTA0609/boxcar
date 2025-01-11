@@ -119,64 +119,70 @@ export default function UserDetail({ teamMember }) {
                     gap: "20px",
                   }}
                 >
-                  <div
-                    className="share-btn"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "20px",
-                    }}
-                  >
-                    <span style={{ fontWeight: 900, color: "#405ff2" }}>
-                      Mở khóa
-                    </span>
-                    <a
-                      onClick={() => setShowUnlockDialog(true)}
-                      className="share"
+                  {userData.lock && (
+                    <div
+                      className="share-btn"
                       style={{
-                        display: "block",
-                        fill: "var(--White, #fff)",
-                        border: "1px solid #e1e1e1",
-                        borderRadius: "50%",
-                        width: "36px",
-                        height: "36px",
-                        lineHeight: "32px",
-                        textAlign: "center",
-                        filter:
-                          "drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.05))",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "20px",
                       }}
                     >
-                      <img src={unlock} width={12} height={12} alt="" />
-                    </a>
-                  </div>
-                  <div
-                    className="share-btn"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "20px",
-                    }}
-                  >
-                    <span style={{ fontWeight: 900, color: "red" }}>Khóa</span>
-                    <a
-                      onClick={() => setShowLockDialog(true)}
-                      className="share"
+                      <span style={{ fontWeight: 900, color: "#405ff2" }}>
+                        Mở khóa
+                      </span>
+                      <a
+                        onClick={() => setShowUnlockDialog(true)}
+                        className="share"
+                        style={{
+                          display: "block",
+                          fill: "var(--White, #fff)",
+                          border: "1px solid #e1e1e1",
+                          borderRadius: "50%",
+                          width: "36px",
+                          height: "36px",
+                          lineHeight: "32px",
+                          textAlign: "center",
+                          filter:
+                            "drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.05))",
+                        }}
+                      >
+                        <img src={unlock} width={12} height={12} alt="" />
+                      </a>
+                    </div>
+                  )}
+                  {!userData.lock && (
+                    <div
+                      className="share-btn"
                       style={{
-                        display: "block",
-                        fill: "var(--White, #fff)",
-                        border: "1px solid #e1e1e1",
-                        borderRadius: "50%",
-                        width: "36px",
-                        height: "36px",
-                        lineHeight: "32px",
-                        textAlign: "center",
-                        filter:
-                          "drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.05))",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "20px",
                       }}
                     >
-                      <img src={lock} width={12} height={12} alt="" />
-                    </a>
-                  </div>
+                      <span style={{ fontWeight: 900, color: "red" }}>
+                        Khóa
+                      </span>
+                      <a
+                        onClick={() => setShowLockDialog(true)}
+                        className="share"
+                        style={{
+                          display: "block",
+                          fill: "var(--White, #fff)",
+                          border: "1px solid #e1e1e1",
+                          borderRadius: "50%",
+                          width: "36px",
+                          height: "36px",
+                          lineHeight: "32px",
+                          textAlign: "center",
+                          filter:
+                            "drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.05))",
+                        }}
+                      >
+                        <img src={lock} width={12} height={12} alt="" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -197,6 +203,38 @@ export default function UserDetail({ teamMember }) {
                         />
                       </div>
                       {userData && userData.username}
+                    </div>
+                  </li>
+                  <li>
+                    <div style={{ display: "flex" }}>
+                      <div
+                        className="image-box"
+                        style={{ paddingRight: "10px" }}
+                      >
+                        <img
+                          src="/images/resource/phone1-1.svg"
+                          width={18}
+                          height={18}
+                          alt=""
+                        />
+                      </div>
+                      {userData && userData.lock ? "Đã khóa" : "Đang hoạt động"}
+                    </div>
+                  </li>
+                  <li>
+                    <div style={{ display: "flex" }}>
+                      <div
+                        className="image-box"
+                        style={{ paddingRight: "10px" }}
+                      >
+                        <img
+                          src="/images/resource/phone1-1.svg"
+                          width={18}
+                          height={18}
+                          alt=""
+                        />
+                      </div>
+                      {userData && userData.ward?.pathWithType}
                     </div>
                   </li>
                   <li>

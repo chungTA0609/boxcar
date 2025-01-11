@@ -47,6 +47,7 @@ import WatingApproveCarPage from "./pages/waiting-approve-car";
 import WatingApproveCarDetailPage from "./pages/waiting-approve-car-detail";
 import UserDetailPage from "./pages/user-detail";
 import BrandListPage from "./pages/dashboard/my-listings";
+import DashboardPage from "./pages/dashboard/dashboard";
 const adminPath = [
   "/brands",
   "/brand",
@@ -132,6 +133,7 @@ function App() {
                 path="waiting-approve-car-detail/:id"
                 element={<WatingApproveCarDetailPage />}
               />
+              <Route path="dashboard" element={<DashboardPage />} />
 
               <Route path="login" element={<LoginPage />} />
               <Route path="404" element={<NotFoundPage />} />

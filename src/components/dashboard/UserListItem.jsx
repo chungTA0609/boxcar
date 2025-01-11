@@ -76,18 +76,25 @@ export default function UserListItem({ item, index, onUserChange }) {
         <span>{item.username}</span>
       </td>
       <td onClick={() => navigate(`/user-detail/${item.id}`)}>
-        <span>{item.username}</span>
+        <span>{!item.lock ? "Đang hoạt động" : "Đã khóa"}</span>
       </td>
-      <td>
-        <a className="remove-cart-item" onClick={() => setShowLockDialog(true)}>
-          <img alt="lock item" src={lock} width={18} height={18} />
-        </a>
-        <a
-          className="remove-cart-item"
-          onClick={() => setShowUnlockDialog(true)}
-        >
-          <img alt="unlock item" src={unlock} width={18} height={18} />
-        </a>
+      <td style={{ textAlign: "center" }}>
+        {!item.lock && (
+          <a
+            className="remove-cart-item"
+            onClick={() => setShowLockDialog(true)}
+          >
+            <img alt="lock item" src={lock} width={18} height={18} />
+          </a>
+        )}
+        {item.lock && (
+          <a
+            className="remove-cart-item"
+            onClick={() => setShowUnlockDialog(true)}
+          >
+            <img alt="unlock item" src={unlock} width={18} height={18} />
+          </a>
+        )}
       </td>
       {showLockDialog && (
         <Dialog
