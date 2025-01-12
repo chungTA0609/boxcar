@@ -1,11 +1,17 @@
 import Slider from "react-slick";
 import RelatedCars from "./RelatedCars";
+import { useStoreState } from "easy-peasy";
 
 import axiosInstance from "@/core/axiosInstance";
 import { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
 import Overview from "./sections/Overview";
+import removeIcon from "../../../public/images/icons/remove.svg";
+import Dialog from "../otherPages/Dialog";
+import { toast } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toastify
+
 export default function Single2({ detailData }) {
   const slickOptions = {
     infinite: true,
@@ -40,7 +46,16 @@ export default function Single2({ detailData }) {
       // instead of a settings object
     ],
   };
+  const [showAproveDialog, setShowAproveDialog] = useState(false);
+  const userData = useStoreState((state) => state.userData);
+
   const [relatedList, setRelatedList] = useState([]);
+
+  const handleDialogAproveClose = (confirmed) => {
+    setShowAproveDialog(false);
+    if (!confirmed) {
+    }
+  };
   const getRelatedList = async () => {
     try {
       const res = await axiosInstance.post("/cars/query", {
@@ -60,6 +75,22 @@ export default function Single2({ detailData }) {
       console.log(error);
     }
   };
+
+  const handleDialogAproveSubmit = async () => {
+    try {
+      const res = await axiosInstance.put(
+        `admin/users/${detailData.id}/lock-car`
+      );
+      if (res.data.code === 200) {
+        toast.success("Đã khóa xe");
+        navigate("/tim-kiem-xe");
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, vui lòng thử lại");
+    }
+    // Add your submission logic here
+  };
+
   useEffect(() => {
     if (detailData) getRelatedList();
   }, [detailData]);
@@ -142,6 +173,23 @@ export default function Single2({ detailData }) {
                 </span>
               </li>
             </ul>
+            {userData && userData.role === "ADMIN" && (
+              <div className="content-box">
+                <div className="btn-box v2">
+                  <div className="share-btn">
+                    <span style={{ fontWeight: 900, color: "red" }}>
+                      Khóa tin
+                    </span>
+                    <a
+                      onClick={() => setShowAproveDialog(true)}
+                      className="share"
+                    >
+                      <img src={removeIcon} width={12} height={12} alt="" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div className="row">
             <div className="inspection-column v2 col-xl-8 col-lg-12 col-md-12 col-sm-12">
@@ -281,6 +329,14 @@ export default function Single2({ detailData }) {
         {/* cars-section-three */}
         <RelatedCars relatedList={relatedList} />
         {/* End shop section two */}
+        {showAproveDialog && (
+          <Dialog
+            title={"Khóa tin bán xe " + detailData.name}
+            content="Bạn chắc chắn muốn khóa xe này?"
+            onClose={handleDialogAproveClose}
+            onSubmit={handleDialogAproveSubmit}
+          />
+        )}
       </section>
     </>
   );

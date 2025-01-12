@@ -61,6 +61,7 @@ const adminPath = [
   "/fuel",
   "/color-list",
   "/color",
+  "/dashboard",
 ];
 function App() {
   const { pathname } = useLocation();
